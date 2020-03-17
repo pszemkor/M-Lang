@@ -1,5 +1,4 @@
 import ply.lex as lex
-import sys
 
 literals = "+-*/()=<>:;',[]{}"
 
@@ -18,9 +17,8 @@ reserved = {
     'print': 'PRINT'
 }
 
-print(list(reserved.values()))
-tokens = ['DIVASSIGN', 'ADDASSIGN', 'MULASSIGN', 'SUBASSIGN',
-          'GE', 'LE', 'EQ', 'NEQ', 'DOTADD', 'DOTSUB', 'DOTMUL', 'DOTDIV', 'INTNUM', 'ID'] \
+tokens = ['DIVASSIGN', 'ADDASSIGN', 'MULASSIGN', 'SUBASSIGN', 'STRING', 'FLOAT', 'INTNUM',
+          'GE', 'LE', 'EQ', 'NEQ', 'DOTADD', 'DOTSUB', 'DOTMUL', 'DOTDIV', 'ID'] \
          + list(reserved.values())
 
 t_DIVASSIGN = r'/='
@@ -36,6 +34,7 @@ t_DOTSUB = r'\.-'
 t_DOTMUL = r'\.\*'
 t_DOTDIV = r'\./'
 t_INTNUM = r'\d+'
+t_ignore = '  \t'
 
 
 def t_ID(t):
@@ -44,7 +43,10 @@ def t_ID(t):
     return t
 
 
-t_ignore = '  \t'
+def t_FLOAT(t):
+    r'[0-9]*(\.[0-9]|[0-9]\.)[0-9]*([eE][-+]?[0-9]+)?'
+    t.value = float(t.value)
+    return t
 
 
 def t_comment(t):
@@ -58,8 +60,13 @@ def t_newline(t):
 
 
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    print('Illegal character: ', t.value[0], 'at', t.lexer.lineno, 'line')
     t.lexer.skip(1)
+
+
+def t_STRING(t):
+    r'"[^"]*"'
+    return t
 
 
 lexer = lex.lex()
