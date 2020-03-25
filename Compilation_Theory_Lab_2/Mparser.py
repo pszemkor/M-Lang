@@ -3,16 +3,12 @@ import ply.yacc as yacc
 
 tokens = scanner.tokens
 reserved = scanner.reserved
-literals = ['+', '-', '*', '/', '(', ')']
+literals = scanner.literals
 
-
-#
-# precedence = (
-#     # to fill ...
-#     ("left", '+', '-'),
-#     ("left", '*', '/')
-#     # to fill ...
-# )
+precedence = (
+    ("left", '*', '/'),
+    ("left", '+', '-')
+)
 
 
 def p_error(p):
@@ -23,12 +19,13 @@ def p_error(p):
     else:
         print("Unexpected end of input")
 
+
 def p_program(p):
     """program : instructions_opt"""
 
 
 def p_instructions_opt_1(p):
-    """instructions_opt : instructions """
+    """instructions_opt : instructions"""
 
 
 def p_instructions_opt_2(p):
@@ -36,28 +33,54 @@ def p_instructions_opt_2(p):
 
 
 def p_instructions_1(p):
-    """instructions : instructions instruction """
+    """instructions : instructions instruction
+                    |  instruction """
 
 
-def p_instructions_2(p):
-    """instructions : instruction """
+
 
 
 def p_instruction_1(p):
-    """instruction : if_statement"""
+    """instruction : if_statement
+                   | assign ';'
+                   | loop
+                   | PRINT printable ';'
+                   | BREAK ';'
+                   | CONTINUE ';'
+                   | RETURN EXPRESSION ';'
+                   | '{' instructions '}'"""
+
+
+def p_printable(p):
+    """ printable : EXPRESSION
+                 | printable ',' EXPRESSION"""
+
+
+def p_loop_1(p):
+    """loop : WHILE '(' condition ')' instruction
+            | WHILE '(' condition ')' '{' instructions '}'
+            | FOR array_range instruction
+            | FOR array_range '{' instructions '}' """
+
+
+def p_array_range(p):
+    """ array_range : ID '=' INTNUM ':' ID
+                    | ID '=' ID ':' ID """
 
 
 def p_if_statement(p):
     """if_statement : IF '(' condition ')' '{' instructions '}' else_statement
                     | IF '(' condition ')' instruction else_statement"""
 
+
 def p_else_statement(p):
     """else_statement : ELSE '{' instructions '}'
                       | ELSE instruction
                       | """
 
+
 def p_condition(p):
-    """condition : variable logical_operator variable
+    """condition : EXPRESSION logical_operator EXPRESSION
                  | condition OR condition
                  | condition AND condition"""
 
@@ -67,32 +90,41 @@ def p_logical_operator(p):
                         | '<'
                         | '>'
                         | GE
-                        | LE """
+                        | LE
+                        | NEQ"""
 
 
-def p_variable(p):
-    """variable : INTNUM
-                | ID"""
-
-
-def p_instruction_3(p):
-    """
-  instruction : assign
-  """
+""
 
 
 def p_assign_1(p):
-    """assign : ID '=' INTNUM
-              | ID '=' ID
-              | ID '=' EXPRESSION"""
+    """assign : ID '=' EXPRESSION
+              | ID ADDASSIGN ID
+              | ID SUBASSIGN ID
+              | ID DIVASSIGN ID
+              | ID MULASSIGN ID
+              | ID '=' '-' ID
+              | ID '='  ID "'"
+              """
 
 
 def p_expression_1(p):
-    """EXPRESSION : INTNUM '+' INTNUM"""
+    """EXPRESSION : EXPRESSION '+' EXPRESSION
+                  | EXPRESSION '-' EXPRESSION
+                  | EXPRESSION '*' EXPRESSION
+                  | EXPRESSION '/' EXPRESSION
+                  | ID DOTADD ID
+                  | ID DOTSUB ID
+                  | ID DOTMUL ID
+                  | ID DOTDIV ID
+                  | ID
+                  | FLOAT
+                  | INTNUM
+                  | STRING """
 
 
-    # to finish the grammar
-    # ....
+# to finish the grammar
+# ....
 
 
 parser = yacc.yacc()
