@@ -18,7 +18,7 @@ reserved = {
 }
 
 tokens = ['DIVASSIGN', 'ADDASSIGN', 'MULASSIGN', 'SUBASSIGN', 'STRING', 'FLOAT', 'INTNUM',
-          'GE', 'LE', 'EQ', 'NEQ', 'DOTADD', 'DOTSUB', 'DOTMUL', 'DOTDIV', 'ID'] \
+          'GE', 'LE', 'EQ', 'NEQ', 'DOTADD', 'DOTSUB', 'DOTMUL', 'DOTDIV', 'ID', 'AND', 'OR'] \
          + list(reserved.values())
 
 t_DIVASSIGN = r'/='
@@ -34,6 +34,8 @@ t_DOTSUB = r'\.-'
 t_DOTMUL = r'\.\*'
 t_DOTDIV = r'\./'
 t_INTNUM = r'\d+'
+t_AND = r'\&\&'
+t_OR = r'\|\|'
 t_ignore = '  \t'
 
 

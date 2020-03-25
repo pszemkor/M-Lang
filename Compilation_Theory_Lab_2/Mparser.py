@@ -23,11 +23,6 @@ def p_error(p):
     else:
         print("Unexpected end of input")
 
-
-### program -> instructions_opt
-### instructions_opt -> instructions | epsilon
-### instrucions -> instructions instruction | inststruction
-
 def p_program(p):
     """program : instructions_opt"""
 
@@ -53,11 +48,18 @@ def p_instruction_1(p):
 
 
 def p_if_statement(p):
-    """if_statement : IF '(' condition ')' '{' instructions '}'  """
+    """if_statement : IF '(' condition ')' '{' instructions '}' else_statement
+                    | IF '(' condition ')' instruction else_statement"""
 
+def p_else_statement(p):
+    """else_statement : ELSE '{' instructions '}'
+                      | ELSE instruction
+                      | """
 
 def p_condition(p):
-    """condition : variable logical_operator variable """
+    """condition : variable logical_operator variable
+                 | condition OR condition
+                 | condition AND condition"""
 
 
 def p_logical_operator(p):
