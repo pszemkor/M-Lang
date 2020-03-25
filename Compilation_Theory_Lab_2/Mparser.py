@@ -23,11 +23,6 @@ def p_error(p):
     else:
         print("Unexpected end of input")
 
-
-### program -> instructions_opt
-### instructions_opt -> instructions | epsilon
-### instrucions -> instructions instruction | inststruction
-
 def p_program(p):
     """program : instructions_opt"""
 
