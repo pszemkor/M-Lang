@@ -1,4 +1,4 @@
-from lab2 import scanner
+from Compilation_Theory_Lab_2 import scanner
 import ply.yacc as yacc
 
 tokens = scanner.tokens
