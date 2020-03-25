@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "ADDASSIGN BREAK CONTINUE DIVASSIGN DOTADD DOTDIV DOTMUL DOTSUB ELSE EQ EYE FLOAT FOR GE ID IF INTNUM LE MULASSIGN NEQ ONES PRINT RETURN STRING SUBASSIGN THEN WHILE ZEROSprogram : instructions_optinstructions_opt : instructions instructions_opt : instructions : instructions instruction instructions : instruction instruction : if_statementif_statement : IF '(' condition ')' '{' instructions '}'  condition : variable logical_operator variable logical_operator : EQ\n                        | '<'\n                        | '>'\n                        | GE\n                        | LE variable : INTNUM\n                | ID\n  instruction : assign\n  assign : ID '=' INTNUM\n              | ID '=' ID\n              | ID '=' EXPRESSIONEXPRESSION : INTNUM '+' INTNUM"
+_lr_signature = "ADDASSIGN AND BREAK CONTINUE DIVASSIGN DOTADD DOTDIV DOTMUL DOTSUB ELSE EQ EYE FLOAT FOR GE ID IF INTNUM LE MULASSIGN NEQ ONES OR PRINT RETURN STRING SUBASSIGN THEN WHILE ZEROSprogram : instructions_optinstructions_opt : instructions instructions_opt : instructions : instructions instruction instructions : instruction instruction : if_statementif_statement : IF '(' condition ')' '{' instructions '}' else_statement\n                    | IF '(' condition ')' instruction else_statementelse_statement : ELSE '{' instructions '}'\n                      | ELSE instruction\n                      | condition : variable logical_operator variable\n                 | condition OR condition\n                 | condition AND conditionlogical_operator : EQ\n                        | '<'\n                        | '>'\n                        | GE\n                        | LE variable : INTNUM\n                | ID\n  instruction : assign\n  assign : ID '=' INTNUM\n              | ID '=' ID\n              | ID '=' EXPRESSIONEXPRESSION : INTNUM '+' INTNUM"
     
-_lr_action_items = {'$end':([0,1,2,3,4,5,6,9,16,17,18,29,31,],[-3,0,-1,-2,-5,-6,-16,-4,-18,-17,-19,-20,-7,]),'IF':([0,3,4,5,6,9,16,17,18,27,29,30,31,],[7,7,-5,-6,-16,-4,-18,-17,-19,7,-20,7,-7,]),'ID':([0,3,4,5,6,9,10,11,16,17,18,20,21,22,23,24,25,27,29,30,31,],[8,8,-5,-6,-16,-4,15,16,-18,-17,-19,15,-9,-10,-11,-12,-13,8,-20,8,-7,]),'}':([4,5,6,9,16,17,18,29,30,31,],[-5,-6,-16,-4,-18,-17,-19,-20,31,-7,]),'(':([7,],[10,]),'=':([8,],[11,]),'INTNUM':([10,11,20,21,22,23,24,25,26,],[14,17,14,-9,-10,-11,-12,-13,29,]),')':([12,14,15,28,],[19,-14,-15,-8,]),'EQ':([13,14,15,],[21,-14,-15,]),'<':([13,14,15,],[22,-14,-15,]),'>':([13,14,15,],[23,-14,-15,]),'GE':([13,14,15,],[24,-14,-15,]),'LE':([13,14,15,],[25,-14,-15,]),'+':([17,],[26,]),'{':([19,],[27,]),}
+_lr_action_items = {'$end':([0,1,2,3,4,5,6,9,16,17,18,30,34,36,38,40,41,43,],[-3,0,-1,-2,-5,-6,-22,-4,-24,-23,-25,-11,-26,-8,-11,-10,-7,-9,]),'IF':([0,3,4,5,6,9,16,17,18,19,29,30,34,35,36,37,38,39,40,41,42,43,],[7,7,-5,-6,-22,-4,-24,-23,-25,7,7,-11,-26,7,-8,7,-11,7,-10,-7,7,-9,]),'ID':([0,3,4,5,6,9,10,11,16,17,18,19,20,21,22,23,24,25,26,27,29,30,34,35,36,37,38,39,40,41,42,43,],[8,8,-5,-6,-22,-4,15,16,-24,-23,-25,8,15,15,15,-15,-16,-17,-18,-19,8,-11,-26,8,-8,8,-11,8,-10,-7,8,-9,]),'}':([4,5,6,9,16,17,18,30,34,35,36,38,40,41,42,43,],[-5,-6,-22,-4,-24,-23,-25,-11,-26,38,-8,-11,-10,-7,43,-9,]),'ELSE':([5,6,16,17,18,30,34,36,38,40,41,43,],[-6,-22,-24,-23,-25,37,-26,-8,37,-10,-7,-9,]),'(':([7,],[10,]),'=':([8,],[11,]),'INTNUM':([10,11,20,21,22,23,24,25,26,27,28,],[14,17,14,14,14,-15,-16,-17,-18,-19,34,]),')':([12,14,15,31,32,33,],[19,-20,-21,-13,-14,-12,]),'OR':([12,14,15,31,32,33,],[20,-20,-21,20,20,-12,]),'AND':([12,14,15,31,32,33,],[21,-20,-21,21,21,-12,]),'EQ':([13,14,15,],[23,-20,-21,]),'<':([13,14,15,],[24,-20,-21,]),'>':([13,14,15,],[25,-20,-21,]),'GE':([13,14,15,],[26,-20,-21,]),'LE':([13,14,15,],[27,-20,-21,]),'+':([17,],[28,]),'{':([19,37,],[29,39,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'instructions_opt':([0,],[2,]),'instructions':([0,27,],[3,30,]),'instruction':([0,3,27,30,],[4,9,4,9,]),'if_statement':([0,3,27,30,],[5,5,5,5,]),'assign':([0,3,27,30,],[6,6,6,6,]),'condition':([10,],[12,]),'variable':([10,20,],[13,28,]),'EXPRESSION':([11,],[18,]),'logical_operator':([13,],[20,]),}
+_lr_goto_items = {'program':([0,],[1,]),'instructions_opt':([0,],[2,]),'instructions':([0,29,39,],[3,35,42,]),'instruction':([0,3,19,29,35,37,39,42,],[4,9,30,4,9,40,4,9,]),'if_statement':([0,3,19,29,35,37,39,42,],[5,5,5,5,5,5,5,5,]),'assign':([0,3,19,29,35,37,39,42,],[6,6,6,6,6,6,6,6,]),'condition':([10,20,21,],[12,31,32,]),'variable':([10,20,21,22,],[13,13,13,33,]),'EXPRESSION':([11,],[18,]),'logical_operator':([13,],[22,]),'else_statement':([30,38,],[36,41,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,24 +27,30 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> instructions_opt','program',1,'p_program','Mparser.py',32),
-  ('instructions_opt -> instructions','instructions_opt',1,'p_instructions_opt_1','Mparser.py',36),
-  ('instructions_opt -> <empty>','instructions_opt',0,'p_instructions_opt_2','Mparser.py',40),
-  ('instructions -> instructions instruction','instructions',2,'p_instructions_1','Mparser.py',44),
-  ('instructions -> instruction','instructions',1,'p_instructions_2','Mparser.py',48),
-  ('instruction -> if_statement','instruction',1,'p_instruction_1','Mparser.py',53),
-  ('if_statement -> IF ( condition ) { instructions }','if_statement',7,'p_if_statement','Mparser.py',57),
-  ('condition -> variable logical_operator variable','condition',3,'p_condition','Mparser.py',61),
-  ('logical_operator -> EQ','logical_operator',1,'p_logical_operator','Mparser.py',65),
-  ('logical_operator -> <','logical_operator',1,'p_logical_operator','Mparser.py',66),
-  ('logical_operator -> >','logical_operator',1,'p_logical_operator','Mparser.py',67),
-  ('logical_operator -> GE','logical_operator',1,'p_logical_operator','Mparser.py',68),
-  ('logical_operator -> LE','logical_operator',1,'p_logical_operator','Mparser.py',69),
-  ('variable -> INTNUM','variable',1,'p_variable','Mparser.py',73),
-  ('variable -> ID','variable',1,'p_variable','Mparser.py',74),
-  ('instruction -> assign','instruction',1,'p_instruction_3','Mparser.py',79),
-  ('assign -> ID = INTNUM','assign',3,'p_assign_1','Mparser.py',84),
-  ('assign -> ID = ID','assign',3,'p_assign_1','Mparser.py',85),
-  ('assign -> ID = EXPRESSION','assign',3,'p_assign_1','Mparser.py',86),
-  ('EXPRESSION -> INTNUM + INTNUM','EXPRESSION',3,'p_expression_1','Mparser.py',92),
+  ('program -> instructions_opt','program',1,'p_program','Mparser.py',27),
+  ('instructions_opt -> instructions','instructions_opt',1,'p_instructions_opt_1','Mparser.py',31),
+  ('instructions_opt -> <empty>','instructions_opt',0,'p_instructions_opt_2','Mparser.py',35),
+  ('instructions -> instructions instruction','instructions',2,'p_instructions_1','Mparser.py',39),
+  ('instructions -> instruction','instructions',1,'p_instructions_2','Mparser.py',43),
+  ('instruction -> if_statement','instruction',1,'p_instruction_1','Mparser.py',47),
+  ('if_statement -> IF ( condition ) { instructions } else_statement','if_statement',8,'p_if_statement','Mparser.py',51),
+  ('if_statement -> IF ( condition ) instruction else_statement','if_statement',6,'p_if_statement','Mparser.py',52),
+  ('else_statement -> ELSE { instructions }','else_statement',4,'p_else_statement','Mparser.py',55),
+  ('else_statement -> ELSE instruction','else_statement',2,'p_else_statement','Mparser.py',56),
+  ('else_statement -> <empty>','else_statement',0,'p_else_statement','Mparser.py',57),
+  ('condition -> variable logical_operator variable','condition',3,'p_condition','Mparser.py',60),
+  ('condition -> condition OR condition','condition',3,'p_condition','Mparser.py',61),
+  ('condition -> condition AND condition','condition',3,'p_condition','Mparser.py',62),
+  ('logical_operator -> EQ','logical_operator',1,'p_logical_operator','Mparser.py',66),
+  ('logical_operator -> <','logical_operator',1,'p_logical_operator','Mparser.py',67),
+  ('logical_operator -> >','logical_operator',1,'p_logical_operator','Mparser.py',68),
+  ('logical_operator -> GE','logical_operator',1,'p_logical_operator','Mparser.py',69),
+  ('logical_operator -> LE','logical_operator',1,'p_logical_operator','Mparser.py',70),
+  ('variable -> INTNUM','variable',1,'p_variable','Mparser.py',74),
+  ('variable -> ID','variable',1,'p_variable','Mparser.py',75),
+  ('instruction -> assign','instruction',1,'p_instruction_3','Mparser.py',80),
+  ('assign -> ID = INTNUM','assign',3,'p_assign_1','Mparser.py',85),
+  ('assign -> ID = ID','assign',3,'p_assign_1','Mparser.py',86),
+  ('assign -> ID = EXPRESSION','assign',3,'p_assign_1','Mparser.py',87),
+  ('EXPRESSION -> INTNUM + INTNUM','EXPRESSION',3,'p_expression_1','Mparser.py',91),
 ]
