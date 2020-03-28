@@ -70,8 +70,15 @@ def t_STRING(t):
     r'"[^"]*"'
     return t
 
-
 lexer = lex.lex()
+
+def find_tok_column(token):
+    last_cr = lexer.lexdata.rfind('\n', 0, token.lexpos)
+    if last_cr < 0:
+        last_cr = 0
+    return token.lexpos - last_cr
+
+
 # fh = open('code.txt', "r")
 # lexer.input(fh.read())
 # for token in lexer:

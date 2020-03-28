@@ -12,9 +12,8 @@ precedence = (
 
 
 def p_error(p):
-    # scanner.find_tok_column(p)
     if p:
-        print("Syntax error at line {0}, column {1}: LexToken({2}, '{3}')".format(p.lineno, "col",
+        print("Syntax error at line {0}, column {1}: LexToken({2}, '{3}')".format(p.lineno, scanner.find_tok_column(p),
                                                                                   p.type, p.value))
     else:
         print("Unexpected end of input")
@@ -53,7 +52,8 @@ def p_instruction_1(p):
 
 def p_printable(p):
     """ printable : EXPRESSION
-                 | printable ',' EXPRESSION"""
+                 | printable ',' EXPRESSION
+                 | STRING"""
 
 
 def p_loop_1(p):
@@ -65,7 +65,8 @@ def p_loop_1(p):
 
 def p_array_range(p):
     """ array_range : ID '=' INTNUM ':' ID
-                    | ID '=' ID ':' ID """
+                    | ID '=' ID ':' ID
+                    | ID '=' INTNUM ':' INTNUM"""
 
 
 def p_if_statement(p):
@@ -94,15 +95,18 @@ def p_logical_operator(p):
                         | NEQ"""
 
 
-""
 
 
 def p_assign_1(p):
     """assign : ID '=' EXPRESSION
-              | ID ADDASSIGN ID
-              | ID SUBASSIGN ID
-              | ID DIVASSIGN ID
-              | ID MULASSIGN ID
+              | ID ADDASSIGN EXPRESSION
+              | ID ADDASSIGN STRING
+              | ID '=' STRING '+' STRING
+              | ID '=' ID '+' STRING
+              | ID '=' STRING '+' ID
+              | ID SUBASSIGN EXPRESSION
+              | ID DIVASSIGN EXPRESSION
+              | ID MULASSIGN EXPRESSION
               | ID '=' '-' ID
               | ID '=' '-' INTNUM
               | ID '=' '-' FLOAT
@@ -132,20 +136,23 @@ def p_expression_1(p):
                   | EXPRESSION '-' EXPRESSION
                   | EXPRESSION '*' EXPRESSION
                   | EXPRESSION '/' EXPRESSION
-                  | ID DOTADD ID
-                  | ID DOTSUB ID
-                  | ID DOTMUL ID
-                  | ID DOTDIV ID
+                  | ID DOTADD EXPRESSION
+                  | ID DOTSUB EXPRESSION
+                  | ID DOTMUL EXPRESSION
+                  | ID DOTDIV EXPRESSION
+                  | '-' EXPRESSION
                   | ID
                   | FLOAT
+                  | ID '[' introw ']'
+                  | '[' rows ']'
                   | INTNUM
-                  | STRING
                   | EYE '(' INTNUM ')'
                   | ZEROS '(' INTNUM ')'
                   | ONES '(' INTNUM ')'
                   | EYE '(' ID ')'
                   | ZEROS '(' ID ')'
-                  | ONES '(' ID ')'"""
+                  | ONES '(' ID ')'
+                  | EXPRESSION "'" """
 
 
 # to finish the grammar
