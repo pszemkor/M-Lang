@@ -1,6 +1,6 @@
 
 import sys
-from Compilation_Theory_Lab_2 import scanner, Mparser
+import scanner, Mparser
 
 if __name__ == '__main__':
 
