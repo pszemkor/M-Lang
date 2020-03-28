@@ -1,4 +1,4 @@
-from Compilation_Theory_Lab_2 import scanner
+import scanner
 import ply.yacc as yacc
 
 tokens = scanner.tokens
@@ -104,8 +104,27 @@ def p_assign_1(p):
               | ID DIVASSIGN ID
               | ID MULASSIGN ID
               | ID '=' '-' ID
+              | ID '=' '-' INTNUM
+              | ID '=' '-' FLOAT
+              | ID '=' '-' '[' rows ']'
+              | ID '=' '-' ID '[' introw ']'
               | ID '='  ID "'"
+              | ID '=' '[' rows ']'
+              | ID '[' introw ']' '=' EXPRESSION
               """
+
+def p_introw_1(p):
+    """introw : introw ',' INTNUM
+              | INTNUM"""
+
+
+def p_rows_1(p):
+    """rows : rows ';' row
+            | row"""
+
+def p_row_1(p):
+    """row : row ',' EXPRESSION
+           | EXPRESSION"""
 
 
 def p_expression_1(p):
@@ -120,7 +139,13 @@ def p_expression_1(p):
                   | ID
                   | FLOAT
                   | INTNUM
-                  | STRING """
+                  | STRING
+                  | EYE '(' INTNUM ')'
+                  | ZEROS '(' INTNUM ')'
+                  | ONES '(' INTNUM ')'
+                  | EYE '(' ID ')'
+                  | ZEROS '(' ID ')'
+                  | ONES '(' ID ')'"""
 
 
 # to finish the grammar
