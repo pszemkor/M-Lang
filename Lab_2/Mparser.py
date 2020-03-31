@@ -21,79 +21,90 @@ def p_error(p):
 
 def p_program(p):
     """program : instructions_opt"""
-    p[0] = tuple(p)
+    p[0] = ('program', p[1])
 
 
 def p_instructions_opt_1(p):
     """instructions_opt : instructions"""
-    p[0] = tuple(p)
+    p[0] = ('instructions_opt', p[1])
 
 
 def p_instructions_opt_2(p):
     """instructions_opt : """
-    p[0] = tuple(p)
+    p[0] = "empty"
 
 
 def p_instructions_1(p):
     """instructions : instruction instructions"""
-    p[0] = tuple(p[1:])
-    print("**************", p[1], p[2])
+    p[0] = (p[1], p[2])
 
 
 def p_instructions_2(p):
     """instructions : instruction """
-    p[0] = tuple(p[1:])
+    p[0] = (p[1])
 
 
 def p_instruction_1(p):
     """instruction : if_statement
                    | assign ';'
                    | loop
-                   | PRINT printable ';'
                    | BREAK ';'
-                   | CONTINUE ';'
-                   | RETURN EXPRESSION ';'
-                   | '{' instructions '}'"""
-    p[0] = tuple(p[1:])
+                   | CONTINUE ';'"""
+    p[0] = (p[1])
 
 
-def p_printable(p):
+def p_instruction_2(p):
+    """instruction : PRINT printable ';'
+                   | RETURN EXPRESSION ';'"""
+    p[0] = (p[1], p[2])
+
+
+def p_instruction_3(p):
+    """instruction : '{' instructions '}'"""
+    p[0] = (p[2])
+
+
+def p_printable_1(p):
     """ printable : EXPRESSION
-                 | printable ',' EXPRESSION
                  | STRING"""
-    p[0] = tuple(p[1:])
+    p[0] = (p[1])
+
+
+def p_printable_2(p):
+    """ printable : printable ',' EXPRESSION"""
+    p[0] = ('printable', p[1], p[3])
 
 
 def p_loop_1(p):
-    """loop : WHILE '(' condition ')' instruction
-            | WHILE '(' condition ')' '{' instructions '}'
-            | FOR array_range instruction
-            | FOR array_range '{' instructions '}' """
-    p[0] = tuple(p[1:])
+    """loop : WHILE '(' condition ')' instruction"""
+    p[0] = ('while_loop', p[3], p[5])
+
+
+def p_loop_2(p):
+    """loop : FOR array_range instruction"""
+    p[0] = ('for_loop', p[2], p[3])
 
 
 def p_array_range(p):
     """ array_range : ID '=' INTNUM ':' ID
                     | ID '=' ID ':' ID
                     | ID '=' INTNUM ':' INTNUM"""
-    p[0] = tuple(p[1:])
+    p[0] = ('array_range', p[1], 'from', p[3], 'to', p[5])
 
 
 def p_if_statement_1(p):
-    """if_statement : IF '(' condition ')' '{' instructions '}' else_statement """
-    p[0] = tuple(p[1:])
+    """if_statement : IF '(' condition ')' instruction"""
+    p[0] = ('if', p[3], p[5])
 
 
 def p_if_statement_2(p):
     """if_statement : IF '(' condition ')' instruction else_statement"""
-    p[0] = tuple(p[1:])
+    p[0] = ('if', p[3], p[5], p[6])
 
 
 def p_else_statement(p):
-    """else_statement : ELSE '{' instructions '}'
-                      | ELSE instruction
-                      | """
-    p[0] = tuple(p[1:])
+    """else_statement : ELSE instruction """
+    p[0] = ('else', p[2])
 
 
 def p_condition(p):
@@ -110,46 +121,56 @@ def p_logical_operator(p):
                         | GE
                         | LE
                         | NEQ"""
-    p[0] = tuple(p[1:])
+    p[0] = ('logical_op', p[1])
 
 
 def p_assign_1(p):
     """assign : ID '=' EXPRESSION
-              | ID ADDASSIGN EXPRESSION
               | ID ADDASSIGN STRING
-              | ID '=' STRING '+' STRING
-              | ID SUBASSIGN EXPRESSION
               | ID DIVASSIGN EXPRESSION
+              | ID SUBASSIGN EXPRESSION
               | ID MULASSIGN EXPRESSION
-              | ID '=' '-' ID
+              | ID ADDASSIGN EXPRESSION
+              """
+    p[0] = ('assign', p[1], p[2], p[3])
+
+
+def p_assign_2(p):
+    """assign : ID '=' STRING '+' STRING
+              | ID '='  ID "'"
+              | ID '[' introw ']' '=' EXPRESSION"""
+    p[0] = ('assign', p[1:])
+
+
+def p_assign_3(p):
+    """assign : ID '=' '-' ID
               | ID '=' '-' INTNUM
               | ID '=' '-' FLOAT
               | ID '=' '-' '[' rows ']'
-              | ID '=' '-' ID '[' introw ']'
-              | ID '='  ID "'"
-              | ID '=' '[' rows ']'
-              | ID '[' introw ']' '=' EXPRESSION
-              """
-    p[0] = tuple(p[1:])
+              | ID '=' '-' ID '[' introw ']'"""
 
+    p[0] = ('assign', p[1:])
 
 
 def p_introw_1(p):
     """introw : introw ',' INTNUM
               | INTNUM"""
-    p[0] = tuple(p[1:])
+    if len(p) == 4:
+        p[0] = ('introw', p[1], p[3])
+    else:
+        p[0] = p[1]
 
 
 def p_rows_1(p):
     """rows : rows ';' row
             | row"""
-    p[0] = tuple(p[1:])
+    p[0] = p[1:]
 
 
 def p_row_1(p):
     """row : row ',' EXPRESSION
            | EXPRESSION"""
-    p[0] = tuple(p[1:])
+    p[0] = ('row', p[1:])
 
 
 def p_expression_1(p):
@@ -165,21 +186,44 @@ def p_expression_1(p):
 
 
 def p_expression_2(p):
-    """EXPRESSION : '-' EXPRESSION
-                  | ID
+    """EXPRESSION : ID
                   | FLOAT
-                  | ID '[' introw ']'
-                  | '[' rows ']'
-                  | INTNUM
-                  | EYE '(' INTNUM ')'
+                  | INTNUM """
+    p[0] = ('var', p[1])
+
+
+def p_expression_3(p):
+    """EXPRESSION : EYE '(' INTNUM ')'
                   | ZEROS '(' INTNUM ')'
                   | ONES '(' INTNUM ')'
                   | EYE '(' ID ')'
                   | ZEROS '(' ID ')'
-                  | ONES '(' ID ')'
-                  | EXPRESSION "'"
+                  | ONES '(' ID ')'"""
+    p[0] = ('matrix_creation', p[1], p[3])
+
+
+def p_expression_4(p):
+    """EXPRESSION : ID '[' introw ']'
                   | '(' EXPRESSION ')'"""
-    p[0] = tuple(p[1:])
+    if len(p) == 5:
+        p[0] = ('array_part', p[1], p[3])
+    else:
+        p[0] = p[2]
+
+
+def p_expression_5(p):
+    """EXPRESSION : '-' EXPRESSION"""
+    p[0] = ('negative', p[2])
+
+
+def p_expression_7(p):
+    """EXPRESSION : EXPRESSION "'" """
+    p[0] = ('transpose', p[1])
+
+
+def p_expression_6(p):
+    """EXPRESSION : '[' rows ']'"""
+    p[0] = ('matrix', p[1], p[2], p[3])
 
 
 parser = yacc.yacc()
