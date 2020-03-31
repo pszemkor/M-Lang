@@ -13,5 +13,6 @@ if __name__ == '__main__':
 
     parser = Mparser.parser
     text = file.read()
-    parser.parse(text, lexer=scanner.lexer)
-    print("okej")
+    tree = parser.parse(text, lexer=scanner.lexer)
+    print("#############################")
+    print(tree)
