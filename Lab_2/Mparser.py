@@ -137,18 +137,7 @@ def p_assign_1(p):
 
 def p_assign_2(p):
     """assign : ID '=' STRING '+' STRING
-              | ID '='  ID "'"
               | ID '[' introw ']' '=' EXPRESSION"""
-    p[0] = ('assign', p[1:])
-
-
-def p_assign_3(p):
-    """assign : ID '=' '-' ID
-              | ID '=' '-' INTNUM
-              | ID '=' '-' FLOAT
-              | ID '=' '-' '[' rows ']'
-              | ID '=' '-' ID '[' introw ']'"""
-
     p[0] = ('assign', p[1:])
 
 
@@ -161,45 +150,12 @@ def p_introw_1(p):
         p[0] = p[1]
 
 
-def p_rows_1(p):
-    """rows : rows ';' row
-            | row"""
-    p[0] = p[1:]
-
-
-def p_row_1(p):
-    """row : row ',' EXPRESSION
-           | EXPRESSION"""
-    p[0] = ('row', p[1:])
-
-
 def p_expression_1(p):
     """EXPRESSION : EXPRESSION '+' EXPRESSION
                   | EXPRESSION '-' EXPRESSION
                   | EXPRESSION '*' EXPRESSION
-                  | EXPRESSION '/' EXPRESSION
-                  | ID DOTADD EXPRESSION
-                  | ID DOTSUB EXPRESSION
-                  | ID DOTMUL EXPRESSION
-                  | ID DOTDIV EXPRESSION """
+                  | EXPRESSION '/' EXPRESSION """
     p[0] = ('binop', p[1], p[2], p[3])
-
-
-def p_expression_2(p):
-    """EXPRESSION : ID
-                  | FLOAT
-                  | INTNUM """
-    p[0] = ('var', p[1])
-
-
-def p_expression_3(p):
-    """EXPRESSION : EYE '(' INTNUM ')'
-                  | ZEROS '(' INTNUM ')'
-                  | ONES '(' INTNUM ')'
-                  | EYE '(' ID ')'
-                  | ZEROS '(' ID ')'
-                  | ONES '(' ID ')'"""
-    p[0] = ('matrix_creation', p[1], p[3])
 
 
 def p_expression_4(p):
@@ -216,14 +172,69 @@ def p_expression_5(p):
     p[0] = ('negative', p[2])
 
 
-def p_expression_7(p):
-    """EXPRESSION : EXPRESSION "'" """
+def p_expression_6(p):
+    """EXPRESSION : matrix_expression
+                  | numeric_expression"""
+    p[0] = p[1]
+
+
+def p_n_expression_1(p):
+    """numeric_expression : ID
+                          | FLOAT
+                          | INTNUM """
+    p[0] = ('var', p[1])
+
+
+def p_m_expression_1(p):
+    """matrix_expression : EYE '(' INTNUM ')'
+                  | ZEROS '(' INTNUM ')'
+                  | ONES '(' INTNUM ')'
+                  | EYE '(' ID ')'
+                  | ZEROS '(' ID ')'
+                  | ONES '(' ID ')'"""
+    p[0] = ('matrix_creation', p[1], p[3])
+
+
+def p_m_expression_2(p):
+    """matrix_expression : matrix_expression DOTADD matrix_expression
+                         | matrix_expression DOTSUB matrix_expression
+                         | matrix_expression DOTMUL matrix_expression
+                         | matrix_expression DOTDIV matrix_expression """
+    p[0] = ('matrix_op', p[1], p[2], p[3])
+
+
+def p_m_expression_3(p):
+    """matrix_expression : matrix_expression "'" """
     p[0] = ('transpose', p[1])
 
 
-def p_expression_6(p):
-    """EXPRESSION : '[' rows ']'"""
+def p_create_matrix(p):
+    """matrix_expression : matrix
+                         | ID"""
+    p[0] = p[1]
+
+
+def p_matrix(p):
+    """matrix : '[' rows ']'"""
     p[0] = ('matrix', p[1], p[2], p[3])
+
+
+def p_rows_1(p):
+    """rows : rows ';' row
+            | row"""
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        p[0] = (p[1], p[2], p[3])
+
+
+def p_row_1(p):
+    """row : row ',' EXPRESSION
+           | EXPRESSION"""
+    if len(p) == 4:
+        p[0] = (p[1], p[3])
+    else:
+        p[0] = p[1]
 
 
 parser = yacc.yacc()
