@@ -102,8 +102,6 @@ def p_assign_1(p):
               | ID ADDASSIGN EXPRESSION
               | ID ADDASSIGN STRING
               | ID '=' STRING '+' STRING
-              | ID '=' ID '+' STRING
-              | ID '=' STRING '+' ID
               | ID SUBASSIGN EXPRESSION
               | ID DIVASSIGN EXPRESSION
               | ID MULASSIGN EXPRESSION
