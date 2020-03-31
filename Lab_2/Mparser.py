@@ -21,22 +21,29 @@ def p_error(p):
 
 def p_program(p):
     """program : instructions_opt"""
+    p[0] = p[1]
 
 
 def p_instructions_opt_1(p):
     """instructions_opt : instructions"""
+    p[0] = p[1]
 
 
 def p_instructions_opt_2(p):
     """instructions_opt : """
+    p[0] = ""
 
 
 def p_instructions_1(p):
-    """instructions : instructions instruction
-                    |  instruction """
+    """instructions : instructions instruction"""
+    p[0] = (p[1], p[2])
+    print("**************", p[1], p[2])
 
 
-
+def p_instructions_2(p):
+    """instructions : instruction """
+    p[0] = (p[1])
+    print('kurwa', p[0])
 
 
 def p_instruction_1(p):
@@ -48,6 +55,13 @@ def p_instruction_1(p):
                    | CONTINUE ';'
                    | RETURN EXPRESSION ';'
                    | '{' instructions '}'"""
+    if len(p) == 2:
+        p[0] = p[1]
+    elif len(p) == 3:
+        p[0] = (p[1], p[2])
+    else:
+        pass
+    print(p[0])
 
 
 def p_printable(p):
@@ -69,21 +83,32 @@ def p_array_range(p):
                     | ID '=' INTNUM ':' INTNUM"""
 
 
-def p_if_statement(p):
-    """if_statement : IF '(' condition ')' '{' instructions '}' else_statement
-                    | IF '(' condition ')' instruction else_statement"""
+def p_if_statement_1(p):
+    """if_statement : IF '(' condition ')' '{' instructions '}' else_statement """
+    print(len(p))
+    p[0] = (p[1], p[2], p[3], p[4], p[5], p[6])
+    print(p[0])
+
+
+def p_if_statement_2(p):
+    """if_statement : IF '(' condition ')' instruction else_statement"""
 
 
 def p_else_statement(p):
     """else_statement : ELSE '{' instructions '}'
                       | ELSE instruction
                       | """
-
+    if len(p) == 1:
+        p[0] = ""
+    else:
+        pass
 
 def p_condition(p):
     """condition : EXPRESSION logical_operator EXPRESSION
                  | condition OR condition
                  | condition AND condition"""
+    p[0] = ('cond', p[1], p[2], p[3])
+    print(p[0])
 
 
 def p_logical_operator(p):
@@ -93,8 +118,7 @@ def p_logical_operator(p):
                         | GE
                         | LE
                         | NEQ"""
-
-
+    p[0] = p[1]
 
 
 def p_assign_1(p):
@@ -114,6 +138,10 @@ def p_assign_1(p):
               | ID '=' '[' rows ']'
               | ID '[' introw ']' '=' EXPRESSION
               """
+    if len(p) == 4:
+        p[0] = (p[1], p[2], p[3])
+    print(p[0])
+
 
 def p_introw_1(p):
     """introw : introw ',' INTNUM
@@ -123,6 +151,7 @@ def p_introw_1(p):
 def p_rows_1(p):
     """rows : rows ';' row
             | row"""
+
 
 def p_row_1(p):
     """row : row ',' EXPRESSION
@@ -137,8 +166,13 @@ def p_expression_1(p):
                   | ID DOTADD EXPRESSION
                   | ID DOTSUB EXPRESSION
                   | ID DOTMUL EXPRESSION
-                  | ID DOTDIV EXPRESSION
-                  | '-' EXPRESSION
+                  | ID DOTDIV EXPRESSION """
+    p[0] = ('binop', p[1], p[2], p[3])
+    print(p[0])
+
+
+def p_expression_2(p):
+    """EXPRESSION : '-' EXPRESSION
                   | ID
                   | FLOAT
                   | ID '[' introw ']'
@@ -150,11 +184,10 @@ def p_expression_1(p):
                   | EYE '(' ID ')'
                   | ZEROS '(' ID ')'
                   | ONES '(' ID ')'
-                  | EXPRESSION "'" """
-
-
-# to finish the grammar
-# ....
+                  | EXPRESSION "'"
+                  | '(' EXPRESSION ')'"""
+    p[0] = ('ID', p[1])
+    print(p[0])
 
 
 parser = yacc.yacc()
