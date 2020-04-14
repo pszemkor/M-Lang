@@ -189,21 +189,10 @@ def p_expression_5(p):
     p[0] = ('negative', p[2])
 
 
-def p_expression_6(p):
-    """operable_expression : matrix_expression
-                           | numeric_expression"""
-    p[0] = p[1]
-
-
-def p_n_expression_1(p):
-    """numeric_expression : ID
-                          | FLOAT
-                          | INTNUM """
-    p[0] = ('var', p[1])
 
 
 def p_m_expression_1(p):
-    """matrix_expression : EYE '(' INTNUM ')'
+    """operable_expression : EYE '(' INTNUM ')'
                   | ZEROS '(' INTNUM ')'
                   | ONES '(' INTNUM ')'
                   | EYE '(' ID ')'
@@ -213,20 +202,22 @@ def p_m_expression_1(p):
 
 
 def p_m_expression_2(p):
-    """matrix_expression : matrix_expression DOTADD matrix_expression
-                         | matrix_expression DOTSUB matrix_expression
-                         | matrix_expression DOTMUL matrix_expression
-                         | matrix_expression DOTDIV matrix_expression """
+    """operable_expression : operable_expression DOTADD operable_expression
+                         | operable_expression DOTSUB operable_expression
+                         | operable_expression DOTMUL operable_expression
+                         | operable_expression DOTDIV operable_expression """
     p[0] = ('matrix_op', p[1], p[2], p[3])
 
 
 def p_m_expression_3(p):
-    """matrix_expression : matrix_expression "'" """
+    """operable_expression : operable_expression "'" """
     p[0] = ('transpose', p[1])
 
 
 def p_create_matrix(p):
-    """matrix_expression : matrix
+    """operable_expression : matrix
+                         | FLOAT
+                         | INTNUM
                          | ID"""
     p[0] = ('var', p[1])
 
