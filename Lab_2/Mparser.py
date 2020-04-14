@@ -9,7 +9,8 @@ precedence = (
     ("left", '*', '/'),
     ("left", 'DOTMUL', 'DOTDIV'),
     ("left", '+', '-'),
-    ("left", 'DOTADD', 'DOTSUB')
+    ("left", 'DOTADD', 'DOTSUB'),
+    ("left", 'TRANSPOSE')
 )
 
 
@@ -189,8 +190,6 @@ def p_expression_5(p):
     p[0] = ('negative', p[2])
 
 
-
-
 def p_m_expression_1(p):
     """operable_expression : EYE '(' INTNUM ')'
                   | ZEROS '(' INTNUM ')'
@@ -210,8 +209,8 @@ def p_m_expression_2(p):
 
 
 def p_m_expression_3(p):
-    """operable_expression : operable_expression "'" """
-    p[0] = ('transpose', p[1])
+    """operable_expression : operable_expression TRANSPOSE """
+    p[0] = ('TRANSPOSE', p[1])
 
 
 def p_create_matrix(p):

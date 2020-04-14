@@ -18,9 +18,9 @@ reserved = {
 }
 
 tokens = ['DIVASSIGN', 'ADDASSIGN', 'MULASSIGN', 'SUBASSIGN', 'STRING', 'FLOAT', 'INTNUM',
-          'GE', 'LE', 'EQ', 'NEQ', 'DOTADD', 'DOTSUB', 'DOTMUL', 'DOTDIV', 'ID', 'AND', 'OR'] \
+          'GE', 'LE', 'EQ', 'NEQ', 'DOTADD', 'DOTSUB', 'DOTMUL', 'DOTDIV', 'TRANSPOSE', 'ID', 'AND', 'OR'] \
          + list(reserved.values())
-
+t_TRANSPOSE = r"'"
 t_DIVASSIGN = r'/='
 t_ADDASSIGN = r'\+='
 t_MULASSIGN = r'\*='
@@ -70,14 +70,15 @@ def t_STRING(t):
     r'"[^"]*"'
     return t
 
+
 lexer = lex.lex()
+
 
 def find_tok_column(token):
     last_cr = lexer.lexdata.rfind('\n', 0, token.lexpos)
     if last_cr < 0:
         last_cr = 0
     return token.lexpos - last_cr
-
 
 # fh = open('code.txt', "r")
 # lexer.input(fh.read())
