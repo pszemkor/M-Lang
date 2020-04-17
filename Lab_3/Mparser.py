@@ -1,5 +1,7 @@
-import scanner
 import ply.yacc as yacc
+
+from Lab_3 import scanner
+from Lab_3.AST import *
 
 tokens = scanner.tokens
 reserved = scanner.reserved
@@ -24,27 +26,27 @@ def p_error(p):
 
 def p_program(p):
     """program : instructions_opt"""
-    p[0] = ('program', p[1])
+    p[0] = Program(p[1])
 
 
 def p_instructions_opt_1(p):
     """instructions_opt : instructions"""
-    p[0] = ('instructions_opt', p[1])
+    p[0] = InstructionsOpt(p[1])
 
 
 def p_instructions_opt_2(p):
     """instructions_opt : """
-    p[0] = "empty"
+    p[0] = InstructionsOpt("empty")
 
 
 def p_instructions_1(p):
     """instructions : instruction instructions"""
-    p[0] = (p[1], p[2])
+    p[0] = Instructions(p[1], p[2])
 
 
 def p_instructions_2(p):
     """instructions : instruction """
-    p[0] = (p[1])
+    p[0] = Instructions(p[1], "")
 
 
 def p_instruction_1(p):

@@ -30,6 +30,21 @@ class BinExpr(Node):
         self.right = right
 
 
+class Program(Node):
+    def __init__(self, instructions_opt):
+        self.instructions_opt = instructions_opt
+
+
+class InstructionsOpt(Node):
+    def __init__(self, instructions):
+        self.instructions = instructions
+
+
+class Instructions(Node):
+    def __init__(self, instruction, isntructions):
+        self.instruction = instruction
+        self.instructions = isntructions
+
 # ...
 # fill out missing classes
 # ...
