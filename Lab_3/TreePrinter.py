@@ -1,5 +1,6 @@
 from __future__ import print_function
-import AST
+
+from Lab_3.AST import *
 
 
 def addToClass(cls):
@@ -12,21 +13,15 @@ def addToClass(cls):
 
 class TreePrinter:
 
-    @addToClass(AST.Node)
+    @addToClass(Node)
     def printTree(self, indent=0):
         raise Exception("printTree not defined in class " + self.__class__.__name__)
 
-    @addToClass(AST.Tuple)
-    def printTree(self, indent=0):
-        print("|")
-        print(left.)
-        pass
-        # fill in the body
-
-    @addToClass(AST.Error)
+    @addToClass(IntNum)
     def printTree(self, indent=0):
         pass
-        # fill in the body
 
-    # define printTree for other classes
-    # ...
+    @addToClass(Error)
+    def printTree(self, indent=0):
+        pass
+

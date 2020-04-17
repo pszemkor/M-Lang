@@ -45,6 +45,117 @@ class Instructions(Node):
         self.instruction = instruction
         self.instructions = isntructions
 
+
+class Instruction(Node):
+    def __init__(self, instruction, printable):
+        self.instruction = instruction
+        self.printable = printable
+
+
+class Printable(Node):
+    def __init__(self, printable, sign, expression):
+        self.printable = printable
+        self.sign = sign
+        self.expression = expression
+
+
+class Loop(Node):
+    def __init__(self, loop, condition, instruction):
+        self.loop = loop
+        self.condition = condition
+        self.instruction = instruction
+
+
+class ArrayRange(Node):
+    def __init__(self, counter, beginning, end):
+        self.array_range = 'array_range'
+        self.counter = counter
+        self.beginning_clause = 'from'
+        self.beginning = beginning
+        self.end_clause = 'to'
+        self.end = end
+
+
+class IfStatement(Node):
+    def __init__(self, condition, instruction, elseStatement):
+        self.condition = condition
+        self.instruction = instruction
+        self.elseStatement = elseStatement
+
+
+class ElseStatement(Node):
+    def __init__(self, instruction):
+        self.else_clause = 'else'
+        self.instruction = instruction
+
+
+class LogicalOperator(Node):
+    def __init__(self, op):
+        self.op = op
+
+
+class Row(Node):
+    def __init__(self, row, expression):
+        self.row = row
+        self.expression = expression
+
+
+class Rows(Node):
+    def __init__(self, rows, row):
+        self.rows = rows
+        self.row = row
+
+
+class Matrix(Node):
+    def __init__(self, rows):
+        self.rows = rows
+
+
+class UnaryExpression(Node):
+    def __init__(self, op, arg):
+        self.op = op
+        self.arg = arg
+
+
+class Zeros(Node):
+    def __init__(self, arg):
+        self.arg = arg
+
+
+class Ones(Node):
+    def __init__(self, arg):
+        self.arg = arg
+
+
+class Eye(Node):
+    def __init__(self, arg):
+        self.arg = arg
+
+
+class String(Node):
+    def __init__(self, value):
+        self.value = value
+
+
+class Introw(Node):
+    def __init__(self, introw, intnum):
+        self.introw = introw
+        self.intnum = intnum
+
+
+class ArrayPart(Node):
+    def __init__(self, var, introw):
+        self.var = var
+        self.introw = introw
+
+
+class Assign(Node):
+    def __init__(self, op, first, second):
+        self.op = op
+        self.first = first
+        self.second = second
+
+
 # ...
 # fill out missing classes
 # ...
