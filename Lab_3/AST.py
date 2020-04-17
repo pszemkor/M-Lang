@@ -47,9 +47,14 @@ class Instructions(Node):
 
 
 class Instruction(Node):
-    def __init__(self, instruction, printable):
+    def __init__(self, instruction):
         self.instruction = instruction
-        self.printable = printable
+
+
+class InstructionWithArg(Node):
+    def __init__(self, op, expr):
+        self.op = op
+        self.expr = expr
 
 
 class Printable(Node):
@@ -149,11 +154,14 @@ class ArrayPart(Node):
         self.introw = introw
 
 
-class Assign(Node):
-    def __init__(self, op, first, second):
-        self.op = op
-        self.first = first
-        self.second = second
+class Break(Node):
+    def __init__(self):
+        pass
+
+
+class Continue(Node):
+    def __init__(self):
+        pass
 
 
 # ...

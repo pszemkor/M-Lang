@@ -51,42 +51,47 @@ def p_instructions_2(p):
 
 def p_instruction_1(p):
     """instruction : if_statement"""
-    p[0] = Instruction(p[1], None)
+    p[0] = Instruction(p[1])
 
 
 def p_instruction_2(p):
     """instruction : assign ';'"""
-    p[0] = Instruction(p[1], None)
+    p[0] = Instruction(p[1])
 
 
 def p_instruction_3(p):
     """instruction : loop"""
-    p[0] = Instruction(p[1], None)
+    p[0] = Instruction(p[1])
 
 
 def p_instruction_4(p):
     """instruction : BREAK ';'"""
-    p[0] = Instruction(p[1], None)
+    p[0] = Instruction(Break, )
 
 
 def p_instruction_5(p):
     """instruction : CONTINUE ';'"""
-    p[0] = Instruction(p[1], None)
+    p[0] = Instruction(Continue)
 
 
 def p_instruction_6(p):
-    """instruction : PRINT printable ';'"""
-    p[0] = Instruction(p[1], p[2])
+    """instruction : instruction_with_argument ';'"""
+    p[0] = Instruction(p[1])
 
 
 def p_instruction_7(p):
-    """instruction : RETURN EXPRESSION ';'"""
-    p[0] = Instruction(p[1], p[2])
+    """instruction_with_argument : PRINT printable"""
+    p[0] = InstructionWithArg(p[1], p[2])
 
 
 def p_instruction_8(p):
+    """instruction_with_argument : RETURN EXPRESSION"""
+    p[0] = InstructionWithArg(p[1], p[2])
+
+
+def p_instruction_9(p):
     """instruction : '{' instructions '}'"""
-    p[0] = Instruction(p[2], None)
+    p[0] = Instruction(p[2])
 
 
 def p_printable_1(p):
@@ -146,82 +151,82 @@ def p_else_statement(p):
 
 def p_condition_1(p):
     """condition : EXPRESSION logical_operator EXPRESSION"""
-    p[0] = BinExpr(p[1], p[2], p[3])
+    p[0] = BinExpr(p[2], p[1], p[3])
 
 
 def p_condition_2(p):
     """condition : condition OR condition"""
-    p[0] = BinExpr(p[1], p[2], p[3])
+    p[0] = BinExpr(p[2], p[1], p[3])
 
 
 def p_condition_3(p):
     """condition : condition AND condition"""
-    p[0] = BinExpr(p[1], p[2], p[3])
+    p[0] = BinExpr(p[2], p[1], p[3])
 
 
 def p_logical_operator_1(p):
     """logical_operator : EQ"""
-    p[0] = LogicalOperator(p[1])
+    p[0] = p[1]
 
 
 def p_logical_operator_2(p):
     """logical_operator : '<'"""
-    p[0] = LogicalOperator(p[1])
+    p[0] = p[1]
 
 
 def p_logical_operator_3(p):
     """logical_operator : '>'"""
-    p[0] = LogicalOperator(p[1])
+    p[0] = p[1]
 
 
 def p_logical_operator_4(p):
     """logical_operator : GE"""
-    p[0] = LogicalOperator(p[1])
+    p[0] = p[1]
 
 
 def p_logical_operator_5(p):
     """logical_operator : LE"""
-    p[0] = LogicalOperator(p[1])
+    p[0] = p[1]
 
 
 def p_logical_operator_6(p):
     """logical_operator : NEQ"""
-    p[0] = LogicalOperator(p[1])
+    p[0] = p[1]
 
 
 def p_assign_1(p):
     """assign : ID '=' EXPRESSION"""
-    p[0] = Assign(p[2], Variable(p[1]), p[3])
+    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
 
 
 def p_assign_2(p):
     """assign : ID ADDASSIGN string_expression"""
-    p[0] = Assign(p[2], Variable(p[1]), p[3])
+    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
 
 
 def p_assign_3(p):
     """assign : ID DIVASSIGN operable_expression"""
-    p[0] = Assign(p[2], Variable(p[1]), p[3])
+    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
 
 
 def p_assign_4(p):
     """assign : ID MULASSIGN operable_expression"""
-    p[0] = Assign(p[2], Variable(p[1]), p[3])
+    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
 
 
 def p_assign_5(p):
     """assign : ID ADDASSIGN operable_expression"""
-    p[0] = Assign(p[2], Variable(p[1]), p[3])
+    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
 
 
 def p_assign_6(p):
     """assign : ID SUBASSIGN operable_expression"""
-    p[0] = Assign(p[2], Variable(p[1]), p[3])
+    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
 
 
 def p_assign_7(p):
     """assign : array_part '=' EXPRESSION"""
-    p[0] = Assign(p[2], Variable(p[1]), p[3])
+    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
 
 
 def p_introw_1(p):

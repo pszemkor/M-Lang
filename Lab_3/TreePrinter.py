@@ -19,23 +19,24 @@ class TreePrinter:
 
     @addToClass(IntNum)
     def printTree(self, indent=0):
-        pass
+        return get_indent(indent) + str(self.value)
 
     @addToClass(FloatNum)
     def printTree(self, indent=0):
-        pass
-
-    @addToClass(Tuple)
-    def printTree(self, indent=0):
-        pass
+        return get_indent(indent) + str(self.value)
 
     @addToClass(Variable)
     def printTree(self, indent=0):
-        return self.name
+        return get_indent(indent) + str(self.name)
 
     @addToClass(BinExpr)
     def printTree(self, indent=0):
-        pass
+        res = get_indent(indent) + self.op
+        res += "\n"
+        res += self.left.printTree(indent + 1)
+        res += "\n"
+        res += self.right.printTree(indent + 1)
+        return res
 
     @addToClass(Program)
     def printTree(self, indent=0):
@@ -47,14 +48,14 @@ class TreePrinter:
 
     @addToClass(Instructions)
     def printTree(self, indent=0):
-        return self.instruction.printTree()
-        self.instructions.printTree()
+        res = self.instruction.printTree(indent)
+        if self.instructions is not None:
+            res += self.instructions.printTree(indent)
+        return res
 
     @addToClass(Instruction)
     def printTree(self, indent=0):
-        return self.instruction.printTree()
-        # if (self.printable != ""):
-        #     self.printable.printTree()
+        return self.instruction.printTree(indent)
 
     @addToClass(Printable)
     def printTree(self, indent=0):
@@ -70,12 +71,18 @@ class TreePrinter:
 
     @addToClass(IfStatement)
     def printTree(self, indent=0):
-        pass
+        result = "\n" + get_indent(indent) + "IF"
+        result += "\n"
+        result += self.condition.printTree(indent + 1)
+        result += "\n"
+        result += get_indent(indent) + "THEN"
+        result += "\n"
+        result += self.instruction.printTree(indent + 1)
+        if self.elseStatement is not None:
+            result += self.elseStatement.printTree(indent + 1)
+            result += "\n"
 
-    @addToClass(Assign)
-    def printTree(self, indent=0):
-        return self.op + "\n" + "| " * (indent + 1) + self.first.printTree() + "\n| " * (
-                indent + 1) + self.second.printTree()
+        return result
 
     @addToClass(ArrayPart)
     def printTree(self, indent=0):
@@ -83,7 +90,7 @@ class TreePrinter:
 
     @addToClass(String)
     def printTree(self, indent=0):
-        pass
+        return get_indent(indent) + self.value
 
     @addToClass(Eye)
     def printTree(self, indent=0):
@@ -113,10 +120,10 @@ class TreePrinter:
     def printTree(self, indent=0):
         pass
 
-    @addToClass(LogicalOperator)
-    def printTree(self, indent=0):
-        pass
-
     @addToClass(ElseStatement)
     def printTree(self, indent=0):
         pass
+
+
+def get_indent(indent):
+    return "| " * indent
