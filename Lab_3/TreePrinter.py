@@ -31,7 +31,7 @@ class TreePrinter:
 
     @addToClass(Variable)
     def printTree(self, indent=0):
-        pass
+        return self.name
 
     @addToClass(BinExpr)
     def printTree(self, indent=0):
@@ -39,19 +39,22 @@ class TreePrinter:
 
     @addToClass(Program)
     def printTree(self, indent=0):
-        pass
+        return self.instructions_opt.printTree()
 
     @addToClass(InstructionsOpt)
     def printTree(self, indent=0):
-        pass
+        return self.instructions.printTree()
 
     @addToClass(Instructions)
     def printTree(self, indent=0):
-        pass
+        return self.instruction.printTree()
+        self.instructions.printTree()
 
     @addToClass(Instruction)
     def printTree(self, indent=0):
-        pass
+        return self.instruction.printTree()
+        # if (self.printable != ""):
+        #     self.printable.printTree()
 
     @addToClass(Printable)
     def printTree(self, indent=0):
@@ -71,7 +74,8 @@ class TreePrinter:
 
     @addToClass(Assign)
     def printTree(self, indent=0):
-        pass
+        return self.op + "\n" + "| " * (indent + 1) + self.first.printTree() + "\n| " * (
+                indent + 1) + self.second.printTree()
 
     @addToClass(ArrayPart)
     def printTree(self, indent=0):

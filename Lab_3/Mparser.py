@@ -46,32 +46,32 @@ def p_instructions_1(p):
 
 def p_instructions_2(p):
     """instructions : instruction """
-    p[0] = Instructions(p[1], "")
+    p[0] = Instructions(p[1], None)
 
 
 def p_instruction_1(p):
     """instruction : if_statement"""
-    p[0] = Instruction(p[1], "")
+    p[0] = Instruction(p[1], None)
 
 
 def p_instruction_2(p):
     """instruction : assign ';'"""
-    p[0] = Instruction(p[1], "")
+    p[0] = Instruction(p[1], None)
 
 
 def p_instruction_3(p):
     """instruction : loop"""
-    p[0] = Instruction(p[1], "")
+    p[0] = Instruction(p[1], None)
 
 
 def p_instruction_4(p):
     """instruction : BREAK ';'"""
-    p[0] = Instruction(p[1], "")
+    p[0] = Instruction(p[1], None)
 
 
 def p_instruction_5(p):
     """instruction : CONTINUE ';'"""
-    p[0] = Instruction(p[1], "")
+    p[0] = Instruction(p[1], None)
 
 
 def p_instruction_6(p):
@@ -86,7 +86,7 @@ def p_instruction_7(p):
 
 def p_instruction_8(p):
     """instruction : '{' instructions '}'"""
-    p[0] = Instruction(p[2], "")
+    p[0] = Instruction(p[2], None)
 
 
 def p_printable_1(p):
@@ -96,7 +96,7 @@ def p_printable_1(p):
 
 def p_printable_2(p):
     """printable : EXPRESSION"""
-    p[0] = Printable(p[1], "", "")
+    p[0] = Printable(p[1], None, None)
 
 
 def p_loop_1(p):
@@ -131,7 +131,7 @@ def p_array_range_4(p):
 
 def p_if_statement_1(p):
     """if_statement : IF '(' condition ')' instruction"""
-    p[0] = IfStatement(p[3], p[5], "")
+    p[0] = IfStatement(p[3], p[5], None)
 
 
 def p_if_statement_2(p):
@@ -188,34 +188,40 @@ def p_logical_operator_6(p):
     """logical_operator : NEQ"""
     p[0] = LogicalOperator(p[1])
 
+
 def p_assign_1(p):
     """assign : ID '=' EXPRESSION"""
-    p[0] = Assign(p[2], p[1], p[3])
+    p[0] = Assign(p[2], Variable(p[1]), p[3])
 
 
 def p_assign_2(p):
     """assign : ID ADDASSIGN string_expression"""
-    p[0] = Assign(p[2], p[1], p[3])
+    p[0] = Assign(p[2], Variable(p[1]), p[3])
 
 
 def p_assign_3(p):
     """assign : ID DIVASSIGN operable_expression"""
-    p[0] = Assign(p[2], p[1], p[3])
+    p[0] = Assign(p[2], Variable(p[1]), p[3])
 
 
 def p_assign_4(p):
     """assign : ID MULASSIGN operable_expression"""
-    p[0] = Assign(p[2], p[1], p[3])
+    p[0] = Assign(p[2], Variable(p[1]), p[3])
 
 
 def p_assign_5(p):
     """assign : ID ADDASSIGN operable_expression"""
-    p[0] = Assign(p[2], p[1], p[3])
+    p[0] = Assign(p[2], Variable(p[1]), p[3])
 
 
 def p_assign_6(p):
+    """assign : ID SUBASSIGN operable_expression"""
+    p[0] = Assign(p[2], Variable(p[1]), p[3])
+
+
+def p_assign_7(p):
     """assign : array_part '=' EXPRESSION"""
-    p[0] = Assign(p[2], p[1], p[3])
+    p[0] = Assign(p[2], Variable(p[1]), p[3])
 
 
 def p_introw_1(p):
@@ -269,7 +275,7 @@ def p_expression_5a(p):
 
 
 def p_expression_6(p):
-    """operable_expression :'(' operable_expression ')'"""
+    """operable_expression : '(' operable_expression ')'"""
     p[0] = p[2]
 
 
@@ -304,7 +310,7 @@ def p_m_expression_3(p):
 
 
 def p_m_expression_4(p):
-    """operable_expression : EYE '(' ID ')'' """
+    """operable_expression : EYE '(' ID ')' """
     p[0] = Eye(p[3])
 
 
@@ -375,7 +381,7 @@ def p_rows_1(p):
 
 def p_rows_2(p):
     """rows : row """
-    p[0] = Rows("", p[1])
+    p[0] = Rows(None, p[1])
 
 
 def p_row_1(p):
@@ -385,7 +391,7 @@ def p_row_1(p):
 
 def p_row_2(p):
     """row :  EXPRESSION """
-    p[0] = Row("", p[1])
+    p[0] = Row(None, p[1])
 
 
 parser = yacc.yacc()

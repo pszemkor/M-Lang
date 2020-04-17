@@ -1,6 +1,7 @@
 import sys
-import ply.yacc as yacc
+
 import Lab_3.Mparser
+import Lab_3.TreePrinter
 import Lab_3.scanner
 
 if __name__ == '__main__':
@@ -17,5 +18,5 @@ if __name__ == '__main__':
     parser = Lab_3.Mparser.parser
     text = file.read()
     ast = parser.parse(text, lexer=Lab_3.scanner.lexer)
-    print(type(ast))
-    ast.printTree()
+    res = ast.printTree()
+    print(res)
