@@ -96,12 +96,12 @@ def p_instruction_9(p):
 
 def p_printable_1(p):
     """ printable : printable ',' EXPRESSION"""
-    p[0] = Printable('printable', p[1], p[3])
+    p[0] = Printable(p[1], p[3])
 
 
 def p_printable_2(p):
     """printable : EXPRESSION"""
-    p[0] = Printable(p[1], None, None)
+    p[0] = Printable(None, p[1])
 
 
 def p_loop_1(p):
@@ -116,22 +116,22 @@ def p_loop_2(p):
 
 def p_array_range_1(p):
     """ array_range : ID '=' INTNUM ':' ID"""
-    p[0] = ArrayRange(p[1], p[3], p[5])
+    p[0] = ArrayRange(Variable(p[1]), IntNum(p[3]), Variable(p[5]))
 
 
 def p_array_range_2(p):
     """ array_range : ID '=' ID ':' ID"""
-    p[0] = ArrayRange(p[1], p[3], p[5])
+    p[0] = ArrayRange(Variable(p[1]), Variable(p[3]), Variable(p[5]))
 
 
 def p_array_range_3(p):
     """ array_range : ID '=' ID ':' INTNUM"""
-    p[0] = ArrayRange(p[1], p[3], p[5])
+    p[0] = ArrayRange(Variable(p[1]), Variable(p[3]), IntNum(p[5]))
 
 
 def p_array_range_4(p):
     """ array_range : ID '=' INTNUM ':' INTNUM"""
-    p[0] = ArrayRange(p[1], p[3], p[5])
+    p[0] = ArrayRange(Variable(p[1]), IntNum(p[3]), IntNum(p[5]))
 
 
 def p_if_statement_1(p):

@@ -58,9 +58,8 @@ class InstructionWithArg(Node):
 
 
 class Printable(Node):
-    def __init__(self, printable, sign, expression):
+    def __init__(self, printable, expression):
         self.printable = printable
-        self.sign = sign
         self.expression = expression
 
 
@@ -73,11 +72,8 @@ class Loop(Node):
 
 class ArrayRange(Node):
     def __init__(self, counter, beginning, end):
-        self.array_range = 'array_range'
         self.counter = counter
-        self.beginning_clause = 'from'
         self.beginning = beginning
-        self.end_clause = 'to'
         self.end = end
 
 

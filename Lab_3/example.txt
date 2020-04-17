@@ -1,9 +1,3 @@
-if (3 == B){
-    A = A + 1;
-    if( X < 4){
-        Z -= 4;
-    }
-    if( X < 4){
-        Z -= 4;
-    }
-}
+for i = 1:N
+  for j = i:M
+    print i, j;
