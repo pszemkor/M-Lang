@@ -1,6 +1,7 @@
 import sys
 
 import Lab_3.Mparser
+import Lab_3.TreePrinter
 import Lab_3.scanner
 
 if __name__ == '__main__':
@@ -11,7 +12,6 @@ if __name__ == '__main__':
     except IOError:
         print("Cannot open {0} file".format(filename))
         sys.exit(0)
-
 
     parser = Lab_3.Mparser.parser
     text = file.read()

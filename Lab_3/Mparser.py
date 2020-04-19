@@ -106,32 +106,32 @@ def p_printable_2(p):
 
 def p_loop_1(p):
     """loop : WHILE '(' condition ')' instruction"""
-    p[0] = Loop('while_loop', p[3], p[5])
+    p[0] = Loop('WHILE', p[3], p[5])
 
 
 def p_loop_2(p):
     """loop : FOR array_range instruction"""
-    p[0] = Loop('for_loop', p[2], p[3])
+    p[0] = Loop('FOR', p[2], p[3])
 
 
 def p_array_range_1(p):
-    """ array_range : ID '=' INTNUM ':' ID"""
-    p[0] = ArrayRange(Variable(p[1]), IntNum(p[3]), Variable(p[5]))
+    """ array_range : id '=' int ':' id"""
+    p[0] = ArrayRange(p[1], p[3], p[5])
 
 
 def p_array_range_2(p):
-    """ array_range : ID '=' ID ':' ID"""
-    p[0] = ArrayRange(Variable(p[1]), Variable(p[3]), Variable(p[5]))
+    """ array_range : id '=' id ':' id"""
+    p[0] = ArrayRange(p[1], p[3], p[5])
 
 
 def p_array_range_3(p):
-    """ array_range : ID '=' ID ':' INTNUM"""
-    p[0] = ArrayRange(Variable(p[1]), Variable(p[3]), IntNum(p[5]))
+    """ array_range : id '=' id ':' int"""
+    p[0] = ArrayRange(p[1], p[3], p[5])
 
 
 def p_array_range_4(p):
-    """ array_range : ID '=' INTNUM ':' INTNUM"""
-    p[0] = ArrayRange(Variable(p[1]), IntNum(p[3]), IntNum(p[5]))
+    """ array_range : id '=' int ':' int"""
+    p[0] = ArrayRange(p[1], p[3], p[5])
 
 
 def p_if_statement_1(p):
@@ -195,48 +195,48 @@ def p_logical_operator_6(p):
 
 
 def p_assign_1(p):
-    """assign : ID '=' EXPRESSION"""
-    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
+    """assign : id '=' EXPRESSION"""
+    p[0] = BinExpr(p[2], p[1], p[3])
 
 
 def p_assign_2(p):
-    """assign : ID ADDASSIGN string_expression"""
-    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
+    """assign : id ADDASSIGN string_expression"""
+    p[0] = BinExpr(p[2], p[1], p[3])
 
 
 def p_assign_3(p):
-    """assign : ID DIVASSIGN operable_expression"""
-    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
+    """assign : id DIVASSIGN operable_expression"""
+    p[0] = BinExpr(p[2], p[1], p[3])
 
 
 def p_assign_4(p):
-    """assign : ID MULASSIGN operable_expression"""
-    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
+    """assign : id MULASSIGN operable_expression"""
+    p[0] = BinExpr(p[2], p[1], p[3])
 
 
 def p_assign_5(p):
-    """assign : ID ADDASSIGN operable_expression"""
-    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
+    """assign : id ADDASSIGN operable_expression"""
+    p[0] = BinExpr(p[2], p[1], p[3])
 
 
 def p_assign_6(p):
-    """assign : ID SUBASSIGN operable_expression"""
-    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
+    """assign : id SUBASSIGN operable_expression"""
+    p[0] = BinExpr(p[2], p[1], p[3])
 
 
 def p_assign_7(p):
     """assign : array_part '=' EXPRESSION"""
-    p[0] = BinExpr(p[2], Variable(p[1]), p[3])
+    p[0] = BinExpr(p[2], p[1], p[3])
 
 
 def p_introw_1(p):
-    """introw : introw ',' INTNUM"""
+    """introw : introw ',' int"""
     p[0] = Introw(p[1], p[3])
 
 
 def p_introw_2(p):
-    """introw : INTNUM"""
-    p[0] = IntNum(p[1])
+    """introw : int"""
+    p[0] = p[1]
 
 
 def p_expression_1(p):
@@ -250,13 +250,8 @@ def p_expression_2(p):
 
 
 def p_string_expression(p):
-    """string_expression :  string_expression '+' string_expression """
+    """string_expression :  str '+' str """
     p[0] = BinExpr(p[2], p[1], p[3])
-
-
-def p_string_expression_1(p):
-    """string_expression : STRING"""
-    p[0] = String(p[1])
 
 
 def p_expression_3(p):
@@ -269,13 +264,8 @@ def p_expression_4(p):
     p[0] = BinExpr(p[2], p[1], p[3])
 
 
-def p_expression_5(p):
-    """operable_expression : array_part"""
-    p[0] = p[1]
-
-
 def p_expression_5a(p):
-    """array_part : ID '[' introw ']'"""
+    """array_part : id '[' introw ']'"""
     p[0] = ArrayPart(p[1], p[3])
 
 
@@ -300,32 +290,32 @@ def p_expression_9(p):
 
 
 def p_m_expression_1(p):
-    """operable_expression : EYE '(' INTNUM ')' """
+    """operable_expression : EYE '(' int ')' """
     p[0] = Eye(p[3])
 
 
 def p_m_expression_2(p):
-    """operable_expression : ZEROS '(' INTNUM ')' """
+    """operable_expression : ZEROS '(' int ')' """
     p[0] = Zeros(p[3])
 
 
 def p_m_expression_3(p):
-    """operable_expression : ONES '(' INTNUM ')' """
+    """operable_expression : ONES '(' int ')' """
     p[0] = Ones(p[3])
 
 
 def p_m_expression_4(p):
-    """operable_expression : EYE '(' ID ')' """
+    """operable_expression : EYE '(' id ')' """
     p[0] = Eye(p[3])
 
 
 def p_m_expression_5(p):
-    """operable_expression : ZEROS '(' ID ')' """
+    """operable_expression : ZEROS '(' id ')' """
     p[0] = Zeros(p[3])
 
 
 def p_m_expression_6(p):
-    """operable_expression : ONES '(' ID ')' """
+    """operable_expression : ONES '(' id ')' """
     p[0] = Ones(p[3])
 
 
@@ -356,22 +346,32 @@ def p_m_expression_11(p):
 
 def p_create_matrix_1(p):
     """operable_expression : matrix """
-    p[0] = Matrix(p[1])
+    p[0] = p[1]
+
+
+def p_create_matrix_1a(p):
+    """operable_expression : vector """
+    p[0] = p[1]
+
+
+def p_create_vector(p):
+    """vector : '[' row ']'"""
+    p[0] = Vector(p[2])
 
 
 def p_create_matrix_2(p):
-    """operable_expression : FLOAT"""
-    p[0] = FloatNum(p[1])
+    """operable_expression : f"""
+    p[0] = p[1]
 
 
 def p_create_matrix_3(p):
-    """operable_expression : INTNUM"""
-    p[0] = IntNum(p[1])
+    """operable_expression : int"""
+    p[0] = p[1]
 
 
 def p_create_matrix(p):
-    """operable_expression : ID """
-    p[0] = Variable(p[1])
+    """operable_expression : id """
+    p[0] = p[1]
 
 
 def p_matrix(p):
@@ -397,6 +397,26 @@ def p_row_1(p):
 def p_row_2(p):
     """row :  EXPRESSION """
     p[0] = Row(None, p[1])
+
+
+def p_id_prod(p):
+    """id : ID """
+    p[0] = Variable(p[1])
+
+
+def p_num_prod(p):
+    """int : INTNUM """
+    p[0] = IntNum(p[1])
+
+
+def p_float_prod(p):
+    """f : FLOAT """
+    p[0] = FloatNum(p[1])
+
+
+def p_str_prod(p):
+    """str : STRING """
+    p[0] = String(p[1])
 
 
 parser = yacc.yacc()

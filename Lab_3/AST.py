@@ -112,6 +112,11 @@ class Matrix(Node):
         self.rows = rows
 
 
+class Vector(Node):
+    def __init__(self, row):
+        self.row = row
+
+
 class UnaryExpression(Node):
     def __init__(self, op, arg):
         self.op = op
