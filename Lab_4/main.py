@@ -3,9 +3,9 @@ import sys, os
 sys.path.append(os.path.abspath('../'))
 sys.path.append(os.path.abspath('..'))
 
-import Lab_3.Mparser
-import Lab_3.TreePrinter
-import Lab_3.scanner
+import Lab_4.Mparser
+import Lab_4.TreePrinter
+import Lab_4.scanner
 
 if __name__ == '__main__':
 
@@ -16,8 +16,8 @@ if __name__ == '__main__':
         print("Cannot open {0} file".format(filename))
         sys.exit(0)
 
-    parser = Lab_3.Mparser.parser
+    parser = Lab_4.Mparser.parser
     text = file.read()
-    ast = parser.parse(text, lexer=Lab_3.scanner.lexer)
+    ast = parser.parse(text, lexer=Lab_4.scanner.lexer)
     res = ast.printTree()
     print(res)

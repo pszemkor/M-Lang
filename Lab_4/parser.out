@@ -1,0 +1,4007 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    THEN
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> instructions_opt
+Rule 2     instructions_opt -> instructions
+Rule 3     instructions_opt -> <empty>
+Rule 4     instructions -> instruction instructions
+Rule 5     instructions -> instruction
+Rule 6     instruction -> if_statement
+Rule 7     instruction -> assign ;
+Rule 8     instruction -> loop
+Rule 9     instruction -> BREAK ;
+Rule 10    instruction -> CONTINUE ;
+Rule 11    instruction -> instruction_with_argument ;
+Rule 12    instruction_with_argument -> PRINT printable
+Rule 13    instruction_with_argument -> RETURN EXPRESSION
+Rule 14    instruction -> { instructions }
+Rule 15    printable -> printable , EXPRESSION
+Rule 16    printable -> EXPRESSION
+Rule 17    loop -> WHILE ( condition ) instruction
+Rule 18    loop -> FOR array_range instruction
+Rule 19    array_range -> id = int : id
+Rule 20    array_range -> id = id : id
+Rule 21    array_range -> id = id : int
+Rule 22    array_range -> id = int : int
+Rule 23    if_statement -> IF ( condition ) instruction
+Rule 24    if_statement -> IF ( condition ) instruction else_statement
+Rule 25    else_statement -> ELSE instruction
+Rule 26    condition -> EXPRESSION logical_operator EXPRESSION
+Rule 27    condition -> condition OR condition
+Rule 28    condition -> condition AND condition
+Rule 29    logical_operator -> EQ
+Rule 30    logical_operator -> <
+Rule 31    logical_operator -> >
+Rule 32    logical_operator -> GE
+Rule 33    logical_operator -> LE
+Rule 34    logical_operator -> NEQ
+Rule 35    assign -> id = EXPRESSION
+Rule 36    assign -> id ADDASSIGN string_expression
+Rule 37    assign -> id DIVASSIGN operable_expression
+Rule 38    assign -> id MULASSIGN operable_expression
+Rule 39    assign -> id ADDASSIGN operable_expression
+Rule 40    assign -> id SUBASSIGN operable_expression
+Rule 41    assign -> array_part = EXPRESSION
+Rule 42    introw -> introw , int
+Rule 43    introw -> int
+Rule 44    EXPRESSION -> operable_expression
+Rule 45    EXPRESSION -> string_expression
+Rule 46    string_expression -> str + str
+Rule 47    operable_expression -> operable_expression * operable_expression
+Rule 48    operable_expression -> operable_expression / operable_expression
+Rule 49    array_part -> id [ introw ]
+Rule 50    operable_expression -> ( operable_expression )
+Rule 51    operable_expression -> - operable_expression
+Rule 52    operable_expression -> operable_expression + operable_expression
+Rule 53    operable_expression -> operable_expression - operable_expression
+Rule 54    operable_expression -> EYE ( int )
+Rule 55    operable_expression -> ZEROS ( int )
+Rule 56    operable_expression -> ONES ( int )
+Rule 57    operable_expression -> EYE ( id )
+Rule 58    operable_expression -> ZEROS ( id )
+Rule 59    operable_expression -> ONES ( id )
+Rule 60    operable_expression -> operable_expression DOTADD operable_expression
+Rule 61    operable_expression -> operable_expression DOTSUB operable_expression
+Rule 62    operable_expression -> operable_expression DOTMUL operable_expression
+Rule 63    operable_expression -> operable_expression DOTDIV operable_expression
+Rule 64    operable_expression -> operable_expression TRANSPOSE
+Rule 65    operable_expression -> matrix
+Rule 66    operable_expression -> vector
+Rule 67    vector -> [ row ]
+Rule 68    operable_expression -> f
+Rule 69    operable_expression -> int
+Rule 70    operable_expression -> id
+Rule 71    matrix -> [ rows ]
+Rule 72    rows -> rows ; row
+Rule 73    rows -> row
+Rule 74    row -> row , EXPRESSION
+Rule 75    row -> EXPRESSION
+Rule 76    id -> ID
+Rule 77    int -> INTNUM
+Rule 78    f -> FLOAT
+Rule 79    str -> STRING
+
+Terminals, with rules where they appear
+
+(                    : 17 23 24 50 54 55 56 57 58 59
+)                    : 17 23 24 50 54 55 56 57 58 59
+*                    : 47
++                    : 46 52
+,                    : 15 42 74
+-                    : 51 53
+/                    : 48
+:                    : 19 20 21 22
+;                    : 7 9 10 11 72
+<                    : 30
+=                    : 19 20 21 22 35 41
+>                    : 31
+ADDASSIGN            : 36 39
+AND                  : 28
+BREAK                : 9
+CONTINUE             : 10
+DIVASSIGN            : 37
+DOTADD               : 60
+DOTDIV               : 63
+DOTMUL               : 62
+DOTSUB               : 61
+ELSE                 : 25
+EQ                   : 29
+EYE                  : 54 57
+FLOAT                : 78
+FOR                  : 18
+GE                   : 32
+ID                   : 76
+IF                   : 23 24
+INTNUM               : 77
+LE                   : 33
+MULASSIGN            : 38
+NEQ                  : 34
+ONES                 : 56 59
+OR                   : 27
+PRINT                : 12
+RETURN               : 13
+STRING               : 79
+SUBASSIGN            : 40
+THEN                 : 
+TRANSPOSE            : 64
+WHILE                : 17
+ZEROS                : 55 58
+[                    : 49 67 71
+]                    : 49 67 71
+error                : 
+{                    : 14
+}                    : 14
+
+Nonterminals, with rules where they appear
+
+EXPRESSION           : 13 15 16 26 26 35 41 74 75
+array_part           : 41
+array_range          : 18
+assign               : 7
+condition            : 17 23 24 27 27 28 28
+else_statement       : 24
+f                    : 68
+id                   : 19 19 20 20 20 21 21 22 35 36 37 38 39 40 49 57 58 59 70
+if_statement         : 6
+instruction          : 4 5 17 18 23 24 25
+instruction_with_argument : 11
+instructions         : 2 4 14
+instructions_opt     : 1
+int                  : 19 21 22 22 42 43 54 55 56 69
+introw               : 42 49
+logical_operator     : 26
+loop                 : 8
+matrix               : 65
+operable_expression  : 37 38 39 40 44 47 47 48 48 50 51 52 52 53 53 60 60 61 61 62 62 63 63 64
+printable            : 12 15
+program              : 0
+row                  : 67 72 73 74
+rows                 : 71 72
+str                  : 46 46
+string_expression    : 36 45
+vector               : 66
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . instructions_opt
+    (2) instructions_opt -> . instructions
+    (3) instructions_opt -> .
+    (4) instructions -> . instruction instructions
+    (5) instructions -> . instruction
+    (6) instruction -> . if_statement
+    (7) instruction -> . assign ;
+    (8) instruction -> . loop
+    (9) instruction -> . BREAK ;
+    (10) instruction -> . CONTINUE ;
+    (11) instruction -> . instruction_with_argument ;
+    (14) instruction -> . { instructions }
+    (23) if_statement -> . IF ( condition ) instruction
+    (24) if_statement -> . IF ( condition ) instruction else_statement
+    (35) assign -> . id = EXPRESSION
+    (36) assign -> . id ADDASSIGN string_expression
+    (37) assign -> . id DIVASSIGN operable_expression
+    (38) assign -> . id MULASSIGN operable_expression
+    (39) assign -> . id ADDASSIGN operable_expression
+    (40) assign -> . id SUBASSIGN operable_expression
+    (41) assign -> . array_part = EXPRESSION
+    (17) loop -> . WHILE ( condition ) instruction
+    (18) loop -> . FOR array_range instruction
+    (12) instruction_with_argument -> . PRINT printable
+    (13) instruction_with_argument -> . RETURN EXPRESSION
+    (76) id -> . ID
+    (49) array_part -> . id [ introw ]
+
+    $end            reduce using rule 3 (instructions_opt -> .)
+    BREAK           shift and go to state 8
+    CONTINUE        shift and go to state 9
+    {               shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+    PRINT           shift and go to state 17
+    RETURN          shift and go to state 18
+    ID              shift and go to state 19
+
+    program                        shift and go to state 1
+    instructions_opt               shift and go to state 2
+    instructions                   shift and go to state 3
+    instruction                    shift and go to state 4
+    if_statement                   shift and go to state 5
+    assign                         shift and go to state 6
+    loop                           shift and go to state 7
+    instruction_with_argument      shift and go to state 10
+    id                             shift and go to state 13
+    array_part                     shift and go to state 14
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> instructions_opt .
+
+    $end            reduce using rule 1 (program -> instructions_opt .)
+
+
+state 3
+
+    (2) instructions_opt -> instructions .
+
+    $end            reduce using rule 2 (instructions_opt -> instructions .)
+
+
+state 4
+
+    (4) instructions -> instruction . instructions
+    (5) instructions -> instruction .
+    (4) instructions -> . instruction instructions
+    (5) instructions -> . instruction
+    (6) instruction -> . if_statement
+    (7) instruction -> . assign ;
+    (8) instruction -> . loop
+    (9) instruction -> . BREAK ;
+    (10) instruction -> . CONTINUE ;
+    (11) instruction -> . instruction_with_argument ;
+    (14) instruction -> . { instructions }
+    (23) if_statement -> . IF ( condition ) instruction
+    (24) if_statement -> . IF ( condition ) instruction else_statement
+    (35) assign -> . id = EXPRESSION
+    (36) assign -> . id ADDASSIGN string_expression
+    (37) assign -> . id DIVASSIGN operable_expression
+    (38) assign -> . id MULASSIGN operable_expression
+    (39) assign -> . id ADDASSIGN operable_expression
+    (40) assign -> . id SUBASSIGN operable_expression
+    (41) assign -> . array_part = EXPRESSION
+    (17) loop -> . WHILE ( condition ) instruction
+    (18) loop -> . FOR array_range instruction
+    (12) instruction_with_argument -> . PRINT printable
+    (13) instruction_with_argument -> . RETURN EXPRESSION
+    (76) id -> . ID
+    (49) array_part -> . id [ introw ]
+
+    $end            reduce using rule 5 (instructions -> instruction .)
+    }               reduce using rule 5 (instructions -> instruction .)
+    BREAK           shift and go to state 8
+    CONTINUE        shift and go to state 9
+    {               shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+    PRINT           shift and go to state 17
+    RETURN          shift and go to state 18
+    ID              shift and go to state 19
+
+    instruction                    shift and go to state 4
+    instructions                   shift and go to state 20
+    if_statement                   shift and go to state 5
+    assign                         shift and go to state 6
+    loop                           shift and go to state 7
+    instruction_with_argument      shift and go to state 10
+    id                             shift and go to state 13
+    array_part                     shift and go to state 14
+
+state 5
+
+    (6) instruction -> if_statement .
+
+    BREAK           reduce using rule 6 (instruction -> if_statement .)
+    CONTINUE        reduce using rule 6 (instruction -> if_statement .)
+    {               reduce using rule 6 (instruction -> if_statement .)
+    IF              reduce using rule 6 (instruction -> if_statement .)
+    WHILE           reduce using rule 6 (instruction -> if_statement .)
+    FOR             reduce using rule 6 (instruction -> if_statement .)
+    PRINT           reduce using rule 6 (instruction -> if_statement .)
+    RETURN          reduce using rule 6 (instruction -> if_statement .)
+    ID              reduce using rule 6 (instruction -> if_statement .)
+    $end            reduce using rule 6 (instruction -> if_statement .)
+    }               reduce using rule 6 (instruction -> if_statement .)
+    ELSE            reduce using rule 6 (instruction -> if_statement .)
+
+
+state 6
+
+    (7) instruction -> assign . ;
+
+    ;               shift and go to state 21
+
+
+state 7
+
+    (8) instruction -> loop .
+
+    BREAK           reduce using rule 8 (instruction -> loop .)
+    CONTINUE        reduce using rule 8 (instruction -> loop .)
+    {               reduce using rule 8 (instruction -> loop .)
+    IF              reduce using rule 8 (instruction -> loop .)
+    WHILE           reduce using rule 8 (instruction -> loop .)
+    FOR             reduce using rule 8 (instruction -> loop .)
+    PRINT           reduce using rule 8 (instruction -> loop .)
+    RETURN          reduce using rule 8 (instruction -> loop .)
+    ID              reduce using rule 8 (instruction -> loop .)
+    $end            reduce using rule 8 (instruction -> loop .)
+    }               reduce using rule 8 (instruction -> loop .)
+    ELSE            reduce using rule 8 (instruction -> loop .)
+
+
+state 8
+
+    (9) instruction -> BREAK . ;
+
+    ;               shift and go to state 22
+
+
+state 9
+
+    (10) instruction -> CONTINUE . ;
+
+    ;               shift and go to state 23
+
+
+state 10
+
+    (11) instruction -> instruction_with_argument . ;
+
+    ;               shift and go to state 24
+
+
+state 11
+
+    (14) instruction -> { . instructions }
+    (4) instructions -> . instruction instructions
+    (5) instructions -> . instruction
+    (6) instruction -> . if_statement
+    (7) instruction -> . assign ;
+    (8) instruction -> . loop
+    (9) instruction -> . BREAK ;
+    (10) instruction -> . CONTINUE ;
+    (11) instruction -> . instruction_with_argument ;
+    (14) instruction -> . { instructions }
+    (23) if_statement -> . IF ( condition ) instruction
+    (24) if_statement -> . IF ( condition ) instruction else_statement
+    (35) assign -> . id = EXPRESSION
+    (36) assign -> . id ADDASSIGN string_expression
+    (37) assign -> . id DIVASSIGN operable_expression
+    (38) assign -> . id MULASSIGN operable_expression
+    (39) assign -> . id ADDASSIGN operable_expression
+    (40) assign -> . id SUBASSIGN operable_expression
+    (41) assign -> . array_part = EXPRESSION
+    (17) loop -> . WHILE ( condition ) instruction
+    (18) loop -> . FOR array_range instruction
+    (12) instruction_with_argument -> . PRINT printable
+    (13) instruction_with_argument -> . RETURN EXPRESSION
+    (76) id -> . ID
+    (49) array_part -> . id [ introw ]
+
+    BREAK           shift and go to state 8
+    CONTINUE        shift and go to state 9
+    {               shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+    PRINT           shift and go to state 17
+    RETURN          shift and go to state 18
+    ID              shift and go to state 19
+
+    instructions                   shift and go to state 25
+    instruction                    shift and go to state 4
+    if_statement                   shift and go to state 5
+    assign                         shift and go to state 6
+    loop                           shift and go to state 7
+    instruction_with_argument      shift and go to state 10
+    id                             shift and go to state 13
+    array_part                     shift and go to state 14
+
+state 12
+
+    (23) if_statement -> IF . ( condition ) instruction
+    (24) if_statement -> IF . ( condition ) instruction else_statement
+
+    (               shift and go to state 26
+
+
+state 13
+
+    (35) assign -> id . = EXPRESSION
+    (36) assign -> id . ADDASSIGN string_expression
+    (37) assign -> id . DIVASSIGN operable_expression
+    (38) assign -> id . MULASSIGN operable_expression
+    (39) assign -> id . ADDASSIGN operable_expression
+    (40) assign -> id . SUBASSIGN operable_expression
+    (49) array_part -> id . [ introw ]
+
+    =               shift and go to state 27
+    ADDASSIGN       shift and go to state 28
+    DIVASSIGN       shift and go to state 29
+    MULASSIGN       shift and go to state 30
+    SUBASSIGN       shift and go to state 31
+    [               shift and go to state 32
+
+
+state 14
+
+    (41) assign -> array_part . = EXPRESSION
+
+    =               shift and go to state 33
+
+
+state 15
+
+    (17) loop -> WHILE . ( condition ) instruction
+
+    (               shift and go to state 34
+
+
+state 16
+
+    (18) loop -> FOR . array_range instruction
+    (19) array_range -> . id = int : id
+    (20) array_range -> . id = id : id
+    (21) array_range -> . id = id : int
+    (22) array_range -> . id = int : int
+    (76) id -> . ID
+
+    ID              shift and go to state 19
+
+    array_range                    shift and go to state 35
+    id                             shift and go to state 36
+
+state 17
+
+    (12) instruction_with_argument -> PRINT . printable
+    (15) printable -> . printable , EXPRESSION
+    (16) printable -> . EXPRESSION
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    printable                      shift and go to state 37
+    EXPRESSION                     shift and go to state 38
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 18
+
+    (13) instruction_with_argument -> RETURN . EXPRESSION
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    EXPRESSION                     shift and go to state 56
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 19
+
+    (76) id -> ID .
+
+    =               reduce using rule 76 (id -> ID .)
+    ADDASSIGN       reduce using rule 76 (id -> ID .)
+    DIVASSIGN       reduce using rule 76 (id -> ID .)
+    MULASSIGN       reduce using rule 76 (id -> ID .)
+    SUBASSIGN       reduce using rule 76 (id -> ID .)
+    [               reduce using rule 76 (id -> ID .)
+    *               reduce using rule 76 (id -> ID .)
+    /               reduce using rule 76 (id -> ID .)
+    +               reduce using rule 76 (id -> ID .)
+    -               reduce using rule 76 (id -> ID .)
+    DOTADD          reduce using rule 76 (id -> ID .)
+    DOTSUB          reduce using rule 76 (id -> ID .)
+    DOTMUL          reduce using rule 76 (id -> ID .)
+    DOTDIV          reduce using rule 76 (id -> ID .)
+    TRANSPOSE       reduce using rule 76 (id -> ID .)
+    ,               reduce using rule 76 (id -> ID .)
+    ;               reduce using rule 76 (id -> ID .)
+    EQ              reduce using rule 76 (id -> ID .)
+    <               reduce using rule 76 (id -> ID .)
+    >               reduce using rule 76 (id -> ID .)
+    GE              reduce using rule 76 (id -> ID .)
+    LE              reduce using rule 76 (id -> ID .)
+    NEQ             reduce using rule 76 (id -> ID .)
+    )               reduce using rule 76 (id -> ID .)
+    ]               reduce using rule 76 (id -> ID .)
+    OR              reduce using rule 76 (id -> ID .)
+    AND             reduce using rule 76 (id -> ID .)
+    :               reduce using rule 76 (id -> ID .)
+    BREAK           reduce using rule 76 (id -> ID .)
+    CONTINUE        reduce using rule 76 (id -> ID .)
+    {               reduce using rule 76 (id -> ID .)
+    IF              reduce using rule 76 (id -> ID .)
+    WHILE           reduce using rule 76 (id -> ID .)
+    FOR             reduce using rule 76 (id -> ID .)
+    PRINT           reduce using rule 76 (id -> ID .)
+    RETURN          reduce using rule 76 (id -> ID .)
+    ID              reduce using rule 76 (id -> ID .)
+
+
+state 20
+
+    (4) instructions -> instruction instructions .
+
+    $end            reduce using rule 4 (instructions -> instruction instructions .)
+    }               reduce using rule 4 (instructions -> instruction instructions .)
+
+
+state 21
+
+    (7) instruction -> assign ; .
+
+    BREAK           reduce using rule 7 (instruction -> assign ; .)
+    CONTINUE        reduce using rule 7 (instruction -> assign ; .)
+    {               reduce using rule 7 (instruction -> assign ; .)
+    IF              reduce using rule 7 (instruction -> assign ; .)
+    WHILE           reduce using rule 7 (instruction -> assign ; .)
+    FOR             reduce using rule 7 (instruction -> assign ; .)
+    PRINT           reduce using rule 7 (instruction -> assign ; .)
+    RETURN          reduce using rule 7 (instruction -> assign ; .)
+    ID              reduce using rule 7 (instruction -> assign ; .)
+    $end            reduce using rule 7 (instruction -> assign ; .)
+    }               reduce using rule 7 (instruction -> assign ; .)
+    ELSE            reduce using rule 7 (instruction -> assign ; .)
+
+
+state 22
+
+    (9) instruction -> BREAK ; .
+
+    BREAK           reduce using rule 9 (instruction -> BREAK ; .)
+    CONTINUE        reduce using rule 9 (instruction -> BREAK ; .)
+    {               reduce using rule 9 (instruction -> BREAK ; .)
+    IF              reduce using rule 9 (instruction -> BREAK ; .)
+    WHILE           reduce using rule 9 (instruction -> BREAK ; .)
+    FOR             reduce using rule 9 (instruction -> BREAK ; .)
+    PRINT           reduce using rule 9 (instruction -> BREAK ; .)
+    RETURN          reduce using rule 9 (instruction -> BREAK ; .)
+    ID              reduce using rule 9 (instruction -> BREAK ; .)
+    $end            reduce using rule 9 (instruction -> BREAK ; .)
+    }               reduce using rule 9 (instruction -> BREAK ; .)
+    ELSE            reduce using rule 9 (instruction -> BREAK ; .)
+
+
+state 23
+
+    (10) instruction -> CONTINUE ; .
+
+    BREAK           reduce using rule 10 (instruction -> CONTINUE ; .)
+    CONTINUE        reduce using rule 10 (instruction -> CONTINUE ; .)
+    {               reduce using rule 10 (instruction -> CONTINUE ; .)
+    IF              reduce using rule 10 (instruction -> CONTINUE ; .)
+    WHILE           reduce using rule 10 (instruction -> CONTINUE ; .)
+    FOR             reduce using rule 10 (instruction -> CONTINUE ; .)
+    PRINT           reduce using rule 10 (instruction -> CONTINUE ; .)
+    RETURN          reduce using rule 10 (instruction -> CONTINUE ; .)
+    ID              reduce using rule 10 (instruction -> CONTINUE ; .)
+    $end            reduce using rule 10 (instruction -> CONTINUE ; .)
+    }               reduce using rule 10 (instruction -> CONTINUE ; .)
+    ELSE            reduce using rule 10 (instruction -> CONTINUE ; .)
+
+
+state 24
+
+    (11) instruction -> instruction_with_argument ; .
+
+    BREAK           reduce using rule 11 (instruction -> instruction_with_argument ; .)
+    CONTINUE        reduce using rule 11 (instruction -> instruction_with_argument ; .)
+    {               reduce using rule 11 (instruction -> instruction_with_argument ; .)
+    IF              reduce using rule 11 (instruction -> instruction_with_argument ; .)
+    WHILE           reduce using rule 11 (instruction -> instruction_with_argument ; .)
+    FOR             reduce using rule 11 (instruction -> instruction_with_argument ; .)
+    PRINT           reduce using rule 11 (instruction -> instruction_with_argument ; .)
+    RETURN          reduce using rule 11 (instruction -> instruction_with_argument ; .)
+    ID              reduce using rule 11 (instruction -> instruction_with_argument ; .)
+    $end            reduce using rule 11 (instruction -> instruction_with_argument ; .)
+    }               reduce using rule 11 (instruction -> instruction_with_argument ; .)
+    ELSE            reduce using rule 11 (instruction -> instruction_with_argument ; .)
+
+
+state 25
+
+    (14) instruction -> { instructions . }
+
+    }               shift and go to state 57
+
+
+state 26
+
+    (23) if_statement -> IF ( . condition ) instruction
+    (24) if_statement -> IF ( . condition ) instruction else_statement
+    (26) condition -> . EXPRESSION logical_operator EXPRESSION
+    (27) condition -> . condition OR condition
+    (28) condition -> . condition AND condition
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    condition                      shift and go to state 58
+    EXPRESSION                     shift and go to state 59
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 27
+
+    (35) assign -> id = . EXPRESSION
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    id                             shift and go to state 47
+    EXPRESSION                     shift and go to state 60
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 28
+
+    (36) assign -> id ADDASSIGN . string_expression
+    (39) assign -> id ADDASSIGN . operable_expression
+    (46) string_expression -> . str + str
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (79) str -> . STRING
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    STRING          shift and go to state 55
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    id                             shift and go to state 47
+    string_expression              shift and go to state 61
+    operable_expression            shift and go to state 62
+    str                            shift and go to state 51
+    int                            shift and go to state 44
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 29
+
+    (37) assign -> id DIVASSIGN . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    id                             shift and go to state 47
+    operable_expression            shift and go to state 63
+    int                            shift and go to state 44
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 30
+
+    (38) assign -> id MULASSIGN . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    id                             shift and go to state 47
+    operable_expression            shift and go to state 64
+    int                            shift and go to state 44
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 31
+
+    (40) assign -> id SUBASSIGN . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    id                             shift and go to state 47
+    operable_expression            shift and go to state 65
+    int                            shift and go to state 44
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 32
+
+    (49) array_part -> id [ . introw ]
+    (42) introw -> . introw , int
+    (43) introw -> . int
+    (77) int -> . INTNUM
+
+    INTNUM          shift and go to state 54
+
+    introw                         shift and go to state 66
+    int                            shift and go to state 67
+
+state 33
+
+    (41) assign -> array_part = . EXPRESSION
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    EXPRESSION                     shift and go to state 68
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 34
+
+    (17) loop -> WHILE ( . condition ) instruction
+    (26) condition -> . EXPRESSION logical_operator EXPRESSION
+    (27) condition -> . condition OR condition
+    (28) condition -> . condition AND condition
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    condition                      shift and go to state 69
+    EXPRESSION                     shift and go to state 59
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 35
+
+    (18) loop -> FOR array_range . instruction
+    (6) instruction -> . if_statement
+    (7) instruction -> . assign ;
+    (8) instruction -> . loop
+    (9) instruction -> . BREAK ;
+    (10) instruction -> . CONTINUE ;
+    (11) instruction -> . instruction_with_argument ;
+    (14) instruction -> . { instructions }
+    (23) if_statement -> . IF ( condition ) instruction
+    (24) if_statement -> . IF ( condition ) instruction else_statement
+    (35) assign -> . id = EXPRESSION
+    (36) assign -> . id ADDASSIGN string_expression
+    (37) assign -> . id DIVASSIGN operable_expression
+    (38) assign -> . id MULASSIGN operable_expression
+    (39) assign -> . id ADDASSIGN operable_expression
+    (40) assign -> . id SUBASSIGN operable_expression
+    (41) assign -> . array_part = EXPRESSION
+    (17) loop -> . WHILE ( condition ) instruction
+    (18) loop -> . FOR array_range instruction
+    (12) instruction_with_argument -> . PRINT printable
+    (13) instruction_with_argument -> . RETURN EXPRESSION
+    (76) id -> . ID
+    (49) array_part -> . id [ introw ]
+
+    BREAK           shift and go to state 8
+    CONTINUE        shift and go to state 9
+    {               shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+    PRINT           shift and go to state 17
+    RETURN          shift and go to state 18
+    ID              shift and go to state 19
+
+    instruction                    shift and go to state 70
+    if_statement                   shift and go to state 5
+    assign                         shift and go to state 6
+    loop                           shift and go to state 7
+    instruction_with_argument      shift and go to state 10
+    id                             shift and go to state 13
+    array_part                     shift and go to state 14
+
+state 36
+
+    (19) array_range -> id . = int : id
+    (20) array_range -> id . = id : id
+    (21) array_range -> id . = id : int
+    (22) array_range -> id . = int : int
+
+    =               shift and go to state 71
+
+
+state 37
+
+    (12) instruction_with_argument -> PRINT printable .
+    (15) printable -> printable . , EXPRESSION
+
+    ;               reduce using rule 12 (instruction_with_argument -> PRINT printable .)
+    ,               shift and go to state 72
+
+
+state 38
+
+    (16) printable -> EXPRESSION .
+
+    ,               reduce using rule 16 (printable -> EXPRESSION .)
+    ;               reduce using rule 16 (printable -> EXPRESSION .)
+
+
+state 39
+
+    (44) EXPRESSION -> operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    ,               reduce using rule 44 (EXPRESSION -> operable_expression .)
+    ;               reduce using rule 44 (EXPRESSION -> operable_expression .)
+    EQ              reduce using rule 44 (EXPRESSION -> operable_expression .)
+    <               reduce using rule 44 (EXPRESSION -> operable_expression .)
+    >               reduce using rule 44 (EXPRESSION -> operable_expression .)
+    GE              reduce using rule 44 (EXPRESSION -> operable_expression .)
+    LE              reduce using rule 44 (EXPRESSION -> operable_expression .)
+    NEQ             reduce using rule 44 (EXPRESSION -> operable_expression .)
+    ]               reduce using rule 44 (EXPRESSION -> operable_expression .)
+    )               reduce using rule 44 (EXPRESSION -> operable_expression .)
+    OR              reduce using rule 44 (EXPRESSION -> operable_expression .)
+    AND             reduce using rule 44 (EXPRESSION -> operable_expression .)
+    *               shift and go to state 73
+    /               shift and go to state 74
+    +               shift and go to state 75
+    -               shift and go to state 76
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    DOTMUL          shift and go to state 79
+    DOTDIV          shift and go to state 80
+    TRANSPOSE       shift and go to state 81
+
+
+state 40
+
+    (45) EXPRESSION -> string_expression .
+
+    ,               reduce using rule 45 (EXPRESSION -> string_expression .)
+    ;               reduce using rule 45 (EXPRESSION -> string_expression .)
+    EQ              reduce using rule 45 (EXPRESSION -> string_expression .)
+    <               reduce using rule 45 (EXPRESSION -> string_expression .)
+    >               reduce using rule 45 (EXPRESSION -> string_expression .)
+    GE              reduce using rule 45 (EXPRESSION -> string_expression .)
+    LE              reduce using rule 45 (EXPRESSION -> string_expression .)
+    NEQ             reduce using rule 45 (EXPRESSION -> string_expression .)
+    ]               reduce using rule 45 (EXPRESSION -> string_expression .)
+    )               reduce using rule 45 (EXPRESSION -> string_expression .)
+    OR              reduce using rule 45 (EXPRESSION -> string_expression .)
+    AND             reduce using rule 45 (EXPRESSION -> string_expression .)
+
+
+state 41
+
+    (50) operable_expression -> ( . operable_expression )
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    operable_expression            shift and go to state 82
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 42
+
+    (51) operable_expression -> - . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    operable_expression            shift and go to state 83
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 43
+
+    (54) operable_expression -> EYE . ( int )
+    (57) operable_expression -> EYE . ( id )
+
+    (               shift and go to state 84
+
+
+state 44
+
+    (69) operable_expression -> int .
+
+    *               reduce using rule 69 (operable_expression -> int .)
+    /               reduce using rule 69 (operable_expression -> int .)
+    +               reduce using rule 69 (operable_expression -> int .)
+    -               reduce using rule 69 (operable_expression -> int .)
+    DOTADD          reduce using rule 69 (operable_expression -> int .)
+    DOTSUB          reduce using rule 69 (operable_expression -> int .)
+    DOTMUL          reduce using rule 69 (operable_expression -> int .)
+    DOTDIV          reduce using rule 69 (operable_expression -> int .)
+    TRANSPOSE       reduce using rule 69 (operable_expression -> int .)
+    ,               reduce using rule 69 (operable_expression -> int .)
+    ;               reduce using rule 69 (operable_expression -> int .)
+    EQ              reduce using rule 69 (operable_expression -> int .)
+    <               reduce using rule 69 (operable_expression -> int .)
+    >               reduce using rule 69 (operable_expression -> int .)
+    GE              reduce using rule 69 (operable_expression -> int .)
+    LE              reduce using rule 69 (operable_expression -> int .)
+    NEQ             reduce using rule 69 (operable_expression -> int .)
+    )               reduce using rule 69 (operable_expression -> int .)
+    ]               reduce using rule 69 (operable_expression -> int .)
+    OR              reduce using rule 69 (operable_expression -> int .)
+    AND             reduce using rule 69 (operable_expression -> int .)
+
+
+state 45
+
+    (55) operable_expression -> ZEROS . ( int )
+    (58) operable_expression -> ZEROS . ( id )
+
+    (               shift and go to state 85
+
+
+state 46
+
+    (56) operable_expression -> ONES . ( int )
+    (59) operable_expression -> ONES . ( id )
+
+    (               shift and go to state 86
+
+
+state 47
+
+    (70) operable_expression -> id .
+
+    *               reduce using rule 70 (operable_expression -> id .)
+    /               reduce using rule 70 (operable_expression -> id .)
+    +               reduce using rule 70 (operable_expression -> id .)
+    -               reduce using rule 70 (operable_expression -> id .)
+    DOTADD          reduce using rule 70 (operable_expression -> id .)
+    DOTSUB          reduce using rule 70 (operable_expression -> id .)
+    DOTMUL          reduce using rule 70 (operable_expression -> id .)
+    DOTDIV          reduce using rule 70 (operable_expression -> id .)
+    TRANSPOSE       reduce using rule 70 (operable_expression -> id .)
+    ,               reduce using rule 70 (operable_expression -> id .)
+    ;               reduce using rule 70 (operable_expression -> id .)
+    EQ              reduce using rule 70 (operable_expression -> id .)
+    <               reduce using rule 70 (operable_expression -> id .)
+    >               reduce using rule 70 (operable_expression -> id .)
+    GE              reduce using rule 70 (operable_expression -> id .)
+    LE              reduce using rule 70 (operable_expression -> id .)
+    NEQ             reduce using rule 70 (operable_expression -> id .)
+    )               reduce using rule 70 (operable_expression -> id .)
+    ]               reduce using rule 70 (operable_expression -> id .)
+    OR              reduce using rule 70 (operable_expression -> id .)
+    AND             reduce using rule 70 (operable_expression -> id .)
+
+
+state 48
+
+    (65) operable_expression -> matrix .
+
+    *               reduce using rule 65 (operable_expression -> matrix .)
+    /               reduce using rule 65 (operable_expression -> matrix .)
+    +               reduce using rule 65 (operable_expression -> matrix .)
+    -               reduce using rule 65 (operable_expression -> matrix .)
+    DOTADD          reduce using rule 65 (operable_expression -> matrix .)
+    DOTSUB          reduce using rule 65 (operable_expression -> matrix .)
+    DOTMUL          reduce using rule 65 (operable_expression -> matrix .)
+    DOTDIV          reduce using rule 65 (operable_expression -> matrix .)
+    TRANSPOSE       reduce using rule 65 (operable_expression -> matrix .)
+    ,               reduce using rule 65 (operable_expression -> matrix .)
+    ;               reduce using rule 65 (operable_expression -> matrix .)
+    EQ              reduce using rule 65 (operable_expression -> matrix .)
+    <               reduce using rule 65 (operable_expression -> matrix .)
+    >               reduce using rule 65 (operable_expression -> matrix .)
+    GE              reduce using rule 65 (operable_expression -> matrix .)
+    LE              reduce using rule 65 (operable_expression -> matrix .)
+    NEQ             reduce using rule 65 (operable_expression -> matrix .)
+    )               reduce using rule 65 (operable_expression -> matrix .)
+    ]               reduce using rule 65 (operable_expression -> matrix .)
+    OR              reduce using rule 65 (operable_expression -> matrix .)
+    AND             reduce using rule 65 (operable_expression -> matrix .)
+
+
+state 49
+
+    (66) operable_expression -> vector .
+
+    *               reduce using rule 66 (operable_expression -> vector .)
+    /               reduce using rule 66 (operable_expression -> vector .)
+    +               reduce using rule 66 (operable_expression -> vector .)
+    -               reduce using rule 66 (operable_expression -> vector .)
+    DOTADD          reduce using rule 66 (operable_expression -> vector .)
+    DOTSUB          reduce using rule 66 (operable_expression -> vector .)
+    DOTMUL          reduce using rule 66 (operable_expression -> vector .)
+    DOTDIV          reduce using rule 66 (operable_expression -> vector .)
+    TRANSPOSE       reduce using rule 66 (operable_expression -> vector .)
+    ,               reduce using rule 66 (operable_expression -> vector .)
+    ;               reduce using rule 66 (operable_expression -> vector .)
+    EQ              reduce using rule 66 (operable_expression -> vector .)
+    <               reduce using rule 66 (operable_expression -> vector .)
+    >               reduce using rule 66 (operable_expression -> vector .)
+    GE              reduce using rule 66 (operable_expression -> vector .)
+    LE              reduce using rule 66 (operable_expression -> vector .)
+    NEQ             reduce using rule 66 (operable_expression -> vector .)
+    )               reduce using rule 66 (operable_expression -> vector .)
+    ]               reduce using rule 66 (operable_expression -> vector .)
+    OR              reduce using rule 66 (operable_expression -> vector .)
+    AND             reduce using rule 66 (operable_expression -> vector .)
+
+
+state 50
+
+    (68) operable_expression -> f .
+
+    *               reduce using rule 68 (operable_expression -> f .)
+    /               reduce using rule 68 (operable_expression -> f .)
+    +               reduce using rule 68 (operable_expression -> f .)
+    -               reduce using rule 68 (operable_expression -> f .)
+    DOTADD          reduce using rule 68 (operable_expression -> f .)
+    DOTSUB          reduce using rule 68 (operable_expression -> f .)
+    DOTMUL          reduce using rule 68 (operable_expression -> f .)
+    DOTDIV          reduce using rule 68 (operable_expression -> f .)
+    TRANSPOSE       reduce using rule 68 (operable_expression -> f .)
+    ,               reduce using rule 68 (operable_expression -> f .)
+    ;               reduce using rule 68 (operable_expression -> f .)
+    EQ              reduce using rule 68 (operable_expression -> f .)
+    <               reduce using rule 68 (operable_expression -> f .)
+    >               reduce using rule 68 (operable_expression -> f .)
+    GE              reduce using rule 68 (operable_expression -> f .)
+    LE              reduce using rule 68 (operable_expression -> f .)
+    NEQ             reduce using rule 68 (operable_expression -> f .)
+    )               reduce using rule 68 (operable_expression -> f .)
+    ]               reduce using rule 68 (operable_expression -> f .)
+    OR              reduce using rule 68 (operable_expression -> f .)
+    AND             reduce using rule 68 (operable_expression -> f .)
+
+
+state 51
+
+    (46) string_expression -> str . + str
+
+    +               shift and go to state 87
+
+
+state 52
+
+    (71) matrix -> [ . rows ]
+    (67) vector -> [ . row ]
+    (72) rows -> . rows ; row
+    (73) rows -> . row
+    (74) row -> . row , EXPRESSION
+    (75) row -> . EXPRESSION
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    rows                           shift and go to state 88
+    row                            shift and go to state 89
+    EXPRESSION                     shift and go to state 90
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 53
+
+    (78) f -> FLOAT .
+
+    *               reduce using rule 78 (f -> FLOAT .)
+    /               reduce using rule 78 (f -> FLOAT .)
+    +               reduce using rule 78 (f -> FLOAT .)
+    -               reduce using rule 78 (f -> FLOAT .)
+    DOTADD          reduce using rule 78 (f -> FLOAT .)
+    DOTSUB          reduce using rule 78 (f -> FLOAT .)
+    DOTMUL          reduce using rule 78 (f -> FLOAT .)
+    DOTDIV          reduce using rule 78 (f -> FLOAT .)
+    TRANSPOSE       reduce using rule 78 (f -> FLOAT .)
+    ,               reduce using rule 78 (f -> FLOAT .)
+    ;               reduce using rule 78 (f -> FLOAT .)
+    EQ              reduce using rule 78 (f -> FLOAT .)
+    <               reduce using rule 78 (f -> FLOAT .)
+    >               reduce using rule 78 (f -> FLOAT .)
+    GE              reduce using rule 78 (f -> FLOAT .)
+    LE              reduce using rule 78 (f -> FLOAT .)
+    NEQ             reduce using rule 78 (f -> FLOAT .)
+    )               reduce using rule 78 (f -> FLOAT .)
+    ]               reduce using rule 78 (f -> FLOAT .)
+    OR              reduce using rule 78 (f -> FLOAT .)
+    AND             reduce using rule 78 (f -> FLOAT .)
+
+
+state 54
+
+    (77) int -> INTNUM .
+
+    *               reduce using rule 77 (int -> INTNUM .)
+    /               reduce using rule 77 (int -> INTNUM .)
+    +               reduce using rule 77 (int -> INTNUM .)
+    -               reduce using rule 77 (int -> INTNUM .)
+    DOTADD          reduce using rule 77 (int -> INTNUM .)
+    DOTSUB          reduce using rule 77 (int -> INTNUM .)
+    DOTMUL          reduce using rule 77 (int -> INTNUM .)
+    DOTDIV          reduce using rule 77 (int -> INTNUM .)
+    TRANSPOSE       reduce using rule 77 (int -> INTNUM .)
+    ,               reduce using rule 77 (int -> INTNUM .)
+    ;               reduce using rule 77 (int -> INTNUM .)
+    EQ              reduce using rule 77 (int -> INTNUM .)
+    <               reduce using rule 77 (int -> INTNUM .)
+    >               reduce using rule 77 (int -> INTNUM .)
+    GE              reduce using rule 77 (int -> INTNUM .)
+    LE              reduce using rule 77 (int -> INTNUM .)
+    NEQ             reduce using rule 77 (int -> INTNUM .)
+    ]               reduce using rule 77 (int -> INTNUM .)
+    )               reduce using rule 77 (int -> INTNUM .)
+    OR              reduce using rule 77 (int -> INTNUM .)
+    AND             reduce using rule 77 (int -> INTNUM .)
+    :               reduce using rule 77 (int -> INTNUM .)
+    BREAK           reduce using rule 77 (int -> INTNUM .)
+    CONTINUE        reduce using rule 77 (int -> INTNUM .)
+    {               reduce using rule 77 (int -> INTNUM .)
+    IF              reduce using rule 77 (int -> INTNUM .)
+    WHILE           reduce using rule 77 (int -> INTNUM .)
+    FOR             reduce using rule 77 (int -> INTNUM .)
+    PRINT           reduce using rule 77 (int -> INTNUM .)
+    RETURN          reduce using rule 77 (int -> INTNUM .)
+    ID              reduce using rule 77 (int -> INTNUM .)
+
+
+state 55
+
+    (79) str -> STRING .
+
+    +               reduce using rule 79 (str -> STRING .)
+    ,               reduce using rule 79 (str -> STRING .)
+    ;               reduce using rule 79 (str -> STRING .)
+    EQ              reduce using rule 79 (str -> STRING .)
+    <               reduce using rule 79 (str -> STRING .)
+    >               reduce using rule 79 (str -> STRING .)
+    GE              reduce using rule 79 (str -> STRING .)
+    LE              reduce using rule 79 (str -> STRING .)
+    NEQ             reduce using rule 79 (str -> STRING .)
+    ]               reduce using rule 79 (str -> STRING .)
+    )               reduce using rule 79 (str -> STRING .)
+    OR              reduce using rule 79 (str -> STRING .)
+    AND             reduce using rule 79 (str -> STRING .)
+
+
+state 56
+
+    (13) instruction_with_argument -> RETURN EXPRESSION .
+
+    ;               reduce using rule 13 (instruction_with_argument -> RETURN EXPRESSION .)
+
+
+state 57
+
+    (14) instruction -> { instructions } .
+
+    BREAK           reduce using rule 14 (instruction -> { instructions } .)
+    CONTINUE        reduce using rule 14 (instruction -> { instructions } .)
+    {               reduce using rule 14 (instruction -> { instructions } .)
+    IF              reduce using rule 14 (instruction -> { instructions } .)
+    WHILE           reduce using rule 14 (instruction -> { instructions } .)
+    FOR             reduce using rule 14 (instruction -> { instructions } .)
+    PRINT           reduce using rule 14 (instruction -> { instructions } .)
+    RETURN          reduce using rule 14 (instruction -> { instructions } .)
+    ID              reduce using rule 14 (instruction -> { instructions } .)
+    $end            reduce using rule 14 (instruction -> { instructions } .)
+    }               reduce using rule 14 (instruction -> { instructions } .)
+    ELSE            reduce using rule 14 (instruction -> { instructions } .)
+
+
+state 58
+
+    (23) if_statement -> IF ( condition . ) instruction
+    (24) if_statement -> IF ( condition . ) instruction else_statement
+    (27) condition -> condition . OR condition
+    (28) condition -> condition . AND condition
+
+    )               shift and go to state 91
+    OR              shift and go to state 92
+    AND             shift and go to state 93
+
+
+state 59
+
+    (26) condition -> EXPRESSION . logical_operator EXPRESSION
+    (29) logical_operator -> . EQ
+    (30) logical_operator -> . <
+    (31) logical_operator -> . >
+    (32) logical_operator -> . GE
+    (33) logical_operator -> . LE
+    (34) logical_operator -> . NEQ
+
+    EQ              shift and go to state 95
+    <               shift and go to state 96
+    >               shift and go to state 97
+    GE              shift and go to state 98
+    LE              shift and go to state 99
+    NEQ             shift and go to state 100
+
+    logical_operator               shift and go to state 94
+
+state 60
+
+    (35) assign -> id = EXPRESSION .
+
+    ;               reduce using rule 35 (assign -> id = EXPRESSION .)
+
+
+state 61
+
+    (36) assign -> id ADDASSIGN string_expression .
+
+    ;               reduce using rule 36 (assign -> id ADDASSIGN string_expression .)
+
+
+state 62
+
+    (39) assign -> id ADDASSIGN operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    ;               reduce using rule 39 (assign -> id ADDASSIGN operable_expression .)
+    *               shift and go to state 73
+    /               shift and go to state 74
+    +               shift and go to state 75
+    -               shift and go to state 76
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    DOTMUL          shift and go to state 79
+    DOTDIV          shift and go to state 80
+    TRANSPOSE       shift and go to state 81
+
+
+state 63
+
+    (37) assign -> id DIVASSIGN operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    ;               reduce using rule 37 (assign -> id DIVASSIGN operable_expression .)
+    *               shift and go to state 73
+    /               shift and go to state 74
+    +               shift and go to state 75
+    -               shift and go to state 76
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    DOTMUL          shift and go to state 79
+    DOTDIV          shift and go to state 80
+    TRANSPOSE       shift and go to state 81
+
+
+state 64
+
+    (38) assign -> id MULASSIGN operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    ;               reduce using rule 38 (assign -> id MULASSIGN operable_expression .)
+    *               shift and go to state 73
+    /               shift and go to state 74
+    +               shift and go to state 75
+    -               shift and go to state 76
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    DOTMUL          shift and go to state 79
+    DOTDIV          shift and go to state 80
+    TRANSPOSE       shift and go to state 81
+
+
+state 65
+
+    (40) assign -> id SUBASSIGN operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    ;               reduce using rule 40 (assign -> id SUBASSIGN operable_expression .)
+    *               shift and go to state 73
+    /               shift and go to state 74
+    +               shift and go to state 75
+    -               shift and go to state 76
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    DOTMUL          shift and go to state 79
+    DOTDIV          shift and go to state 80
+    TRANSPOSE       shift and go to state 81
+
+
+state 66
+
+    (49) array_part -> id [ introw . ]
+    (42) introw -> introw . , int
+
+    ]               shift and go to state 101
+    ,               shift and go to state 102
+
+
+state 67
+
+    (43) introw -> int .
+
+    ]               reduce using rule 43 (introw -> int .)
+    ,               reduce using rule 43 (introw -> int .)
+
+
+state 68
+
+    (41) assign -> array_part = EXPRESSION .
+
+    ;               reduce using rule 41 (assign -> array_part = EXPRESSION .)
+
+
+state 69
+
+    (17) loop -> WHILE ( condition . ) instruction
+    (27) condition -> condition . OR condition
+    (28) condition -> condition . AND condition
+
+    )               shift and go to state 103
+    OR              shift and go to state 92
+    AND             shift and go to state 93
+
+
+state 70
+
+    (18) loop -> FOR array_range instruction .
+
+    BREAK           reduce using rule 18 (loop -> FOR array_range instruction .)
+    CONTINUE        reduce using rule 18 (loop -> FOR array_range instruction .)
+    {               reduce using rule 18 (loop -> FOR array_range instruction .)
+    IF              reduce using rule 18 (loop -> FOR array_range instruction .)
+    WHILE           reduce using rule 18 (loop -> FOR array_range instruction .)
+    FOR             reduce using rule 18 (loop -> FOR array_range instruction .)
+    PRINT           reduce using rule 18 (loop -> FOR array_range instruction .)
+    RETURN          reduce using rule 18 (loop -> FOR array_range instruction .)
+    ID              reduce using rule 18 (loop -> FOR array_range instruction .)
+    $end            reduce using rule 18 (loop -> FOR array_range instruction .)
+    }               reduce using rule 18 (loop -> FOR array_range instruction .)
+    ELSE            reduce using rule 18 (loop -> FOR array_range instruction .)
+
+
+state 71
+
+    (19) array_range -> id = . int : id
+    (20) array_range -> id = . id : id
+    (21) array_range -> id = . id : int
+    (22) array_range -> id = . int : int
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    id                             shift and go to state 104
+    int                            shift and go to state 105
+
+state 72
+
+    (15) printable -> printable , . EXPRESSION
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    EXPRESSION                     shift and go to state 106
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 73
+
+    (47) operable_expression -> operable_expression * . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    operable_expression            shift and go to state 107
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 74
+
+    (48) operable_expression -> operable_expression / . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    operable_expression            shift and go to state 108
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 75
+
+    (52) operable_expression -> operable_expression + . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    operable_expression            shift and go to state 109
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 76
+
+    (53) operable_expression -> operable_expression - . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    operable_expression            shift and go to state 110
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 77
+
+    (60) operable_expression -> operable_expression DOTADD . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    operable_expression            shift and go to state 111
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 78
+
+    (61) operable_expression -> operable_expression DOTSUB . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    operable_expression            shift and go to state 112
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 79
+
+    (62) operable_expression -> operable_expression DOTMUL . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    operable_expression            shift and go to state 113
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 80
+
+    (63) operable_expression -> operable_expression DOTDIV . operable_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    operable_expression            shift and go to state 114
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+
+state 81
+
+    (64) operable_expression -> operable_expression TRANSPOSE .
+
+    *               reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    /               reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    +               reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    -               reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    DOTADD          reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    DOTSUB          reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    DOTMUL          reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    DOTDIV          reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    TRANSPOSE       reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    ,               reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    ;               reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    EQ              reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    <               reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    >               reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    GE              reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    LE              reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    NEQ             reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    )               reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    ]               reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    OR              reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+    AND             reduce using rule 64 (operable_expression -> operable_expression TRANSPOSE .)
+
+
+state 82
+
+    (50) operable_expression -> ( operable_expression . )
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    )               shift and go to state 115
+    *               shift and go to state 73
+    /               shift and go to state 74
+    +               shift and go to state 75
+    -               shift and go to state 76
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    DOTMUL          shift and go to state 79
+    DOTDIV          shift and go to state 80
+    TRANSPOSE       shift and go to state 81
+
+
+state 83
+
+    (51) operable_expression -> - operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    *               reduce using rule 51 (operable_expression -> - operable_expression .)
+    /               reduce using rule 51 (operable_expression -> - operable_expression .)
+    +               reduce using rule 51 (operable_expression -> - operable_expression .)
+    -               reduce using rule 51 (operable_expression -> - operable_expression .)
+    DOTMUL          reduce using rule 51 (operable_expression -> - operable_expression .)
+    DOTDIV          reduce using rule 51 (operable_expression -> - operable_expression .)
+    ,               reduce using rule 51 (operable_expression -> - operable_expression .)
+    ;               reduce using rule 51 (operable_expression -> - operable_expression .)
+    EQ              reduce using rule 51 (operable_expression -> - operable_expression .)
+    <               reduce using rule 51 (operable_expression -> - operable_expression .)
+    >               reduce using rule 51 (operable_expression -> - operable_expression .)
+    GE              reduce using rule 51 (operable_expression -> - operable_expression .)
+    LE              reduce using rule 51 (operable_expression -> - operable_expression .)
+    NEQ             reduce using rule 51 (operable_expression -> - operable_expression .)
+    )               reduce using rule 51 (operable_expression -> - operable_expression .)
+    ]               reduce using rule 51 (operable_expression -> - operable_expression .)
+    OR              reduce using rule 51 (operable_expression -> - operable_expression .)
+    AND             reduce using rule 51 (operable_expression -> - operable_expression .)
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    TRANSPOSE       shift and go to state 81
+
+  ! DOTADD          [ reduce using rule 51 (operable_expression -> - operable_expression .) ]
+  ! DOTSUB          [ reduce using rule 51 (operable_expression -> - operable_expression .) ]
+  ! TRANSPOSE       [ reduce using rule 51 (operable_expression -> - operable_expression .) ]
+  ! *               [ shift and go to state 73 ]
+  ! /               [ shift and go to state 74 ]
+  ! +               [ shift and go to state 75 ]
+  ! -               [ shift and go to state 76 ]
+  ! DOTMUL          [ shift and go to state 79 ]
+  ! DOTDIV          [ shift and go to state 80 ]
+
+
+state 84
+
+    (54) operable_expression -> EYE ( . int )
+    (57) operable_expression -> EYE ( . id )
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    int                            shift and go to state 116
+    id                             shift and go to state 117
+
+state 85
+
+    (55) operable_expression -> ZEROS ( . int )
+    (58) operable_expression -> ZEROS ( . id )
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    int                            shift and go to state 118
+    id                             shift and go to state 119
+
+state 86
+
+    (56) operable_expression -> ONES ( . int )
+    (59) operable_expression -> ONES ( . id )
+    (77) int -> . INTNUM
+    (76) id -> . ID
+
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+
+    int                            shift and go to state 120
+    id                             shift and go to state 121
+
+state 87
+
+    (46) string_expression -> str + . str
+    (79) str -> . STRING
+
+    STRING          shift and go to state 55
+
+    str                            shift and go to state 122
+
+state 88
+
+    (71) matrix -> [ rows . ]
+    (72) rows -> rows . ; row
+
+    ]               shift and go to state 123
+    ;               shift and go to state 124
+
+
+state 89
+
+    (67) vector -> [ row . ]
+    (73) rows -> row .
+    (74) row -> row . , EXPRESSION
+
+  ! shift/reduce conflict for ] resolved as shift
+    ]               shift and go to state 125
+    ;               reduce using rule 73 (rows -> row .)
+    ,               shift and go to state 126
+
+  ! ]               [ reduce using rule 73 (rows -> row .) ]
+
+
+state 90
+
+    (75) row -> EXPRESSION .
+
+    ]               reduce using rule 75 (row -> EXPRESSION .)
+    ,               reduce using rule 75 (row -> EXPRESSION .)
+    ;               reduce using rule 75 (row -> EXPRESSION .)
+
+
+state 91
+
+    (23) if_statement -> IF ( condition ) . instruction
+    (24) if_statement -> IF ( condition ) . instruction else_statement
+    (6) instruction -> . if_statement
+    (7) instruction -> . assign ;
+    (8) instruction -> . loop
+    (9) instruction -> . BREAK ;
+    (10) instruction -> . CONTINUE ;
+    (11) instruction -> . instruction_with_argument ;
+    (14) instruction -> . { instructions }
+    (23) if_statement -> . IF ( condition ) instruction
+    (24) if_statement -> . IF ( condition ) instruction else_statement
+    (35) assign -> . id = EXPRESSION
+    (36) assign -> . id ADDASSIGN string_expression
+    (37) assign -> . id DIVASSIGN operable_expression
+    (38) assign -> . id MULASSIGN operable_expression
+    (39) assign -> . id ADDASSIGN operable_expression
+    (40) assign -> . id SUBASSIGN operable_expression
+    (41) assign -> . array_part = EXPRESSION
+    (17) loop -> . WHILE ( condition ) instruction
+    (18) loop -> . FOR array_range instruction
+    (12) instruction_with_argument -> . PRINT printable
+    (13) instruction_with_argument -> . RETURN EXPRESSION
+    (76) id -> . ID
+    (49) array_part -> . id [ introw ]
+
+    BREAK           shift and go to state 8
+    CONTINUE        shift and go to state 9
+    {               shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+    PRINT           shift and go to state 17
+    RETURN          shift and go to state 18
+    ID              shift and go to state 19
+
+    instruction                    shift and go to state 127
+    if_statement                   shift and go to state 5
+    assign                         shift and go to state 6
+    loop                           shift and go to state 7
+    instruction_with_argument      shift and go to state 10
+    id                             shift and go to state 13
+    array_part                     shift and go to state 14
+
+state 92
+
+    (27) condition -> condition OR . condition
+    (26) condition -> . EXPRESSION logical_operator EXPRESSION
+    (27) condition -> . condition OR condition
+    (28) condition -> . condition AND condition
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    condition                      shift and go to state 128
+    EXPRESSION                     shift and go to state 59
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 93
+
+    (28) condition -> condition AND . condition
+    (26) condition -> . EXPRESSION logical_operator EXPRESSION
+    (27) condition -> . condition OR condition
+    (28) condition -> . condition AND condition
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    condition                      shift and go to state 129
+    EXPRESSION                     shift and go to state 59
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 94
+
+    (26) condition -> EXPRESSION logical_operator . EXPRESSION
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    EXPRESSION                     shift and go to state 130
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 95
+
+    (29) logical_operator -> EQ .
+
+    (               reduce using rule 29 (logical_operator -> EQ .)
+    -               reduce using rule 29 (logical_operator -> EQ .)
+    EYE             reduce using rule 29 (logical_operator -> EQ .)
+    ZEROS           reduce using rule 29 (logical_operator -> EQ .)
+    ONES            reduce using rule 29 (logical_operator -> EQ .)
+    [               reduce using rule 29 (logical_operator -> EQ .)
+    FLOAT           reduce using rule 29 (logical_operator -> EQ .)
+    INTNUM          reduce using rule 29 (logical_operator -> EQ .)
+    ID              reduce using rule 29 (logical_operator -> EQ .)
+    STRING          reduce using rule 29 (logical_operator -> EQ .)
+
+
+state 96
+
+    (30) logical_operator -> < .
+
+    (               reduce using rule 30 (logical_operator -> < .)
+    -               reduce using rule 30 (logical_operator -> < .)
+    EYE             reduce using rule 30 (logical_operator -> < .)
+    ZEROS           reduce using rule 30 (logical_operator -> < .)
+    ONES            reduce using rule 30 (logical_operator -> < .)
+    [               reduce using rule 30 (logical_operator -> < .)
+    FLOAT           reduce using rule 30 (logical_operator -> < .)
+    INTNUM          reduce using rule 30 (logical_operator -> < .)
+    ID              reduce using rule 30 (logical_operator -> < .)
+    STRING          reduce using rule 30 (logical_operator -> < .)
+
+
+state 97
+
+    (31) logical_operator -> > .
+
+    (               reduce using rule 31 (logical_operator -> > .)
+    -               reduce using rule 31 (logical_operator -> > .)
+    EYE             reduce using rule 31 (logical_operator -> > .)
+    ZEROS           reduce using rule 31 (logical_operator -> > .)
+    ONES            reduce using rule 31 (logical_operator -> > .)
+    [               reduce using rule 31 (logical_operator -> > .)
+    FLOAT           reduce using rule 31 (logical_operator -> > .)
+    INTNUM          reduce using rule 31 (logical_operator -> > .)
+    ID              reduce using rule 31 (logical_operator -> > .)
+    STRING          reduce using rule 31 (logical_operator -> > .)
+
+
+state 98
+
+    (32) logical_operator -> GE .
+
+    (               reduce using rule 32 (logical_operator -> GE .)
+    -               reduce using rule 32 (logical_operator -> GE .)
+    EYE             reduce using rule 32 (logical_operator -> GE .)
+    ZEROS           reduce using rule 32 (logical_operator -> GE .)
+    ONES            reduce using rule 32 (logical_operator -> GE .)
+    [               reduce using rule 32 (logical_operator -> GE .)
+    FLOAT           reduce using rule 32 (logical_operator -> GE .)
+    INTNUM          reduce using rule 32 (logical_operator -> GE .)
+    ID              reduce using rule 32 (logical_operator -> GE .)
+    STRING          reduce using rule 32 (logical_operator -> GE .)
+
+
+state 99
+
+    (33) logical_operator -> LE .
+
+    (               reduce using rule 33 (logical_operator -> LE .)
+    -               reduce using rule 33 (logical_operator -> LE .)
+    EYE             reduce using rule 33 (logical_operator -> LE .)
+    ZEROS           reduce using rule 33 (logical_operator -> LE .)
+    ONES            reduce using rule 33 (logical_operator -> LE .)
+    [               reduce using rule 33 (logical_operator -> LE .)
+    FLOAT           reduce using rule 33 (logical_operator -> LE .)
+    INTNUM          reduce using rule 33 (logical_operator -> LE .)
+    ID              reduce using rule 33 (logical_operator -> LE .)
+    STRING          reduce using rule 33 (logical_operator -> LE .)
+
+
+state 100
+
+    (34) logical_operator -> NEQ .
+
+    (               reduce using rule 34 (logical_operator -> NEQ .)
+    -               reduce using rule 34 (logical_operator -> NEQ .)
+    EYE             reduce using rule 34 (logical_operator -> NEQ .)
+    ZEROS           reduce using rule 34 (logical_operator -> NEQ .)
+    ONES            reduce using rule 34 (logical_operator -> NEQ .)
+    [               reduce using rule 34 (logical_operator -> NEQ .)
+    FLOAT           reduce using rule 34 (logical_operator -> NEQ .)
+    INTNUM          reduce using rule 34 (logical_operator -> NEQ .)
+    ID              reduce using rule 34 (logical_operator -> NEQ .)
+    STRING          reduce using rule 34 (logical_operator -> NEQ .)
+
+
+state 101
+
+    (49) array_part -> id [ introw ] .
+
+    =               reduce using rule 49 (array_part -> id [ introw ] .)
+
+
+state 102
+
+    (42) introw -> introw , . int
+    (77) int -> . INTNUM
+
+    INTNUM          shift and go to state 54
+
+    int                            shift and go to state 131
+
+state 103
+
+    (17) loop -> WHILE ( condition ) . instruction
+    (6) instruction -> . if_statement
+    (7) instruction -> . assign ;
+    (8) instruction -> . loop
+    (9) instruction -> . BREAK ;
+    (10) instruction -> . CONTINUE ;
+    (11) instruction -> . instruction_with_argument ;
+    (14) instruction -> . { instructions }
+    (23) if_statement -> . IF ( condition ) instruction
+    (24) if_statement -> . IF ( condition ) instruction else_statement
+    (35) assign -> . id = EXPRESSION
+    (36) assign -> . id ADDASSIGN string_expression
+    (37) assign -> . id DIVASSIGN operable_expression
+    (38) assign -> . id MULASSIGN operable_expression
+    (39) assign -> . id ADDASSIGN operable_expression
+    (40) assign -> . id SUBASSIGN operable_expression
+    (41) assign -> . array_part = EXPRESSION
+    (17) loop -> . WHILE ( condition ) instruction
+    (18) loop -> . FOR array_range instruction
+    (12) instruction_with_argument -> . PRINT printable
+    (13) instruction_with_argument -> . RETURN EXPRESSION
+    (76) id -> . ID
+    (49) array_part -> . id [ introw ]
+
+    BREAK           shift and go to state 8
+    CONTINUE        shift and go to state 9
+    {               shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+    PRINT           shift and go to state 17
+    RETURN          shift and go to state 18
+    ID              shift and go to state 19
+
+    instruction                    shift and go to state 132
+    if_statement                   shift and go to state 5
+    assign                         shift and go to state 6
+    loop                           shift and go to state 7
+    instruction_with_argument      shift and go to state 10
+    id                             shift and go to state 13
+    array_part                     shift and go to state 14
+
+state 104
+
+    (20) array_range -> id = id . : id
+    (21) array_range -> id = id . : int
+
+    :               shift and go to state 133
+
+
+state 105
+
+    (19) array_range -> id = int . : id
+    (22) array_range -> id = int . : int
+
+    :               shift and go to state 134
+
+
+state 106
+
+    (15) printable -> printable , EXPRESSION .
+
+    ,               reduce using rule 15 (printable -> printable , EXPRESSION .)
+    ;               reduce using rule 15 (printable -> printable , EXPRESSION .)
+
+
+state 107
+
+    (47) operable_expression -> operable_expression * operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    *               reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    /               reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    ,               reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    ;               reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    EQ              reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    <               reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    >               reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    GE              reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    LE              reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    NEQ             reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    )               reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    ]               reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    OR              reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    AND             reduce using rule 47 (operable_expression -> operable_expression * operable_expression .)
+    +               shift and go to state 75
+    -               shift and go to state 76
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    DOTMUL          shift and go to state 79
+    DOTDIV          shift and go to state 80
+    TRANSPOSE       shift and go to state 81
+
+  ! +               [ reduce using rule 47 (operable_expression -> operable_expression * operable_expression .) ]
+  ! -               [ reduce using rule 47 (operable_expression -> operable_expression * operable_expression .) ]
+  ! DOTADD          [ reduce using rule 47 (operable_expression -> operable_expression * operable_expression .) ]
+  ! DOTSUB          [ reduce using rule 47 (operable_expression -> operable_expression * operable_expression .) ]
+  ! DOTMUL          [ reduce using rule 47 (operable_expression -> operable_expression * operable_expression .) ]
+  ! DOTDIV          [ reduce using rule 47 (operable_expression -> operable_expression * operable_expression .) ]
+  ! TRANSPOSE       [ reduce using rule 47 (operable_expression -> operable_expression * operable_expression .) ]
+  ! *               [ shift and go to state 73 ]
+  ! /               [ shift and go to state 74 ]
+
+
+state 108
+
+    (48) operable_expression -> operable_expression / operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    *               reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    /               reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    ,               reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    ;               reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    EQ              reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    <               reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    >               reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    GE              reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    LE              reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    NEQ             reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    )               reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    ]               reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    OR              reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    AND             reduce using rule 48 (operable_expression -> operable_expression / operable_expression .)
+    +               shift and go to state 75
+    -               shift and go to state 76
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    DOTMUL          shift and go to state 79
+    DOTDIV          shift and go to state 80
+    TRANSPOSE       shift and go to state 81
+
+  ! +               [ reduce using rule 48 (operable_expression -> operable_expression / operable_expression .) ]
+  ! -               [ reduce using rule 48 (operable_expression -> operable_expression / operable_expression .) ]
+  ! DOTADD          [ reduce using rule 48 (operable_expression -> operable_expression / operable_expression .) ]
+  ! DOTSUB          [ reduce using rule 48 (operable_expression -> operable_expression / operable_expression .) ]
+  ! DOTMUL          [ reduce using rule 48 (operable_expression -> operable_expression / operable_expression .) ]
+  ! DOTDIV          [ reduce using rule 48 (operable_expression -> operable_expression / operable_expression .) ]
+  ! TRANSPOSE       [ reduce using rule 48 (operable_expression -> operable_expression / operable_expression .) ]
+  ! *               [ shift and go to state 73 ]
+  ! /               [ shift and go to state 74 ]
+
+
+state 109
+
+    (52) operable_expression -> operable_expression + operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    *               reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    /               reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    +               reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    -               reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    DOTMUL          reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    DOTDIV          reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    ,               reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    ;               reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    EQ              reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    <               reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    >               reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    GE              reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    LE              reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    NEQ             reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    )               reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    ]               reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    OR              reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    AND             reduce using rule 52 (operable_expression -> operable_expression + operable_expression .)
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    TRANSPOSE       shift and go to state 81
+
+  ! DOTADD          [ reduce using rule 52 (operable_expression -> operable_expression + operable_expression .) ]
+  ! DOTSUB          [ reduce using rule 52 (operable_expression -> operable_expression + operable_expression .) ]
+  ! TRANSPOSE       [ reduce using rule 52 (operable_expression -> operable_expression + operable_expression .) ]
+  ! *               [ shift and go to state 73 ]
+  ! /               [ shift and go to state 74 ]
+  ! +               [ shift and go to state 75 ]
+  ! -               [ shift and go to state 76 ]
+  ! DOTMUL          [ shift and go to state 79 ]
+  ! DOTDIV          [ shift and go to state 80 ]
+
+
+state 110
+
+    (53) operable_expression -> operable_expression - operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    *               reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    /               reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    +               reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    -               reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    DOTMUL          reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    DOTDIV          reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    ,               reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    ;               reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    EQ              reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    <               reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    >               reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    GE              reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    LE              reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    NEQ             reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    )               reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    ]               reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    OR              reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    AND             reduce using rule 53 (operable_expression -> operable_expression - operable_expression .)
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    TRANSPOSE       shift and go to state 81
+
+  ! DOTADD          [ reduce using rule 53 (operable_expression -> operable_expression - operable_expression .) ]
+  ! DOTSUB          [ reduce using rule 53 (operable_expression -> operable_expression - operable_expression .) ]
+  ! TRANSPOSE       [ reduce using rule 53 (operable_expression -> operable_expression - operable_expression .) ]
+  ! *               [ shift and go to state 73 ]
+  ! /               [ shift and go to state 74 ]
+  ! +               [ shift and go to state 75 ]
+  ! -               [ shift and go to state 76 ]
+  ! DOTMUL          [ shift and go to state 79 ]
+  ! DOTDIV          [ shift and go to state 80 ]
+
+
+state 111
+
+    (60) operable_expression -> operable_expression DOTADD operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    *               reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    /               reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    +               reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    -               reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    DOTADD          reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    DOTSUB          reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    DOTMUL          reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    DOTDIV          reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    ,               reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    ;               reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    EQ              reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    <               reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    >               reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    GE              reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    LE              reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    NEQ             reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    )               reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    ]               reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    OR              reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    AND             reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .)
+    TRANSPOSE       shift and go to state 81
+
+  ! TRANSPOSE       [ reduce using rule 60 (operable_expression -> operable_expression DOTADD operable_expression .) ]
+  ! *               [ shift and go to state 73 ]
+  ! /               [ shift and go to state 74 ]
+  ! +               [ shift and go to state 75 ]
+  ! -               [ shift and go to state 76 ]
+  ! DOTADD          [ shift and go to state 77 ]
+  ! DOTSUB          [ shift and go to state 78 ]
+  ! DOTMUL          [ shift and go to state 79 ]
+  ! DOTDIV          [ shift and go to state 80 ]
+
+
+state 112
+
+    (61) operable_expression -> operable_expression DOTSUB operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    *               reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    /               reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    +               reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    -               reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    DOTADD          reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    DOTSUB          reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    DOTMUL          reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    DOTDIV          reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    ,               reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    ;               reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    EQ              reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    <               reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    >               reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    GE              reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    LE              reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    NEQ             reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    )               reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    ]               reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    OR              reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    AND             reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .)
+    TRANSPOSE       shift and go to state 81
+
+  ! TRANSPOSE       [ reduce using rule 61 (operable_expression -> operable_expression DOTSUB operable_expression .) ]
+  ! *               [ shift and go to state 73 ]
+  ! /               [ shift and go to state 74 ]
+  ! +               [ shift and go to state 75 ]
+  ! -               [ shift and go to state 76 ]
+  ! DOTADD          [ shift and go to state 77 ]
+  ! DOTSUB          [ shift and go to state 78 ]
+  ! DOTMUL          [ shift and go to state 79 ]
+  ! DOTDIV          [ shift and go to state 80 ]
+
+
+state 113
+
+    (62) operable_expression -> operable_expression DOTMUL operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    *               reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    /               reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    DOTMUL          reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    DOTDIV          reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    ,               reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    ;               reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    EQ              reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    <               reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    >               reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    GE              reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    LE              reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    NEQ             reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    )               reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    ]               reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    OR              reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    AND             reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .)
+    +               shift and go to state 75
+    -               shift and go to state 76
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    TRANSPOSE       shift and go to state 81
+
+  ! +               [ reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .) ]
+  ! -               [ reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .) ]
+  ! DOTADD          [ reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .) ]
+  ! DOTSUB          [ reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .) ]
+  ! TRANSPOSE       [ reduce using rule 62 (operable_expression -> operable_expression DOTMUL operable_expression .) ]
+  ! *               [ shift and go to state 73 ]
+  ! /               [ shift and go to state 74 ]
+  ! DOTMUL          [ shift and go to state 79 ]
+  ! DOTDIV          [ shift and go to state 80 ]
+
+
+state 114
+
+    (63) operable_expression -> operable_expression DOTDIV operable_expression .
+    (47) operable_expression -> operable_expression . * operable_expression
+    (48) operable_expression -> operable_expression . / operable_expression
+    (52) operable_expression -> operable_expression . + operable_expression
+    (53) operable_expression -> operable_expression . - operable_expression
+    (60) operable_expression -> operable_expression . DOTADD operable_expression
+    (61) operable_expression -> operable_expression . DOTSUB operable_expression
+    (62) operable_expression -> operable_expression . DOTMUL operable_expression
+    (63) operable_expression -> operable_expression . DOTDIV operable_expression
+    (64) operable_expression -> operable_expression . TRANSPOSE
+
+    *               reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    /               reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    DOTMUL          reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    DOTDIV          reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    ,               reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    ;               reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    EQ              reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    <               reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    >               reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    GE              reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    LE              reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    NEQ             reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    )               reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    ]               reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    OR              reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    AND             reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .)
+    +               shift and go to state 75
+    -               shift and go to state 76
+    DOTADD          shift and go to state 77
+    DOTSUB          shift and go to state 78
+    TRANSPOSE       shift and go to state 81
+
+  ! +               [ reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .) ]
+  ! -               [ reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .) ]
+  ! DOTADD          [ reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .) ]
+  ! DOTSUB          [ reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .) ]
+  ! TRANSPOSE       [ reduce using rule 63 (operable_expression -> operable_expression DOTDIV operable_expression .) ]
+  ! *               [ shift and go to state 73 ]
+  ! /               [ shift and go to state 74 ]
+  ! DOTMUL          [ shift and go to state 79 ]
+  ! DOTDIV          [ shift and go to state 80 ]
+
+
+state 115
+
+    (50) operable_expression -> ( operable_expression ) .
+
+    *               reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    /               reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    +               reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    -               reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    DOTADD          reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    DOTSUB          reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    DOTMUL          reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    DOTDIV          reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    TRANSPOSE       reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    ,               reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    ;               reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    EQ              reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    <               reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    >               reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    GE              reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    LE              reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    NEQ             reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    )               reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    ]               reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    OR              reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+    AND             reduce using rule 50 (operable_expression -> ( operable_expression ) .)
+
+
+state 116
+
+    (54) operable_expression -> EYE ( int . )
+
+    )               shift and go to state 135
+
+
+state 117
+
+    (57) operable_expression -> EYE ( id . )
+
+    )               shift and go to state 136
+
+
+state 118
+
+    (55) operable_expression -> ZEROS ( int . )
+
+    )               shift and go to state 137
+
+
+state 119
+
+    (58) operable_expression -> ZEROS ( id . )
+
+    )               shift and go to state 138
+
+
+state 120
+
+    (56) operable_expression -> ONES ( int . )
+
+    )               shift and go to state 139
+
+
+state 121
+
+    (59) operable_expression -> ONES ( id . )
+
+    )               shift and go to state 140
+
+
+state 122
+
+    (46) string_expression -> str + str .
+
+    ,               reduce using rule 46 (string_expression -> str + str .)
+    ;               reduce using rule 46 (string_expression -> str + str .)
+    EQ              reduce using rule 46 (string_expression -> str + str .)
+    <               reduce using rule 46 (string_expression -> str + str .)
+    >               reduce using rule 46 (string_expression -> str + str .)
+    GE              reduce using rule 46 (string_expression -> str + str .)
+    LE              reduce using rule 46 (string_expression -> str + str .)
+    NEQ             reduce using rule 46 (string_expression -> str + str .)
+    ]               reduce using rule 46 (string_expression -> str + str .)
+    )               reduce using rule 46 (string_expression -> str + str .)
+    OR              reduce using rule 46 (string_expression -> str + str .)
+    AND             reduce using rule 46 (string_expression -> str + str .)
+
+
+state 123
+
+    (71) matrix -> [ rows ] .
+
+    *               reduce using rule 71 (matrix -> [ rows ] .)
+    /               reduce using rule 71 (matrix -> [ rows ] .)
+    +               reduce using rule 71 (matrix -> [ rows ] .)
+    -               reduce using rule 71 (matrix -> [ rows ] .)
+    DOTADD          reduce using rule 71 (matrix -> [ rows ] .)
+    DOTSUB          reduce using rule 71 (matrix -> [ rows ] .)
+    DOTMUL          reduce using rule 71 (matrix -> [ rows ] .)
+    DOTDIV          reduce using rule 71 (matrix -> [ rows ] .)
+    TRANSPOSE       reduce using rule 71 (matrix -> [ rows ] .)
+    ,               reduce using rule 71 (matrix -> [ rows ] .)
+    ;               reduce using rule 71 (matrix -> [ rows ] .)
+    EQ              reduce using rule 71 (matrix -> [ rows ] .)
+    <               reduce using rule 71 (matrix -> [ rows ] .)
+    >               reduce using rule 71 (matrix -> [ rows ] .)
+    GE              reduce using rule 71 (matrix -> [ rows ] .)
+    LE              reduce using rule 71 (matrix -> [ rows ] .)
+    NEQ             reduce using rule 71 (matrix -> [ rows ] .)
+    )               reduce using rule 71 (matrix -> [ rows ] .)
+    ]               reduce using rule 71 (matrix -> [ rows ] .)
+    OR              reduce using rule 71 (matrix -> [ rows ] .)
+    AND             reduce using rule 71 (matrix -> [ rows ] .)
+
+
+state 124
+
+    (72) rows -> rows ; . row
+    (74) row -> . row , EXPRESSION
+    (75) row -> . EXPRESSION
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    row                            shift and go to state 141
+    EXPRESSION                     shift and go to state 90
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 125
+
+    (67) vector -> [ row ] .
+
+    *               reduce using rule 67 (vector -> [ row ] .)
+    /               reduce using rule 67 (vector -> [ row ] .)
+    +               reduce using rule 67 (vector -> [ row ] .)
+    -               reduce using rule 67 (vector -> [ row ] .)
+    DOTADD          reduce using rule 67 (vector -> [ row ] .)
+    DOTSUB          reduce using rule 67 (vector -> [ row ] .)
+    DOTMUL          reduce using rule 67 (vector -> [ row ] .)
+    DOTDIV          reduce using rule 67 (vector -> [ row ] .)
+    TRANSPOSE       reduce using rule 67 (vector -> [ row ] .)
+    ,               reduce using rule 67 (vector -> [ row ] .)
+    ;               reduce using rule 67 (vector -> [ row ] .)
+    EQ              reduce using rule 67 (vector -> [ row ] .)
+    <               reduce using rule 67 (vector -> [ row ] .)
+    >               reduce using rule 67 (vector -> [ row ] .)
+    GE              reduce using rule 67 (vector -> [ row ] .)
+    LE              reduce using rule 67 (vector -> [ row ] .)
+    NEQ             reduce using rule 67 (vector -> [ row ] .)
+    )               reduce using rule 67 (vector -> [ row ] .)
+    ]               reduce using rule 67 (vector -> [ row ] .)
+    OR              reduce using rule 67 (vector -> [ row ] .)
+    AND             reduce using rule 67 (vector -> [ row ] .)
+
+
+state 126
+
+    (74) row -> row , . EXPRESSION
+    (44) EXPRESSION -> . operable_expression
+    (45) EXPRESSION -> . string_expression
+    (47) operable_expression -> . operable_expression * operable_expression
+    (48) operable_expression -> . operable_expression / operable_expression
+    (50) operable_expression -> . ( operable_expression )
+    (51) operable_expression -> . - operable_expression
+    (52) operable_expression -> . operable_expression + operable_expression
+    (53) operable_expression -> . operable_expression - operable_expression
+    (54) operable_expression -> . EYE ( int )
+    (55) operable_expression -> . ZEROS ( int )
+    (56) operable_expression -> . ONES ( int )
+    (57) operable_expression -> . EYE ( id )
+    (58) operable_expression -> . ZEROS ( id )
+    (59) operable_expression -> . ONES ( id )
+    (60) operable_expression -> . operable_expression DOTADD operable_expression
+    (61) operable_expression -> . operable_expression DOTSUB operable_expression
+    (62) operable_expression -> . operable_expression DOTMUL operable_expression
+    (63) operable_expression -> . operable_expression DOTDIV operable_expression
+    (64) operable_expression -> . operable_expression TRANSPOSE
+    (65) operable_expression -> . matrix
+    (66) operable_expression -> . vector
+    (68) operable_expression -> . f
+    (69) operable_expression -> . int
+    (70) operable_expression -> . id
+    (46) string_expression -> . str + str
+    (71) matrix -> . [ rows ]
+    (67) vector -> . [ row ]
+    (78) f -> . FLOAT
+    (77) int -> . INTNUM
+    (76) id -> . ID
+    (79) str -> . STRING
+
+    (               shift and go to state 41
+    -               shift and go to state 42
+    EYE             shift and go to state 43
+    ZEROS           shift and go to state 45
+    ONES            shift and go to state 46
+    [               shift and go to state 52
+    FLOAT           shift and go to state 53
+    INTNUM          shift and go to state 54
+    ID              shift and go to state 19
+    STRING          shift and go to state 55
+
+    EXPRESSION                     shift and go to state 142
+    operable_expression            shift and go to state 39
+    string_expression              shift and go to state 40
+    int                            shift and go to state 44
+    id                             shift and go to state 47
+    matrix                         shift and go to state 48
+    vector                         shift and go to state 49
+    f                              shift and go to state 50
+    str                            shift and go to state 51
+
+state 127
+
+    (23) if_statement -> IF ( condition ) instruction .
+    (24) if_statement -> IF ( condition ) instruction . else_statement
+    (25) else_statement -> . ELSE instruction
+
+  ! shift/reduce conflict for ELSE resolved as shift
+    BREAK           reduce using rule 23 (if_statement -> IF ( condition ) instruction .)
+    CONTINUE        reduce using rule 23 (if_statement -> IF ( condition ) instruction .)
+    {               reduce using rule 23 (if_statement -> IF ( condition ) instruction .)
+    IF              reduce using rule 23 (if_statement -> IF ( condition ) instruction .)
+    WHILE           reduce using rule 23 (if_statement -> IF ( condition ) instruction .)
+    FOR             reduce using rule 23 (if_statement -> IF ( condition ) instruction .)
+    PRINT           reduce using rule 23 (if_statement -> IF ( condition ) instruction .)
+    RETURN          reduce using rule 23 (if_statement -> IF ( condition ) instruction .)
+    ID              reduce using rule 23 (if_statement -> IF ( condition ) instruction .)
+    $end            reduce using rule 23 (if_statement -> IF ( condition ) instruction .)
+    }               reduce using rule 23 (if_statement -> IF ( condition ) instruction .)
+    ELSE            shift and go to state 144
+
+  ! ELSE            [ reduce using rule 23 (if_statement -> IF ( condition ) instruction .) ]
+
+    else_statement                 shift and go to state 143
+
+state 128
+
+    (27) condition -> condition OR condition .
+    (27) condition -> condition . OR condition
+    (28) condition -> condition . AND condition
+
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+    )               reduce using rule 27 (condition -> condition OR condition .)
+    OR              shift and go to state 92
+    AND             shift and go to state 93
+
+  ! OR              [ reduce using rule 27 (condition -> condition OR condition .) ]
+  ! AND             [ reduce using rule 27 (condition -> condition OR condition .) ]
+
+
+state 129
+
+    (28) condition -> condition AND condition .
+    (27) condition -> condition . OR condition
+    (28) condition -> condition . AND condition
+
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+    )               reduce using rule 28 (condition -> condition AND condition .)
+    OR              shift and go to state 92
+    AND             shift and go to state 93
+
+  ! OR              [ reduce using rule 28 (condition -> condition AND condition .) ]
+  ! AND             [ reduce using rule 28 (condition -> condition AND condition .) ]
+
+
+state 130
+
+    (26) condition -> EXPRESSION logical_operator EXPRESSION .
+
+    )               reduce using rule 26 (condition -> EXPRESSION logical_operator EXPRESSION .)
+    OR              reduce using rule 26 (condition -> EXPRESSION logical_operator EXPRESSION .)
+    AND             reduce using rule 26 (condition -> EXPRESSION logical_operator EXPRESSION .)
+
+
+state 131
+
+    (42) introw -> introw , int .
+
+    ]               reduce using rule 42 (introw -> introw , int .)
+    ,               reduce using rule 42 (introw -> introw , int .)
+
+
+state 132
+
+    (17) loop -> WHILE ( condition ) instruction .
+
+    BREAK           reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+    CONTINUE        reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+    {               reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+    IF              reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+    WHILE           reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+    FOR             reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+    PRINT           reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+    RETURN          reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+    ID              reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+    $end            reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+    }               reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+    ELSE            reduce using rule 17 (loop -> WHILE ( condition ) instruction .)
+
+
+state 133
+
+    (20) array_range -> id = id : . id
+    (21) array_range -> id = id : . int
+    (76) id -> . ID
+    (77) int -> . INTNUM
+
+    ID              shift and go to state 19
+    INTNUM          shift and go to state 54
+
+    id                             shift and go to state 145
+    int                            shift and go to state 146
+
+state 134
+
+    (19) array_range -> id = int : . id
+    (22) array_range -> id = int : . int
+    (76) id -> . ID
+    (77) int -> . INTNUM
+
+    ID              shift and go to state 19
+    INTNUM          shift and go to state 54
+
+    id                             shift and go to state 147
+    int                            shift and go to state 148
+
+state 135
+
+    (54) operable_expression -> EYE ( int ) .
+
+    *               reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    /               reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    +               reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    -               reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    DOTADD          reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    DOTSUB          reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    DOTMUL          reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    DOTDIV          reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    TRANSPOSE       reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    ,               reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    ;               reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    EQ              reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    <               reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    >               reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    GE              reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    LE              reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    NEQ             reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    )               reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    ]               reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    OR              reduce using rule 54 (operable_expression -> EYE ( int ) .)
+    AND             reduce using rule 54 (operable_expression -> EYE ( int ) .)
+
+
+state 136
+
+    (57) operable_expression -> EYE ( id ) .
+
+    *               reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    /               reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    +               reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    -               reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    DOTADD          reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    DOTSUB          reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    DOTMUL          reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    DOTDIV          reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    TRANSPOSE       reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    ,               reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    ;               reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    EQ              reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    <               reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    >               reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    GE              reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    LE              reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    NEQ             reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    )               reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    ]               reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    OR              reduce using rule 57 (operable_expression -> EYE ( id ) .)
+    AND             reduce using rule 57 (operable_expression -> EYE ( id ) .)
+
+
+state 137
+
+    (55) operable_expression -> ZEROS ( int ) .
+
+    *               reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    /               reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    +               reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    -               reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    DOTADD          reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    DOTSUB          reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    DOTMUL          reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    DOTDIV          reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    TRANSPOSE       reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    ,               reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    ;               reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    EQ              reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    <               reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    >               reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    GE              reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    LE              reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    NEQ             reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    )               reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    ]               reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    OR              reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+    AND             reduce using rule 55 (operable_expression -> ZEROS ( int ) .)
+
+
+state 138
+
+    (58) operable_expression -> ZEROS ( id ) .
+
+    *               reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    /               reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    +               reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    -               reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    DOTADD          reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    DOTSUB          reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    DOTMUL          reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    DOTDIV          reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    TRANSPOSE       reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    ,               reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    ;               reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    EQ              reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    <               reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    >               reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    GE              reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    LE              reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    NEQ             reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    )               reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    ]               reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    OR              reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+    AND             reduce using rule 58 (operable_expression -> ZEROS ( id ) .)
+
+
+state 139
+
+    (56) operable_expression -> ONES ( int ) .
+
+    *               reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    /               reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    +               reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    -               reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    DOTADD          reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    DOTSUB          reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    DOTMUL          reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    DOTDIV          reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    TRANSPOSE       reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    ,               reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    ;               reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    EQ              reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    <               reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    >               reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    GE              reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    LE              reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    NEQ             reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    )               reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    ]               reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    OR              reduce using rule 56 (operable_expression -> ONES ( int ) .)
+    AND             reduce using rule 56 (operable_expression -> ONES ( int ) .)
+
+
+state 140
+
+    (59) operable_expression -> ONES ( id ) .
+
+    *               reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    /               reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    +               reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    -               reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    DOTADD          reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    DOTSUB          reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    DOTMUL          reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    DOTDIV          reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    TRANSPOSE       reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    ,               reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    ;               reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    EQ              reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    <               reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    >               reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    GE              reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    LE              reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    NEQ             reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    )               reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    ]               reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    OR              reduce using rule 59 (operable_expression -> ONES ( id ) .)
+    AND             reduce using rule 59 (operable_expression -> ONES ( id ) .)
+
+
+state 141
+
+    (72) rows -> rows ; row .
+    (74) row -> row . , EXPRESSION
+
+    ]               reduce using rule 72 (rows -> rows ; row .)
+    ;               reduce using rule 72 (rows -> rows ; row .)
+    ,               shift and go to state 126
+
+
+state 142
+
+    (74) row -> row , EXPRESSION .
+
+    ]               reduce using rule 74 (row -> row , EXPRESSION .)
+    ,               reduce using rule 74 (row -> row , EXPRESSION .)
+    ;               reduce using rule 74 (row -> row , EXPRESSION .)
+
+
+state 143
+
+    (24) if_statement -> IF ( condition ) instruction else_statement .
+
+    BREAK           reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+    CONTINUE        reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+    {               reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+    IF              reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+    WHILE           reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+    FOR             reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+    PRINT           reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+    RETURN          reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+    ID              reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+    $end            reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+    }               reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+    ELSE            reduce using rule 24 (if_statement -> IF ( condition ) instruction else_statement .)
+
+
+state 144
+
+    (25) else_statement -> ELSE . instruction
+    (6) instruction -> . if_statement
+    (7) instruction -> . assign ;
+    (8) instruction -> . loop
+    (9) instruction -> . BREAK ;
+    (10) instruction -> . CONTINUE ;
+    (11) instruction -> . instruction_with_argument ;
+    (14) instruction -> . { instructions }
+    (23) if_statement -> . IF ( condition ) instruction
+    (24) if_statement -> . IF ( condition ) instruction else_statement
+    (35) assign -> . id = EXPRESSION
+    (36) assign -> . id ADDASSIGN string_expression
+    (37) assign -> . id DIVASSIGN operable_expression
+    (38) assign -> . id MULASSIGN operable_expression
+    (39) assign -> . id ADDASSIGN operable_expression
+    (40) assign -> . id SUBASSIGN operable_expression
+    (41) assign -> . array_part = EXPRESSION
+    (17) loop -> . WHILE ( condition ) instruction
+    (18) loop -> . FOR array_range instruction
+    (12) instruction_with_argument -> . PRINT printable
+    (13) instruction_with_argument -> . RETURN EXPRESSION
+    (76) id -> . ID
+    (49) array_part -> . id [ introw ]
+
+    BREAK           shift and go to state 8
+    CONTINUE        shift and go to state 9
+    {               shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 15
+    FOR             shift and go to state 16
+    PRINT           shift and go to state 17
+    RETURN          shift and go to state 18
+    ID              shift and go to state 19
+
+    instruction                    shift and go to state 149
+    if_statement                   shift and go to state 5
+    assign                         shift and go to state 6
+    loop                           shift and go to state 7
+    instruction_with_argument      shift and go to state 10
+    id                             shift and go to state 13
+    array_part                     shift and go to state 14
+
+state 145
+
+    (20) array_range -> id = id : id .
+
+    BREAK           reduce using rule 20 (array_range -> id = id : id .)
+    CONTINUE        reduce using rule 20 (array_range -> id = id : id .)
+    {               reduce using rule 20 (array_range -> id = id : id .)
+    IF              reduce using rule 20 (array_range -> id = id : id .)
+    WHILE           reduce using rule 20 (array_range -> id = id : id .)
+    FOR             reduce using rule 20 (array_range -> id = id : id .)
+    PRINT           reduce using rule 20 (array_range -> id = id : id .)
+    RETURN          reduce using rule 20 (array_range -> id = id : id .)
+    ID              reduce using rule 20 (array_range -> id = id : id .)
+
+
+state 146
+
+    (21) array_range -> id = id : int .
+
+    BREAK           reduce using rule 21 (array_range -> id = id : int .)
+    CONTINUE        reduce using rule 21 (array_range -> id = id : int .)
+    {               reduce using rule 21 (array_range -> id = id : int .)
+    IF              reduce using rule 21 (array_range -> id = id : int .)
+    WHILE           reduce using rule 21 (array_range -> id = id : int .)
+    FOR             reduce using rule 21 (array_range -> id = id : int .)
+    PRINT           reduce using rule 21 (array_range -> id = id : int .)
+    RETURN          reduce using rule 21 (array_range -> id = id : int .)
+    ID              reduce using rule 21 (array_range -> id = id : int .)
+
+
+state 147
+
+    (19) array_range -> id = int : id .
+
+    BREAK           reduce using rule 19 (array_range -> id = int : id .)
+    CONTINUE        reduce using rule 19 (array_range -> id = int : id .)
+    {               reduce using rule 19 (array_range -> id = int : id .)
+    IF              reduce using rule 19 (array_range -> id = int : id .)
+    WHILE           reduce using rule 19 (array_range -> id = int : id .)
+    FOR             reduce using rule 19 (array_range -> id = int : id .)
+    PRINT           reduce using rule 19 (array_range -> id = int : id .)
+    RETURN          reduce using rule 19 (array_range -> id = int : id .)
+    ID              reduce using rule 19 (array_range -> id = int : id .)
+
+
+state 148
+
+    (22) array_range -> id = int : int .
+
+    BREAK           reduce using rule 22 (array_range -> id = int : int .)
+    CONTINUE        reduce using rule 22 (array_range -> id = int : int .)
+    {               reduce using rule 22 (array_range -> id = int : int .)
+    IF              reduce using rule 22 (array_range -> id = int : int .)
+    WHILE           reduce using rule 22 (array_range -> id = int : int .)
+    FOR             reduce using rule 22 (array_range -> id = int : int .)
+    PRINT           reduce using rule 22 (array_range -> id = int : int .)
+    RETURN          reduce using rule 22 (array_range -> id = int : int .)
+    ID              reduce using rule 22 (array_range -> id = int : int .)
+
+
+state 149
+
+    (25) else_statement -> ELSE instruction .
+
+    BREAK           reduce using rule 25 (else_statement -> ELSE instruction .)
+    CONTINUE        reduce using rule 25 (else_statement -> ELSE instruction .)
+    {               reduce using rule 25 (else_statement -> ELSE instruction .)
+    IF              reduce using rule 25 (else_statement -> ELSE instruction .)
+    WHILE           reduce using rule 25 (else_statement -> ELSE instruction .)
+    FOR             reduce using rule 25 (else_statement -> ELSE instruction .)
+    PRINT           reduce using rule 25 (else_statement -> ELSE instruction .)
+    RETURN          reduce using rule 25 (else_statement -> ELSE instruction .)
+    ID              reduce using rule 25 (else_statement -> ELSE instruction .)
+    $end            reduce using rule 25 (else_statement -> ELSE instruction .)
+    }               reduce using rule 25 (else_statement -> ELSE instruction .)
+    ELSE            reduce using rule 25 (else_statement -> ELSE instruction .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ] in state 89 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 127 resolved as shift
+WARNING: shift/reduce conflict for OR in state 128 resolved as shift
+WARNING: shift/reduce conflict for AND in state 128 resolved as shift
+WARNING: shift/reduce conflict for OR in state 129 resolved as shift
+WARNING: shift/reduce conflict for AND in state 129 resolved as shift
