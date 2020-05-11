@@ -6,6 +6,7 @@ sys.path.append(os.path.abspath('..'))
 import Lab_4.Mparser
 import Lab_4.TreePrinter
 import Lab_4.scanner
+from Lab_4.TypeChecker import TypeChecker
 
 if __name__ == '__main__':
 
@@ -22,6 +23,6 @@ if __name__ == '__main__':
     # res = ast.printTree()
     # print(res)
     # Below code shows how to use visitor
+
     typeChecker = TypeChecker()
     typeChecker.visit(ast)  # or alternatively ast.accept(typeChecker)
-

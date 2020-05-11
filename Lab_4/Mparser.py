@@ -229,16 +229,6 @@ def p_assign_7(p):
     p[0] = BinExpr(p[2], p[1], p[3])
 
 
-def p_introw_1(p):
-    """introw : introw ',' int"""
-    p[0] = Introw(p[1], p[3])
-
-
-def p_introw_2(p):
-    """introw : int"""
-    p[0] = p[1]
-
-
 def p_expression_1(p):
     """EXPRESSION : operable_expression"""
     p[0] = p[1]
@@ -265,7 +255,7 @@ def p_expression_4(p):
 
 
 def p_expression_5a(p):
-    """array_part : id '[' introw ']'"""
+    """array_part : id '[' row ']'"""
     p[0] = ArrayPart(p[1], p[3])
 
 
@@ -290,32 +280,17 @@ def p_expression_9(p):
 
 
 def p_m_expression_1(p):
-    """operable_expression : EYE '(' int ')' """
+    """operable_expression : EYE '(' row ')' """
     p[0] = Eye(p[3])
 
 
 def p_m_expression_2(p):
-    """operable_expression : ZEROS '(' int ')' """
+    """operable_expression : ZEROS '(' row ')' """
     p[0] = Zeros(p[3])
 
 
 def p_m_expression_3(p):
-    """operable_expression : ONES '(' int ')' """
-    p[0] = Ones(p[3])
-
-
-def p_m_expression_4(p):
-    """operable_expression : EYE '(' id ')' """
-    p[0] = Eye(p[3])
-
-
-def p_m_expression_5(p):
-    """operable_expression : ZEROS '(' id ')' """
-    p[0] = Zeros(p[3])
-
-
-def p_m_expression_6(p):
-    """operable_expression : ONES '(' id ')' """
+    """operable_expression : ONES '(' row ')' """
     p[0] = Ones(p[3])
 
 
