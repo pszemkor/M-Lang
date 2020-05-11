@@ -157,6 +157,12 @@ class Matrix(Node):
     def __init__(self, rows):
         self.type = "MATRIX"
         self.rows = rows
+        self.size = self.get_size(rows)
+
+    def get_size(self, rows):
+        x = len(rows.children)
+        y = len(rows.children[0].children)
+        return x, y
 
 
 class Vector(Node):

@@ -350,7 +350,7 @@ def p_create_matrix(p):
 
 
 def p_matrix(p):
-    """matrix : '[' rows ']'"""
+    """matrix : '[' rows ']' """
     p[0] = Matrix(p[2])
 
 
@@ -362,6 +362,7 @@ def p_rows_1(p):
 def p_rows_2(p):
     """rows : row """
     p[0] = Rows(None, p[1])
+
 
 
 def p_row_1(p):

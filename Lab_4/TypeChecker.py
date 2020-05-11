@@ -7,6 +7,7 @@ class NodeVisitor(object):
         self.symbol_table = SymbolTable(None, None)
 
     def visit(self, node):
+        # print("visiting:", node.__class__.__name__)
         if self.symbol_table.getParentScope() == "return":
             print("Error, instruction after 'return' is unreachable")
         method = 'visit_' + node.__class__.__name__
@@ -86,14 +87,45 @@ class TypeChecker(NodeVisitor):
             print(type_left, type_right, op)
 
     def visit_Matrix(self, node):
-        # todo
+        matrix_rows = node.rows
+        first_row_len = len(matrix_rows.children[0].children)
+        for row in matrix_rows.children[1:]:
+            if len(row.children) != first_row_len:
+                print("Error, every row of matrix should have the same size")
+                return node.type
         return node.type
+
+    def visit_Row(self, node):
+        for i, child in enumerate(node.children):
+            if child.type != self.visit(node.children[i - 1]):
+                print("Error, row contains heterogeneous elements")
+        return self.visit(node.children[0])
+
+    def visit_Zeros(self, node):
+        type1 = self.visit(node.arg)
+        if type1 != "INTNUM":
+            print("Error, illegal zeros initialization")
+        return "MATRIX"
+
+    def visit_Eye(self, node):
+        type1 = self.visit(node.arg)
+        if type1 != "INTNUM":
+            print("Error, illegal eye initialization")
+        return "MATRIX"
+
+    def visit_Ones(self, node):
+        type1 = self.visit(node.arg)
+        if type1 != "INTNUM":
+            print("Error, illegal ones initialization")
+        return "MATRIX"
 
     def visit_IntNum(self, node):
         return node.type
 
     def visit_Variable(self, node):
         return node.type
+        # resolved_type = self.symbol_table.get(node.name)
+        # return resolved_type if resolved_type else node.type
 
     def visit_Vector(self, node):
         return node.type
