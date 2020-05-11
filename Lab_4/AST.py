@@ -196,24 +196,11 @@ class String(Node):
         self.value = value
 
 
-class Introw(Node):
-    def __init__(self, introw, intnum):
-        self.type = "INTROW"
-        self.introw = introw
-        self.intnum = intnum
-        if introw is None:
-            self.children = [intnum]
-        else:
-            children = introw.children
-            children.insert(0, intnum)
-            self.children = children
-
-
 class ArrayPart(Node):
-    def __init__(self, var, introw):
+    def __init__(self, var, row):
         self.type = "ARRAY_PART"
         self.var = var
-        self.introw = introw
+        self.introw = row
 
 
 class Break(Node):

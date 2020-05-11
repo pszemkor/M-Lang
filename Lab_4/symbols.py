@@ -20,7 +20,7 @@ class SymbolTable(object):
         self.symbols[name] = VariableSymbol(name, symbol)
 
     def get(self, name):  # get variable symbol or fundef from <name> entry
-        return self.symbols[name]
+        return self.symbols.get(name, None)
 
     def getParentScope(self):
         return self.scope[-1]

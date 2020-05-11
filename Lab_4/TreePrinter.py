@@ -180,12 +180,6 @@ class TreePrinter:
         result += self.introw.printTree(indent + 1)
         return result
 
-    @addToClass(Introw)
-    def printTree(self, indent=0):
-        res = self.intnum.printTree(indent)
-        res += self.introw.printTree(indent)
-        return res
-
 
 def get_indent(indent):
     return "| " * indent
