@@ -66,12 +66,12 @@ def p_instruction_3(p):
 
 def p_instruction_4(p):
     """instruction : BREAK ';'"""
-    p[0] = Instruction(Break, )
+    p[0] = Instruction(Break())
 
 
 def p_instruction_5(p):
     """instruction : CONTINUE ';'"""
-    p[0] = Instruction(Continue)
+    p[0] = Instruction(Continue())
 
 
 def p_instruction_6(p):

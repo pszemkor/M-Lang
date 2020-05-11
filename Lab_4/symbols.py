@@ -14,7 +14,7 @@ class SymbolTable(object):
         self.parent = parent
         self.name = name
         self.symbols = {}
-        self.scope = []
+        self.scope = ["main"]
 
     def put(self, name, symbol):  # put variable symbol or fundef under <name> entry
         self.symbols[name] = VariableSymbol(name, symbol)

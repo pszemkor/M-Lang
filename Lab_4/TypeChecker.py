@@ -3,8 +3,12 @@ from Lab_4.symbols import SymbolTable
 
 
 class NodeVisitor(object):
+    def __init__(self):
+        self.symbol_table = SymbolTable(None, None)
 
     def visit(self, node):
+        if self.symbol_table.getParentScope() == "return":
+            print("Error, instruction after 'return' is unreachable")
         method = 'visit_' + node.__class__.__name__
         visitor = getattr(self, method, self.generic_visit)
         return visitor(node)
@@ -24,8 +28,27 @@ class NodeVisitor(object):
 
 
 class TypeChecker(NodeVisitor):
-    def __init__(self):
-        self.symbol_table = SymbolTable(None, None)
+    def visit_Loop(self, node):
+        self.visit(node.condition)
+        self.symbol_table.pushScope("loop")
+        self.visit(node.instruction)
+        self.symbol_table.popScope()
+        return node.type
+
+    def visit_Continue(self, node):
+        if self.symbol_table.getParentScope() != "loop":
+            print("Error, cannot use 'continue' beyond the loop")
+        return node.type
+
+    def visit_InstructionWithArg(self, node):
+        if node.op == "return":
+            self.symbol_table.pushScope("return")
+        return node.type
+
+    def visit_Break(self, node):
+        if self.symbol_table.getParentScope() != "loop":
+            print("Error, cannot use 'break' beyond the loop")
+        return node.type
 
     def visit_BinExpr(self, node):
         type1 = self.visit(node.left)
@@ -59,8 +82,12 @@ class TypeChecker(NodeVisitor):
                 return "VECTOR"
             else:
                 print("Error, type mismatch: {}, {}".format(type_left, type_right))
-
+            # todo
             print(type_left, type_right, op)
+
+    def visit_Matrix(self, node):
+        # todo
+        return node.type
 
     def visit_IntNum(self, node):
         return node.type
