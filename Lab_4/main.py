@@ -19,5 +19,9 @@ if __name__ == '__main__':
     parser = Lab_4.Mparser.parser
     text = file.read()
     ast = parser.parse(text, lexer=Lab_4.scanner.lexer)
-    res = ast.printTree()
-    print(res)
+    # res = ast.printTree()
+    # print(res)
+    # Below code shows how to use visitor
+    typeChecker = TypeChecker()
+    typeChecker.visit(ast)  # or alternatively ast.accept(typeChecker)
+
