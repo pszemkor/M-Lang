@@ -364,7 +364,6 @@ def p_rows_2(p):
     p[0] = Rows(None, p[1])
 
 
-
 def p_row_1(p):
     """row : row ',' EXPRESSION"""
     p[0] = Row(p[1], p[3])
@@ -373,6 +372,11 @@ def p_row_1(p):
 def p_row_2(p):
     """row :  EXPRESSION """
     p[0] = Row(None, p[1])
+
+
+def p_row_3(p):
+    """row :  """
+    p[0] = Row(None, None)
 
 
 def p_id_prod(p):

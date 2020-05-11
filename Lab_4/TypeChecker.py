@@ -102,18 +102,27 @@ class TypeChecker(NodeVisitor):
         return self.visit(node.children[0])
 
     def visit_Zeros(self, node):
+        if node.arg.type == "ROW" and len(node.arg.children) != 1:
+            print("Error, illegal zeros initialization")
+            return "MATRIX"
         type1 = self.visit(node.arg)
         if type1 != "INTNUM":
             print("Error, illegal zeros initialization")
         return "MATRIX"
 
     def visit_Eye(self, node):
+        if node.arg.type == "ROW" and len(node.arg.children) != 1:
+            print("Error, illegal eye initialization")
+            return "MATRIX"
         type1 = self.visit(node.arg)
         if type1 != "INTNUM":
             print("Error, illegal eye initialization")
         return "MATRIX"
 
     def visit_Ones(self, node):
+        if node.arg.type == "ROW" and len(node.arg.children) != 1:
+            print("Error, illegal ones initialization")
+            return "MATRIX"
         type1 = self.visit(node.arg)
         if type1 != "INTNUM":
             print("Error, illegal ones initialization")
