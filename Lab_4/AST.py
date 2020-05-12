@@ -169,6 +169,7 @@ class Vector(Node):
     def __init__(self, row):
         self.type = "VECTOR"
         self.row = row
+        self.size = len(row.children)
 
 
 class UnaryExpression(Node):
