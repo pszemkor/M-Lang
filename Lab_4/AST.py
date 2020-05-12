@@ -112,6 +112,7 @@ class IfStatement(Node):
         self.condition = condition
         self.instruction = instruction
         self.elseStatement = elseStatement
+        self.children = [condition, instruction, elseStatement]
 
 
 class ElseStatement(Node):
@@ -119,6 +120,7 @@ class ElseStatement(Node):
         self.type = "ELSE"
         self.else_clause = 'else'
         self.instruction = instruction
+        self.children = [instruction]
 
 
 class LogicalOperator(Node):
@@ -169,7 +171,7 @@ class Vector(Node):
     def __init__(self, row):
         self.type = "VECTOR"
         self.row = row
-        self.size = len(row.children)
+        self.size = (1, len(row.children))
 
 
 class UnaryExpression(Node):
@@ -181,23 +183,24 @@ class UnaryExpression(Node):
 
 class Zeros(Node):
     def __init__(self, arg):
-        self.type = "ZEROS"
+        self.type = "MATRIX"
         self.arg = arg
         self.size = None
 
 
 class Ones(Node):
     def __init__(self, arg):
-        self.type = "ONES"
+        self.type = "MATRIX"
         self.arg = arg
         self.size = None
 
 
 class Eye(Node):
     def __init__(self, arg):
-        self.type = "EYE"
+        self.type = "MATRIX"
         self.arg = arg
         self.size = None
+
 
 class String(Node):
     def __init__(self, value):
@@ -221,10 +224,13 @@ class Break(Node):
 class Continue(Node):
     def __init__(self):
         self.type = "CONTINUE"
-        pass
 
 
 class Error(Node):
     def __init__(self):
         self.type = "ERROR"
-        pass
+
+
+class LogicalOperator(Node):
+    def __init__(self, op):
+        self.op = op

@@ -57,6 +57,7 @@ def p_instruction_1(p):
 def p_instruction_2(p):
     """instruction : assign ';'"""
     p[0] = Instruction(p[1])
+    p[0].lineno = p.lineno(2)
 
 
 def p_instruction_3(p):
@@ -66,17 +67,26 @@ def p_instruction_3(p):
 
 def p_instruction_4(p):
     """instruction : BREAK ';'"""
-    p[0] = Instruction(Break())
+    br = Break()
+    br.lineno = p.lineno(2)
+    p[0] = Instruction(br)
+    p[0].lineno = p.lineno(2)
+
 
 
 def p_instruction_5(p):
     """instruction : CONTINUE ';'"""
-    p[0] = Instruction(Continue())
+    cont = Continue()
+    cont.lineno = p.lineno(2)
+    p[0] = Instruction(cont)
+    p[0].lineno = p.lineno(2)
 
 
 def p_instruction_6(p):
     """instruction : instruction_with_argument ';'"""
     p[0] = Instruction(p[1])
+    p[0].lineno = p.lineno(2)
+
 
 
 def p_instruction_7(p):
@@ -87,6 +97,11 @@ def p_instruction_7(p):
 def p_instruction_8(p):
     """instruction_with_argument : RETURN EXPRESSION"""
     p[0] = InstructionWithArg(p[1], p[2])
+
+
+def p_instruction_8_empty_return(p):
+    """instruction_with_argument : RETURN"""
+    p[0] = InstructionWithArg(p[1], None)
 
 
 def p_instruction_9(p):
@@ -152,81 +167,97 @@ def p_else_statement(p):
 def p_condition_1(p):
     """condition : EXPRESSION logical_operator EXPRESSION"""
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(1)
 
 
 def p_condition_2(p):
     """condition : condition OR condition"""
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_condition_3(p):
     """condition : condition AND condition"""
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_logical_operator_1(p):
     """logical_operator : EQ"""
-    p[0] = p[1]
+    p[0] = LogicalOperator(p[1])
+    p[0].lineno = p.lineno(1)
 
 
 def p_logical_operator_2(p):
     """logical_operator : '<'"""
-    p[0] = p[1]
+    p[0] = LogicalOperator(p[1])
+    p[0].lineno = p.lineno(1)
 
 
 def p_logical_operator_3(p):
     """logical_operator : '>'"""
-    p[0] = p[1]
+    p[0] = LogicalOperator(p[1])
+    p[0].lineno = p.lineno(1)
 
 
 def p_logical_operator_4(p):
     """logical_operator : GE"""
-    p[0] = p[1]
+    p[0] = LogicalOperator(p[1])
+    p[0].lineno = p.lineno(1)
 
 
 def p_logical_operator_5(p):
     """logical_operator : LE"""
-    p[0] = p[1]
+    p[0] = LogicalOperator(p[1])
+    p[0].lineno = p.lineno(1)
 
 
 def p_logical_operator_6(p):
     """logical_operator : NEQ"""
-    p[0] = p[1]
+    p[0] = LogicalOperator(p[1])
+    p[0].lineno = p.lineno(1)
 
 
 def p_assign_1(p):
     """assign : id '=' EXPRESSION"""
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_assign_2(p):
     """assign : id ADDASSIGN string_expression"""
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_assign_3(p):
     """assign : id DIVASSIGN operable_expression"""
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_assign_4(p):
     """assign : id MULASSIGN operable_expression"""
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_assign_5(p):
     """assign : id ADDASSIGN operable_expression"""
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_assign_6(p):
     """assign : id SUBASSIGN operable_expression"""
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_assign_7(p):
     """assign : array_part '=' EXPRESSION"""
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_expression_1(p):
@@ -242,26 +273,31 @@ def p_expression_2(p):
 def p_string_expression(p):
     """string_expression :  str '+' str """
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_expression_3(p):
     """operable_expression : operable_expression '*' operable_expression """
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_expression_4(p):
     """operable_expression : operable_expression '/' operable_expression """
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_expression_5a(p):
     """array_part : id '[' row ']'"""
     p[0] = ArrayPart(p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_expression_6(p):
     """operable_expression : '(' operable_expression ')'"""
     p[0] = p[2]
+    p[0].lineno = p.lineno(2)
 
 
 def p_expression_7(p):
@@ -272,46 +308,55 @@ def p_expression_7(p):
 def p_expression_8(p):
     """operable_expression : operable_expression '+' operable_expression """
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_expression_9(p):
     """operable_expression : operable_expression '-' operable_expression """
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_m_expression_1(p):
     """operable_expression : EYE '(' row ')' """
     p[0] = Eye(p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_m_expression_2(p):
     """operable_expression : ZEROS '(' row ')' """
     p[0] = Zeros(p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_m_expression_3(p):
     """operable_expression : ONES '(' row ')' """
     p[0] = Ones(p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_m_expression_7(p):
     """operable_expression : operable_expression DOTADD operable_expression """
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_m_expression_8(p):
     """operable_expression : operable_expression DOTSUB operable_expression """
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_m_expression_9(p):
     """operable_expression : operable_expression DOTMUL operable_expression """
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_m_expression_10(p):
     """operable_expression : operable_expression DOTDIV operable_expression"""
     p[0] = BinExpr(p[2], p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_m_expression_11(p):
@@ -332,6 +377,7 @@ def p_create_matrix_1a(p):
 def p_create_vector(p):
     """vector : '[' row ']'"""
     p[0] = Vector(p[2])
+    p[0].lineno = p.lineno(1)
 
 
 def p_create_matrix_2(p):
@@ -352,6 +398,7 @@ def p_create_matrix(p):
 def p_matrix(p):
     """matrix : '[' rows ']' """
     p[0] = Matrix(p[2])
+    p[0].lineno = p.lineno(1)
 
 
 def p_rows_1(p):
@@ -367,11 +414,13 @@ def p_rows_2(p):
 def p_row_1(p):
     """row : row ',' EXPRESSION"""
     p[0] = Row(p[1], p[3])
+    p[0].lineno = p.lineno(2)
 
 
 def p_row_2(p):
     """row :  EXPRESSION """
     p[0] = Row(None, p[1])
+    p[0].lineno = p.lineno(1)
 
 
 def p_row_3(p):

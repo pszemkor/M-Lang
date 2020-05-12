@@ -161,6 +161,8 @@ class TreePrinter:
     @addToClass(InstructionWithArg)
     def printTree(self, indent=0):
         res = get_indent(indent) + self.op
+        if not self.expr:
+            return res
         res += "\n"
         res += self.expr.printTree(indent + 1)
         return res

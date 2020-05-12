@@ -8,8 +8,8 @@ class NodeVisitor(object):
 
     def visit(self, node):
         # print("visiting:", node.__class__.__name__)
-        if self.symbol_table.getParentScope() == "return":
-            print("Error, instruction after 'return' is unreachable")
+        if self.symbol_table.getParentScope() == "return" and node.type == "INSTRUCTION":
+            print("[line: {}]: Error, instruction after 'return' is unreachable".format(node.lineno))
         method = 'visit_' + node.__class__.__name__
         visitor = getattr(self, method, self.generic_visit)
         return visitor(node)
@@ -30,6 +30,9 @@ class NodeVisitor(object):
 
 class TypeChecker(NodeVisitor):
     def valid_sizes(self, left, right):
+        # to check in runtime
+        if not left.size or not right.size:
+            return True
         return left.size == right.size
 
     def visit_Loop(self, node):
@@ -41,7 +44,7 @@ class TypeChecker(NodeVisitor):
 
     def visit_Continue(self, node):
         if self.symbol_table.getParentScope() != "loop":
-            print("Error, cannot use 'continue' beyond the loop")
+            print("[line: {}]: Error, cannot use 'continue' beyond the loop".format(node.lineno))
         return node.type
 
     def visit_InstructionWithArg(self, node):
@@ -51,7 +54,7 @@ class TypeChecker(NodeVisitor):
 
     def visit_Break(self, node):
         if self.symbol_table.getParentScope() != "loop":
-            print("Error, cannot use 'break' beyond the loop")
+            print("[line: {}]: Error, cannot use 'break' beyond the loop".format(node.lineno))
         return node.type
 
     def visit_BinExpr(self, node):
@@ -60,7 +63,7 @@ class TypeChecker(NodeVisitor):
         op = node.op
         if op == "=":
             if type1 != "VARIABLE":
-                print("ERROR, cannot assign to non-variable")
+                print("[line: {}]: ERROR, cannot assign to non-variable".format(node.lineno))
             else:
                 if (type2 == "MATRIX" or type2 == "VECTOR") and hasattr(node.right, 'size'):
                     self.symbol_table.put(node.left.name, type2, node.right.size)
@@ -70,6 +73,10 @@ class TypeChecker(NodeVisitor):
         else:
             type_left = self.resolve_if_var(node.left)
             type_right = self.resolve_if_var(node.right)
+            # to check in runtime
+            if type_right == "BIN_EXPR" or type_left == "BIN_EXPR":
+                return "BIN_EXPR"
+            print(type_right, type_left)
             if (type_left == "INTNUM" and type_right == "FLOATNUM") or (
                     type_left == "FLOATNUM" and type_right == "INTNUM"):
                 return "FLOATNUM"
@@ -79,71 +86,72 @@ class TypeChecker(NodeVisitor):
                 return "FLOATNUM"
             elif type_left == "STRING" and type_right == "STRING" and op == "+":
                 return "STRING"
-            elif type_left == "MATRIX" and type_right == "MATRIX":
+            elif type_left in ["MATRIX", "VECTOR"] and type_right in ["MATRIX", "VECTOR"]:
                 left = self.resolve_variable_object(node.left)
                 right = self.resolve_variable_object(node.right)
                 if self.valid_sizes(left, right):
                     return "MATRIX"
                 else:
-                    print("Error, invalid matrix sizes in binary expression: left: {}, right: {}".format(left.size, right.size))
-            elif type_left == "VECTOR" and type_right == "VECTOR":
-                left = self.resolve_variable_object(node.left)
-                right = self.resolve_variable_object(node.right)
-                if self.valid_sizes(left, right):
-                    return "VECTOR"
-                else:
-                    print("Error, invalid vector sizes in binary expression: left: {}, right: {}".format(left.size, right.size))
+                    print("[line: {}]: Error, invalid matrix sizes in binary expression: left: {}, right: {}".format(
+                        node.lineno, left.size,
+                        right.size))
             else:
-                print("Error, type mismatch: {}, {}".format(type_left, type_right))
-            # todo
-            print(type_left, type_right, op)
+                print("[line: {}]: Error, type mismatch: {}, {}".format(node.lineno, type_left, type_right))
 
     def visit_Matrix(self, node):
         matrix_rows = node.rows
         first_row_len = len(matrix_rows.children[0].children)
         for row in matrix_rows.children[1:]:
             if len(row.children) != first_row_len:
-                print("Error, every row of matrix should have the same size")
+                print("[line: {}]: Error, every row of matrix should have the same size".format(node.lineno))
                 return node.type
         return node.type
 
     def visit_Row(self, node):
         for i, child in enumerate(node.children):
             if child.type != self.visit(node.children[i - 1]):
-                print("Error, row contains heterogeneous elements")
+                print("[line: {}]: Error, row contains heterogeneous elements".format(node.lineno))
         return self.visit(node.children[0])
 
     def visit_Zeros(self, node):
         if node.arg.type == "ROW" and self.is_row_of_ints(node.arg):
             size = []
             for ch in node.arg.children:
-                size.append(ch)
+                if self.visit(ch) == "VARIABLE":
+                    return "MATRIX"
+                size.append(ch.value)
+            if len(size) == 1:
+                size.insert(0, 1)
             node.size = tuple(size)
             return "MATRIX"
         else:
-            print("Error, illegal zeros initialization")
+            print("[line: {}]: Error, illegal zeros initialization".format(node.lineno))
         return "MATRIX"
 
     def visit_Eye(self, node):
         if node.arg.type == "ROW" and self.is_row_of_ints(node.arg):
             size = []
             for ch in node.arg.children:
-                size.append(ch)
+                size.append(ch.value)
+            if len(size) == 1:
+                size.insert(0, 1)
             node.size = tuple(size)
             return "MATRIX"
         else:
-            print("Error, illegal eye initialization")
+            print("[line: {}]: Error, illegal eye initialization".format(node.lineno))
         return "MATRIX"
 
     def visit_Ones(self, node):
         if node.arg.type == "ROW" and self.is_row_of_ints(node.arg):
             size = []
             for ch in node.arg.children:
-                size.append(ch)
+                size.append(ch.value)
+            if len(size) == 1:
+                size.insert(0, 1)
             node.size = tuple(size)
             return "MATRIX"
         else:
-            print("Error, illegal ones initialization")
+            print("[line: {}]: Error, illegal ones initialization".format(node.lineno))
         return "MATRIX"
 
     def visit_IntNum(self, node):
@@ -158,11 +166,14 @@ class TypeChecker(NodeVisitor):
     def visit_Vector(self, node):
         return node.type
 
+    def visit_LogicalOperator(self, node):
+        return node.type
+
     def resolve_variable_object(self, node):
         if node.type == "VARIABLE":
             res = self.symbol_table.get(node.name)
             if not res:
-                print("Variable {} undeclared".format(node.name))
+                print("[line: {}]: Variable {} undeclared".format(node.lineno, node.name))
                 return res
             return res
         else:
@@ -172,7 +183,7 @@ class TypeChecker(NodeVisitor):
         if node.type == "VARIABLE":
             res = self.symbol_table.get(node.name)
             if not res:
-                print("Variable {} undeclared".format(node.name))
+                print("[line: {}]: Variable {} undeclared".format(node.lineno, node.name))
                 return res
             return res.type
         else:
