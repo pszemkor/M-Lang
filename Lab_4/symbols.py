@@ -3,9 +3,10 @@ from symtable import Symbol
 
 class VariableSymbol(object):
 
-    def __init__(self, name, type):
+    def __init__(self, name, type, size):
         self.name = name
         self.type = type
+        self.size = size
 
 
 class SymbolTable(object):
@@ -16,8 +17,8 @@ class SymbolTable(object):
         self.symbols = {}
         self.scope = ["main"]
 
-    def put(self, name, symbol):  # put variable symbol or fundef under <name> entry
-        self.symbols[name] = VariableSymbol(name, symbol)
+    def put(self, name, symbol, size = None):  # put variable symbol or fundef under <name> entry
+        self.symbols[name] = VariableSymbol(name, symbol, size)
 
     def get(self, name):  # get variable symbol or fundef from <name> entry
         return self.symbols.get(name, None)

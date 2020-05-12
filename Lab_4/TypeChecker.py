@@ -29,6 +29,9 @@ class NodeVisitor(object):
 
 
 class TypeChecker(NodeVisitor):
+    def valid_sizes(self, left, right):
+        return left.size == right.size
+
     def visit_Loop(self, node):
         self.visit(node.condition)
         self.symbol_table.pushScope("loop")
@@ -59,14 +62,14 @@ class TypeChecker(NodeVisitor):
             if type1 != "VARIABLE":
                 print("ERROR, cannot assign to non-variable")
             else:
-                self.symbol_table.put(node.left.name, type2)
+                if (type2 == "MATRIX" or type2 == "VECTOR") and hasattr(node.right, 'size'):
+                    self.symbol_table.put(node.left.name, type2, node.right.size)
+                else:
+                    self.symbol_table.put(node.left.name, type2)
                 return type2
         else:
             type_left = self.resolve_if_var(node.left)
             type_right = self.resolve_if_var(node.right)
-            # types = {"INTNUM", "FLOATNUM","STRING", "VECTOR"}
-            # if type_left == "MATRIX" and type_right in types:
-            #     print("Type mismatch, cannot assign {} to {}".format(type_right, type_left))
             if (type_left == "INTNUM" and type_right == "FLOATNUM") or (
                     type_left == "FLOATNUM" and type_right == "INTNUM"):
                 return "FLOATNUM"
@@ -76,11 +79,20 @@ class TypeChecker(NodeVisitor):
                 return "FLOATNUM"
             elif type_left == "STRING" and type_right == "STRING" and op == "+":
                 return "STRING"
-            # todo check sizes
             elif type_left == "MATRIX" and type_right == "MATRIX":
-                return "MATRIX"
+                left = self.resolve_variable_object(node.left)
+                right = self.resolve_variable_object(node.right)
+                if self.valid_sizes(left, right):
+                    return "MATRIX"
+                else:
+                    print("Error, invalid matrix sizes in binary expression: left: {}, right: {}".format(left.size, right.size))
             elif type_left == "VECTOR" and type_right == "VECTOR":
-                return "VECTOR"
+                left = self.resolve_variable_object(node.left)
+                right = self.resolve_variable_object(node.right)
+                if self.valid_sizes(left, right):
+                    return "VECTOR"
+                else:
+                    print("Error, invalid vector sizes in binary expression: left: {}, right: {}".format(left.size, right.size))
             else:
                 print("Error, type mismatch: {}, {}".format(type_left, type_right))
             # todo
@@ -142,11 +154,19 @@ class TypeChecker(NodeVisitor):
 
     def visit_Variable(self, node):
         return node.type
-        # resolved_type = self.symbol_table.get(node.name)
-        # return resolved_type if resolved_type else node.type
 
     def visit_Vector(self, node):
         return node.type
+
+    def resolve_variable_object(self, node):
+        if node.type == "VARIABLE":
+            res = self.symbol_table.get(node.name)
+            if not res:
+                print("Variable {} undeclared".format(node.name))
+                return res
+            return res
+        else:
+            return node
 
     def resolve_if_var(self, node):
         if node.type == "VARIABLE":
