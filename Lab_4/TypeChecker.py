@@ -79,7 +79,6 @@ class TypeChecker(NodeVisitor):
             # to check in runtime
             if type_right == "BIN_EXPR" or type_left == "BIN_EXPR":
                 return "BIN_EXPR"
-            print(type_right, type_left)
             if (type_left == "INTNUM" and type_right == "FLOATNUM") or (
                     type_left == "FLOATNUM" and type_right == "INTNUM"):
                 return "FLOATNUM"
@@ -91,14 +90,15 @@ class TypeChecker(NodeVisitor):
                 return "STRING"
             elif type_left in ["VECTOR", "MATRIX"] and type_right in ["VECTOR", "MATRIX"]:
                 if op == "/":
-                    print("Error, cannot divide two matrix/vectors")
+                    print("[line: {}]: Error, cannot divide two matrix/vectors".format(node.lineno))
                 else:
                     left = self.resolve_variable_object(node.left)
                     right = self.resolve_variable_object(node.right)
                     if self.valid_sizes(left, right, op):
                         return "MATRIX"
                     else:
-                        print("[line: {}]: Error, invalid matrix sizes in binary expression: left: {}, right: {}".format(
+                        print(
+                            "[line: {}]: Error, invalid matrix sizes in binary expression: left: {}, right: {}".format(
                                 node.lineno, left.size,
                                 right.size))
             else:
