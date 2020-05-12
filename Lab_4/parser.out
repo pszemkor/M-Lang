@@ -77,10 +77,11 @@ Rule 67    rows -> rows ; row
 Rule 68    rows -> row
 Rule 69    row -> row , EXPRESSION
 Rule 70    row -> EXPRESSION
-Rule 71    id -> ID
-Rule 72    int -> INTNUM
-Rule 73    f -> FLOAT
-Rule 74    str -> STRING
+Rule 71    row -> <empty>
+Rule 72    id -> ID
+Rule 73    int -> INTNUM
+Rule 74    f -> FLOAT
+Rule 75    str -> STRING
 
 Terminals, with rules where they appear
 
@@ -108,12 +109,12 @@ DOTSUB               : 56
 ELSE                 : 25
 EQ                   : 29
 EYE                  : 52
-FLOAT                : 73
+FLOAT                : 74
 FOR                  : 18
 GE                   : 32
-ID                   : 71
+ID                   : 72
 IF                   : 23 24
-INTNUM               : 72
+INTNUM               : 73
 LE                   : 33
 MULASSIGN            : 38
 NEQ                  : 34
@@ -121,7 +122,7 @@ ONES                 : 54
 OR                   : 27
 PRINT                : 12
 RETURN               : 13
-STRING               : 74
+STRING               : 75
 SUBASSIGN            : 40
 THEN                 : 
 TRANSPOSE            : 59
@@ -191,7 +192,7 @@ state 0
     (18) loop -> . FOR array_range instruction
     (12) instruction_with_argument -> . PRINT printable
     (13) instruction_with_argument -> . RETURN EXPRESSION
-    (71) id -> . ID
+    (72) id -> . ID
     (47) array_part -> . id [ row ]
 
     $end            reduce using rule 3 (instructions_opt -> .)
@@ -262,7 +263,7 @@ state 4
     (18) loop -> . FOR array_range instruction
     (12) instruction_with_argument -> . PRINT printable
     (13) instruction_with_argument -> . RETURN EXPRESSION
-    (71) id -> . ID
+    (72) id -> . ID
     (47) array_part -> . id [ row ]
 
     $end            reduce using rule 5 (instructions -> instruction .)
@@ -375,7 +376,7 @@ state 11
     (18) loop -> . FOR array_range instruction
     (12) instruction_with_argument -> . PRINT printable
     (13) instruction_with_argument -> . RETURN EXPRESSION
-    (71) id -> . ID
+    (72) id -> . ID
     (47) array_part -> . id [ row ]
 
     BREAK           shift and go to state 8
@@ -444,7 +445,7 @@ state 16
     (20) array_range -> . id = id : id
     (21) array_range -> . id = id : int
     (22) array_range -> . id = int : int
-    (71) id -> . ID
+    (72) id -> . ID
 
     ID              shift and go to state 19
 
@@ -480,10 +481,10 @@ state 17
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -534,10 +535,10 @@ state 18
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -562,45 +563,45 @@ state 18
 
 state 19
 
-    (71) id -> ID .
+    (72) id -> ID .
 
-    =               reduce using rule 71 (id -> ID .)
-    ADDASSIGN       reduce using rule 71 (id -> ID .)
-    DIVASSIGN       reduce using rule 71 (id -> ID .)
-    MULASSIGN       reduce using rule 71 (id -> ID .)
-    SUBASSIGN       reduce using rule 71 (id -> ID .)
-    [               reduce using rule 71 (id -> ID .)
-    *               reduce using rule 71 (id -> ID .)
-    /               reduce using rule 71 (id -> ID .)
-    +               reduce using rule 71 (id -> ID .)
-    -               reduce using rule 71 (id -> ID .)
-    DOTADD          reduce using rule 71 (id -> ID .)
-    DOTSUB          reduce using rule 71 (id -> ID .)
-    DOTMUL          reduce using rule 71 (id -> ID .)
-    DOTDIV          reduce using rule 71 (id -> ID .)
-    TRANSPOSE       reduce using rule 71 (id -> ID .)
-    ,               reduce using rule 71 (id -> ID .)
-    ;               reduce using rule 71 (id -> ID .)
-    EQ              reduce using rule 71 (id -> ID .)
-    <               reduce using rule 71 (id -> ID .)
-    >               reduce using rule 71 (id -> ID .)
-    GE              reduce using rule 71 (id -> ID .)
-    LE              reduce using rule 71 (id -> ID .)
-    NEQ             reduce using rule 71 (id -> ID .)
-    ]               reduce using rule 71 (id -> ID .)
-    )               reduce using rule 71 (id -> ID .)
-    OR              reduce using rule 71 (id -> ID .)
-    AND             reduce using rule 71 (id -> ID .)
-    :               reduce using rule 71 (id -> ID .)
-    BREAK           reduce using rule 71 (id -> ID .)
-    CONTINUE        reduce using rule 71 (id -> ID .)
-    {               reduce using rule 71 (id -> ID .)
-    IF              reduce using rule 71 (id -> ID .)
-    WHILE           reduce using rule 71 (id -> ID .)
-    FOR             reduce using rule 71 (id -> ID .)
-    PRINT           reduce using rule 71 (id -> ID .)
-    RETURN          reduce using rule 71 (id -> ID .)
-    ID              reduce using rule 71 (id -> ID .)
+    =               reduce using rule 72 (id -> ID .)
+    ADDASSIGN       reduce using rule 72 (id -> ID .)
+    DIVASSIGN       reduce using rule 72 (id -> ID .)
+    MULASSIGN       reduce using rule 72 (id -> ID .)
+    SUBASSIGN       reduce using rule 72 (id -> ID .)
+    [               reduce using rule 72 (id -> ID .)
+    *               reduce using rule 72 (id -> ID .)
+    /               reduce using rule 72 (id -> ID .)
+    +               reduce using rule 72 (id -> ID .)
+    -               reduce using rule 72 (id -> ID .)
+    DOTADD          reduce using rule 72 (id -> ID .)
+    DOTSUB          reduce using rule 72 (id -> ID .)
+    DOTMUL          reduce using rule 72 (id -> ID .)
+    DOTDIV          reduce using rule 72 (id -> ID .)
+    TRANSPOSE       reduce using rule 72 (id -> ID .)
+    ,               reduce using rule 72 (id -> ID .)
+    ;               reduce using rule 72 (id -> ID .)
+    EQ              reduce using rule 72 (id -> ID .)
+    <               reduce using rule 72 (id -> ID .)
+    >               reduce using rule 72 (id -> ID .)
+    GE              reduce using rule 72 (id -> ID .)
+    LE              reduce using rule 72 (id -> ID .)
+    NEQ             reduce using rule 72 (id -> ID .)
+    ]               reduce using rule 72 (id -> ID .)
+    )               reduce using rule 72 (id -> ID .)
+    OR              reduce using rule 72 (id -> ID .)
+    AND             reduce using rule 72 (id -> ID .)
+    :               reduce using rule 72 (id -> ID .)
+    BREAK           reduce using rule 72 (id -> ID .)
+    CONTINUE        reduce using rule 72 (id -> ID .)
+    {               reduce using rule 72 (id -> ID .)
+    IF              reduce using rule 72 (id -> ID .)
+    WHILE           reduce using rule 72 (id -> ID .)
+    FOR             reduce using rule 72 (id -> ID .)
+    PRINT           reduce using rule 72 (id -> ID .)
+    RETURN          reduce using rule 72 (id -> ID .)
+    ID              reduce using rule 72 (id -> ID .)
 
 
 state 20
@@ -721,10 +722,10 @@ state 26
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -775,10 +776,10 @@ state 27
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -825,12 +826,12 @@ state 28
     (63) operable_expression -> . f
     (64) operable_expression -> . int
     (65) operable_expression -> . id
-    (74) str -> . STRING
+    (75) str -> . STRING
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -876,9 +877,9 @@ state 29
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -921,9 +922,9 @@ state 30
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -966,9 +967,9 @@ state 31
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -992,6 +993,7 @@ state 32
     (47) array_part -> id [ . row ]
     (69) row -> . row , EXPRESSION
     (70) row -> . EXPRESSION
+    (71) row -> .
     (42) EXPRESSION -> . operable_expression
     (43) EXPRESSION -> . string_expression
     (45) operable_expression -> . operable_expression * operable_expression
@@ -1016,11 +1018,13 @@ state 32
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
+    ]               reduce using rule 71 (row -> .)
+    ,               reduce using rule 71 (row -> .)
     (               shift and go to state 41
     -               shift and go to state 42
     EYE             shift and go to state 43
@@ -1070,10 +1074,10 @@ state 33
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -1126,10 +1130,10 @@ state 34
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -1176,7 +1180,7 @@ state 35
     (18) loop -> . FOR array_range instruction
     (12) instruction_with_argument -> . PRINT printable
     (13) instruction_with_argument -> . RETURN EXPRESSION
-    (71) id -> . ID
+    (72) id -> . ID
     (47) array_part -> . id [ row ]
 
     BREAK           shift and go to state 8
@@ -1302,9 +1306,9 @@ state 41
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -1347,9 +1351,9 @@ state 42
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -1539,6 +1543,7 @@ state 52
     (68) rows -> . row
     (69) row -> . row , EXPRESSION
     (70) row -> . EXPRESSION
+    (71) row -> .
     (42) EXPRESSION -> . operable_expression
     (43) EXPRESSION -> . string_expression
     (45) operable_expression -> . operable_expression * operable_expression
@@ -1563,11 +1568,14 @@ state 52
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
+    ]               reduce using rule 71 (row -> .)
+    ,               reduce using rule 71 (row -> .)
+    ;               reduce using rule 71 (row -> .)
     (               shift and go to state 41
     -               shift and go to state 42
     EYE             shift and go to state 43
@@ -1593,85 +1601,85 @@ state 52
 
 state 53
 
-    (73) f -> FLOAT .
+    (74) f -> FLOAT .
 
-    *               reduce using rule 73 (f -> FLOAT .)
-    /               reduce using rule 73 (f -> FLOAT .)
-    +               reduce using rule 73 (f -> FLOAT .)
-    -               reduce using rule 73 (f -> FLOAT .)
-    DOTADD          reduce using rule 73 (f -> FLOAT .)
-    DOTSUB          reduce using rule 73 (f -> FLOAT .)
-    DOTMUL          reduce using rule 73 (f -> FLOAT .)
-    DOTDIV          reduce using rule 73 (f -> FLOAT .)
-    TRANSPOSE       reduce using rule 73 (f -> FLOAT .)
-    ,               reduce using rule 73 (f -> FLOAT .)
-    ;               reduce using rule 73 (f -> FLOAT .)
-    EQ              reduce using rule 73 (f -> FLOAT .)
-    <               reduce using rule 73 (f -> FLOAT .)
-    >               reduce using rule 73 (f -> FLOAT .)
-    GE              reduce using rule 73 (f -> FLOAT .)
-    LE              reduce using rule 73 (f -> FLOAT .)
-    NEQ             reduce using rule 73 (f -> FLOAT .)
-    ]               reduce using rule 73 (f -> FLOAT .)
-    )               reduce using rule 73 (f -> FLOAT .)
-    OR              reduce using rule 73 (f -> FLOAT .)
-    AND             reduce using rule 73 (f -> FLOAT .)
+    *               reduce using rule 74 (f -> FLOAT .)
+    /               reduce using rule 74 (f -> FLOAT .)
+    +               reduce using rule 74 (f -> FLOAT .)
+    -               reduce using rule 74 (f -> FLOAT .)
+    DOTADD          reduce using rule 74 (f -> FLOAT .)
+    DOTSUB          reduce using rule 74 (f -> FLOAT .)
+    DOTMUL          reduce using rule 74 (f -> FLOAT .)
+    DOTDIV          reduce using rule 74 (f -> FLOAT .)
+    TRANSPOSE       reduce using rule 74 (f -> FLOAT .)
+    ,               reduce using rule 74 (f -> FLOAT .)
+    ;               reduce using rule 74 (f -> FLOAT .)
+    EQ              reduce using rule 74 (f -> FLOAT .)
+    <               reduce using rule 74 (f -> FLOAT .)
+    >               reduce using rule 74 (f -> FLOAT .)
+    GE              reduce using rule 74 (f -> FLOAT .)
+    LE              reduce using rule 74 (f -> FLOAT .)
+    NEQ             reduce using rule 74 (f -> FLOAT .)
+    ]               reduce using rule 74 (f -> FLOAT .)
+    )               reduce using rule 74 (f -> FLOAT .)
+    OR              reduce using rule 74 (f -> FLOAT .)
+    AND             reduce using rule 74 (f -> FLOAT .)
 
 
 state 54
 
-    (72) int -> INTNUM .
+    (73) int -> INTNUM .
 
-    *               reduce using rule 72 (int -> INTNUM .)
-    /               reduce using rule 72 (int -> INTNUM .)
-    +               reduce using rule 72 (int -> INTNUM .)
-    -               reduce using rule 72 (int -> INTNUM .)
-    DOTADD          reduce using rule 72 (int -> INTNUM .)
-    DOTSUB          reduce using rule 72 (int -> INTNUM .)
-    DOTMUL          reduce using rule 72 (int -> INTNUM .)
-    DOTDIV          reduce using rule 72 (int -> INTNUM .)
-    TRANSPOSE       reduce using rule 72 (int -> INTNUM .)
-    ,               reduce using rule 72 (int -> INTNUM .)
-    ;               reduce using rule 72 (int -> INTNUM .)
-    EQ              reduce using rule 72 (int -> INTNUM .)
-    <               reduce using rule 72 (int -> INTNUM .)
-    >               reduce using rule 72 (int -> INTNUM .)
-    GE              reduce using rule 72 (int -> INTNUM .)
-    LE              reduce using rule 72 (int -> INTNUM .)
-    NEQ             reduce using rule 72 (int -> INTNUM .)
-    ]               reduce using rule 72 (int -> INTNUM .)
-    )               reduce using rule 72 (int -> INTNUM .)
-    OR              reduce using rule 72 (int -> INTNUM .)
-    AND             reduce using rule 72 (int -> INTNUM .)
-    :               reduce using rule 72 (int -> INTNUM .)
-    BREAK           reduce using rule 72 (int -> INTNUM .)
-    CONTINUE        reduce using rule 72 (int -> INTNUM .)
-    {               reduce using rule 72 (int -> INTNUM .)
-    IF              reduce using rule 72 (int -> INTNUM .)
-    WHILE           reduce using rule 72 (int -> INTNUM .)
-    FOR             reduce using rule 72 (int -> INTNUM .)
-    PRINT           reduce using rule 72 (int -> INTNUM .)
-    RETURN          reduce using rule 72 (int -> INTNUM .)
-    ID              reduce using rule 72 (int -> INTNUM .)
+    *               reduce using rule 73 (int -> INTNUM .)
+    /               reduce using rule 73 (int -> INTNUM .)
+    +               reduce using rule 73 (int -> INTNUM .)
+    -               reduce using rule 73 (int -> INTNUM .)
+    DOTADD          reduce using rule 73 (int -> INTNUM .)
+    DOTSUB          reduce using rule 73 (int -> INTNUM .)
+    DOTMUL          reduce using rule 73 (int -> INTNUM .)
+    DOTDIV          reduce using rule 73 (int -> INTNUM .)
+    TRANSPOSE       reduce using rule 73 (int -> INTNUM .)
+    ,               reduce using rule 73 (int -> INTNUM .)
+    ;               reduce using rule 73 (int -> INTNUM .)
+    EQ              reduce using rule 73 (int -> INTNUM .)
+    <               reduce using rule 73 (int -> INTNUM .)
+    >               reduce using rule 73 (int -> INTNUM .)
+    GE              reduce using rule 73 (int -> INTNUM .)
+    LE              reduce using rule 73 (int -> INTNUM .)
+    NEQ             reduce using rule 73 (int -> INTNUM .)
+    ]               reduce using rule 73 (int -> INTNUM .)
+    )               reduce using rule 73 (int -> INTNUM .)
+    OR              reduce using rule 73 (int -> INTNUM .)
+    AND             reduce using rule 73 (int -> INTNUM .)
+    :               reduce using rule 73 (int -> INTNUM .)
+    BREAK           reduce using rule 73 (int -> INTNUM .)
+    CONTINUE        reduce using rule 73 (int -> INTNUM .)
+    {               reduce using rule 73 (int -> INTNUM .)
+    IF              reduce using rule 73 (int -> INTNUM .)
+    WHILE           reduce using rule 73 (int -> INTNUM .)
+    FOR             reduce using rule 73 (int -> INTNUM .)
+    PRINT           reduce using rule 73 (int -> INTNUM .)
+    RETURN          reduce using rule 73 (int -> INTNUM .)
+    ID              reduce using rule 73 (int -> INTNUM .)
 
 
 state 55
 
-    (74) str -> STRING .
+    (75) str -> STRING .
 
-    +               reduce using rule 74 (str -> STRING .)
-    ,               reduce using rule 74 (str -> STRING .)
-    ;               reduce using rule 74 (str -> STRING .)
-    EQ              reduce using rule 74 (str -> STRING .)
-    <               reduce using rule 74 (str -> STRING .)
-    >               reduce using rule 74 (str -> STRING .)
-    GE              reduce using rule 74 (str -> STRING .)
-    LE              reduce using rule 74 (str -> STRING .)
-    NEQ             reduce using rule 74 (str -> STRING .)
-    ]               reduce using rule 74 (str -> STRING .)
-    )               reduce using rule 74 (str -> STRING .)
-    OR              reduce using rule 74 (str -> STRING .)
-    AND             reduce using rule 74 (str -> STRING .)
+    +               reduce using rule 75 (str -> STRING .)
+    ,               reduce using rule 75 (str -> STRING .)
+    ;               reduce using rule 75 (str -> STRING .)
+    EQ              reduce using rule 75 (str -> STRING .)
+    <               reduce using rule 75 (str -> STRING .)
+    >               reduce using rule 75 (str -> STRING .)
+    GE              reduce using rule 75 (str -> STRING .)
+    LE              reduce using rule 75 (str -> STRING .)
+    NEQ             reduce using rule 75 (str -> STRING .)
+    ]               reduce using rule 75 (str -> STRING .)
+    )               reduce using rule 75 (str -> STRING .)
+    OR              reduce using rule 75 (str -> STRING .)
+    AND             reduce using rule 75 (str -> STRING .)
 
 
 state 56
@@ -1905,8 +1913,8 @@ state 71
     (20) array_range -> id = . id : id
     (21) array_range -> id = . id : int
     (22) array_range -> id = . int : int
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     INTNUM          shift and go to state 54
     ID              shift and go to state 19
@@ -1941,10 +1949,10 @@ state 72
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -1991,9 +1999,9 @@ state 73
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -2036,9 +2044,9 @@ state 74
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -2081,9 +2089,9 @@ state 75
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -2126,9 +2134,9 @@ state 76
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -2171,9 +2179,9 @@ state 77
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -2216,9 +2224,9 @@ state 78
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -2261,9 +2269,9 @@ state 79
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -2306,9 +2314,9 @@ state 80
     (65) operable_expression -> . id
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -2430,6 +2438,7 @@ state 84
     (52) operable_expression -> EYE ( . row )
     (69) row -> . row , EXPRESSION
     (70) row -> . EXPRESSION
+    (71) row -> .
     (42) EXPRESSION -> . operable_expression
     (43) EXPRESSION -> . string_expression
     (45) operable_expression -> . operable_expression * operable_expression
@@ -2454,11 +2463,13 @@ state 84
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
+    )               reduce using rule 71 (row -> .)
+    ,               reduce using rule 71 (row -> .)
     (               shift and go to state 41
     -               shift and go to state 42
     EYE             shift and go to state 43
@@ -2486,6 +2497,7 @@ state 85
     (53) operable_expression -> ZEROS ( . row )
     (69) row -> . row , EXPRESSION
     (70) row -> . EXPRESSION
+    (71) row -> .
     (42) EXPRESSION -> . operable_expression
     (43) EXPRESSION -> . string_expression
     (45) operable_expression -> . operable_expression * operable_expression
@@ -2510,11 +2522,13 @@ state 85
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
+    )               reduce using rule 71 (row -> .)
+    ,               reduce using rule 71 (row -> .)
     (               shift and go to state 41
     -               shift and go to state 42
     EYE             shift and go to state 43
@@ -2542,6 +2556,7 @@ state 86
     (54) operable_expression -> ONES ( . row )
     (69) row -> . row , EXPRESSION
     (70) row -> . EXPRESSION
+    (71) row -> .
     (42) EXPRESSION -> . operable_expression
     (43) EXPRESSION -> . string_expression
     (45) operable_expression -> . operable_expression * operable_expression
@@ -2566,11 +2581,13 @@ state 86
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
+    )               reduce using rule 71 (row -> .)
+    ,               reduce using rule 71 (row -> .)
     (               shift and go to state 41
     -               shift and go to state 42
     EYE             shift and go to state 43
@@ -2596,7 +2613,7 @@ state 86
 state 87
 
     (44) string_expression -> str + . str
-    (74) str -> . STRING
+    (75) str -> . STRING
 
     STRING          shift and go to state 55
 
@@ -2649,7 +2666,7 @@ state 90
     (18) loop -> . FOR array_range instruction
     (12) instruction_with_argument -> . PRINT printable
     (13) instruction_with_argument -> . RETURN EXPRESSION
-    (71) id -> . ID
+    (72) id -> . ID
     (47) array_part -> . id [ row ]
 
     BREAK           shift and go to state 8
@@ -2700,10 +2717,10 @@ state 91
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -2757,10 +2774,10 @@ state 92
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -2811,10 +2828,10 @@ state 93
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -2967,10 +2984,10 @@ state 101
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
     (               shift and go to state 41
     -               shift and go to state 42
@@ -3016,7 +3033,7 @@ state 102
     (18) loop -> . FOR array_range instruction
     (12) instruction_with_argument -> . PRINT printable
     (13) instruction_with_argument -> . RETURN EXPRESSION
-    (71) id -> . ID
+    (72) id -> . ID
     (47) array_part -> . id [ row ]
 
     BREAK           shift and go to state 8
@@ -3533,6 +3550,7 @@ state 120
     (67) rows -> rows ; . row
     (69) row -> . row , EXPRESSION
     (70) row -> . EXPRESSION
+    (71) row -> .
     (42) EXPRESSION -> . operable_expression
     (43) EXPRESSION -> . string_expression
     (45) operable_expression -> . operable_expression * operable_expression
@@ -3557,11 +3575,14 @@ state 120
     (44) string_expression -> . str + str
     (66) matrix -> . [ rows ]
     (62) vector -> . [ row ]
-    (73) f -> . FLOAT
-    (72) int -> . INTNUM
-    (71) id -> . ID
-    (74) str -> . STRING
+    (74) f -> . FLOAT
+    (73) int -> . INTNUM
+    (72) id -> . ID
+    (75) str -> . STRING
 
+    ,               reduce using rule 71 (row -> .)
+    ]               reduce using rule 71 (row -> .)
+    ;               reduce using rule 71 (row -> .)
     (               shift and go to state 41
     -               shift and go to state 42
     EYE             shift and go to state 43
@@ -3708,8 +3729,8 @@ state 128
 
     (20) array_range -> id = id : . id
     (21) array_range -> id = id : . int
-    (71) id -> . ID
-    (72) int -> . INTNUM
+    (72) id -> . ID
+    (73) int -> . INTNUM
 
     ID              shift and go to state 19
     INTNUM          shift and go to state 54
@@ -3721,8 +3742,8 @@ state 129
 
     (19) array_range -> id = int : . id
     (22) array_range -> id = int : . int
-    (71) id -> . ID
-    (72) int -> . INTNUM
+    (72) id -> . ID
+    (73) int -> . INTNUM
 
     ID              shift and go to state 19
     INTNUM          shift and go to state 54
@@ -3862,7 +3883,7 @@ state 135
     (18) loop -> . FOR array_range instruction
     (12) instruction_with_argument -> . PRINT printable
     (13) instruction_with_argument -> . RETURN EXPRESSION
-    (71) id -> . ID
+    (72) id -> . ID
     (47) array_part -> . id [ row ]
 
     BREAK           shift and go to state 8
