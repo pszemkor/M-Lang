@@ -29,11 +29,14 @@ class NodeVisitor(object):
 
 
 class TypeChecker(NodeVisitor):
-    def valid_sizes(self, left, right):
+    def valid_sizes(self, left, right, op):
         # to check in runtime
         if not left.size or not right.size:
             return True
-        return left.size == right.size
+        if op == "+" or op == "-":
+            return left.size == right.size
+        else:
+            return left.size[0] == right.size[1] and left.size[1] == right.size[0]
 
     def visit_Loop(self, node):
         self.visit(node.condition)
@@ -86,15 +89,18 @@ class TypeChecker(NodeVisitor):
                 return "FLOATNUM"
             elif type_left == "STRING" and type_right == "STRING" and op == "+":
                 return "STRING"
-            elif type_left in ["MATRIX", "VECTOR"] and type_right in ["MATRIX", "VECTOR"]:
-                left = self.resolve_variable_object(node.left)
-                right = self.resolve_variable_object(node.right)
-                if self.valid_sizes(left, right):
-                    return "MATRIX"
+            elif type_left in ["VECTOR", "MATRIX"] and type_right in ["VECTOR", "MATRIX"]:
+                if op == "/":
+                    print("Error, cannot divide two matrix/vectors")
                 else:
-                    print("[line: {}]: Error, invalid matrix sizes in binary expression: left: {}, right: {}".format(
-                        node.lineno, left.size,
-                        right.size))
+                    left = self.resolve_variable_object(node.left)
+                    right = self.resolve_variable_object(node.right)
+                    if self.valid_sizes(left, right, op):
+                        return "MATRIX"
+                    else:
+                        print("[line: {}]: Error, invalid matrix sizes in binary expression: left: {}, right: {}".format(
+                                node.lineno, left.size,
+                                right.size))
             else:
                 print("[line: {}]: Error, type mismatch: {}, {}".format(node.lineno, type_left, type_right))
 
