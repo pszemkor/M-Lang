@@ -102,33 +102,42 @@ class TypeChecker(NodeVisitor):
         return self.visit(node.children[0])
 
     def visit_Zeros(self, node):
-        if node.arg.type == "ROW" and len(node.arg.children) != 1:
-            print("Error, illegal zeros initialization")
+        if node.arg.type == "ROW" and self.is_row_of_ints(node.arg):
+            size = []
+            for ch in node.arg.children:
+                size.append(ch)
+            node.size = tuple(size)
             return "MATRIX"
-        type1 = self.visit(node.arg)
-        if type1 != "INTNUM":
+        else:
             print("Error, illegal zeros initialization")
         return "MATRIX"
 
     def visit_Eye(self, node):
-        if node.arg.type == "ROW" and len(node.arg.children) != 1:
-            print("Error, illegal eye initialization")
+        if node.arg.type == "ROW" and self.is_row_of_ints(node.arg):
+            size = []
+            for ch in node.arg.children:
+                size.append(ch)
+            node.size = tuple(size)
             return "MATRIX"
-        type1 = self.visit(node.arg)
-        if type1 != "INTNUM":
+        else:
             print("Error, illegal eye initialization")
         return "MATRIX"
 
     def visit_Ones(self, node):
-        if node.arg.type == "ROW" and len(node.arg.children) != 1:
-            print("Error, illegal ones initialization")
+        if node.arg.type == "ROW" and self.is_row_of_ints(node.arg):
+            size = []
+            for ch in node.arg.children:
+                size.append(ch)
+            node.size = tuple(size)
             return "MATRIX"
-        type1 = self.visit(node.arg)
-        if type1 != "INTNUM":
+        else:
             print("Error, illegal ones initialization")
         return "MATRIX"
 
     def visit_IntNum(self, node):
+        return node.type
+
+    def visit_FloatNum(self, node):
         return node.type
 
     def visit_Variable(self, node):
@@ -148,3 +157,12 @@ class TypeChecker(NodeVisitor):
             return res.type
         else:
             return node.type
+
+    def is_row_of_ints(self, row):
+        for i, child in enumerate(row.children):
+            if child.type == "VARIABLE":
+                if not self.symbol_table.get(child.name) or self.symbol_table.get(child.name).type != "INTNUM":
+                    return False
+            elif child.type != "INTNUM":
+                return False
+        return True

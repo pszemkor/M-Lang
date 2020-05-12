@@ -183,19 +183,21 @@ class Zeros(Node):
     def __init__(self, arg):
         self.type = "ZEROS"
         self.arg = arg
+        self.size = None
 
 
 class Ones(Node):
     def __init__(self, arg):
         self.type = "ONES"
         self.arg = arg
+        self.size = None
 
 
 class Eye(Node):
     def __init__(self, arg):
         self.type = "EYE"
         self.arg = arg
-
+        self.size = None
 
 class String(Node):
     def __init__(self, value):
