@@ -35,6 +35,13 @@ class BinExpr(Node):
         self.right = right
 
 
+class Assignment(Node):
+    def __init__(self, variable, value):
+        self.type = 'ASSIGNMENT'
+        self.variable = variable
+        self.value = value
+
+
 class Program(Node):
     def __init__(self, instructions_opt):
         self.type = 'PROGRAM'

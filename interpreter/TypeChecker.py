@@ -1,3 +1,4 @@
+from Lab_4.symbols import SymbolTable
 from interpreter import AST
 
 

@@ -21,22 +21,27 @@ class MemoryStack:
 
     def get(self, name):  # gets from memory stack current value of variable <name>
         self.__check_memory()
-        curr_memory = self.memory_stack[-1]
-        self.__is_defined(curr_memory, name)
-        return curr_memory.get(name)
+        for curr_memory in self.memory_stack:
+            if curr_memory.has_key(name):
+                return curr_memory.get(name)
+        raise ValueError("Variable undefined:", name)
 
     def insert(self, name, value):  # inserts into memory stack variable <name> with value <value>
         self.__check_memory()
-        curr_memory = self.memory_stack[-1]
+        curr_memory: Memory = self.memory_stack[-1]
         if curr_memory.has_key(name):
             raise Exception("Variable already defined in this scope:", name)
         curr_memory.put(name, value)
 
     def set(self, name, value):  # sets variable <name> to value <value>
         self.__check_memory()
-        curr_memory = self.memory_stack[-1]
-        self.__is_defined(curr_memory, name)
-        curr_memory.put(name, value)
+        f = False
+        for curr_memory in self.memory_stack:
+            if curr_memory.has_key(name):
+                f = True
+                curr_memory.put(name, value)
+        if not f:
+            raise KeyError("No such variable:", name)
 
     def push(self, name):  # pushes memory <memory> onto the stack
         self.memory_stack.append(Memory(name))
