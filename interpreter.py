@@ -100,11 +100,18 @@ class Interpreter(object):
             array_range = node.condition
             beginning = array_range.beginning.accept(self)
             end = array_range.end.accept(self)
-            self.memory_stack.insert(array_range.counter.name, beginning)
+            try:
+                self.memory_stack.set(array_range.counter.name, beginning)
+            except KeyError :
+                self.memory_stack.insert(array_range.counter.name, beginning)
             for counter in range(beginning, end):
-                result = node.instruction.accept(self)
-                self.memory_stack.set(array_range.counter.name, counter)
-
+                try:
+                    self.memory_stack.set(array_range.counter.name, counter)
+                    result = node.instruction.accept(self)
+                except ContinueException:
+                    continue
+                except BreakException:
+                    break
         self.memory_stack.pop()
         return result
 

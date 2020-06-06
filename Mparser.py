@@ -434,21 +434,24 @@ def p_row_3(p):
 def p_id_prod(p):
     """id : ID """
     p[0] = Variable(p[1])
+    p[0].lineno = p.lineno(1)
 
 
 def p_num_prod(p):
     """int : INTNUM """
     p[0] = IntNum(p[1])
+    p[0].lineno = p.lineno(1)
 
 
 def p_float_prod(p):
     """f : FLOAT """
     p[0] = FloatNum(p[1])
-
+    p[0].lineno = p.lineno(1)
 
 def p_str_prod(p):
     """str : STRING """
     p[0] = String(p[1])
+    p[0].lineno = p.lineno(1)
 
 
 parser = yacc.yacc()
