@@ -1,5 +1,7 @@
 import sys, os
 
+from exceptions import BreakException, ContinueException
+
 sys.path.append(os.path.abspath('/'))
 sys.path.append(os.path.abspath(''))
 
@@ -69,8 +71,12 @@ class Interpreter(object):
         self.memory_stack.push(node.type)
         result = None
         while node.condition.accept(self):
-            result = node.instruction.accept(self)
-
+            try:
+                result = node.instruction.accept(self)
+            except ContinueException:
+                continue
+            except BreakException:
+                break
         self.memory_stack.pop()
         return result
 
@@ -137,3 +143,11 @@ class Interpreter(object):
     @when(AST.LogicalOperator)
     def visit(self, node: AST.LogicalOperator):
         return node.op
+
+    @when(AST.Break)
+    def visit(self, node: AST.Break):
+        raise BreakException()
+
+    @when(AST.Continue)
+    def visit(self, node: AST.Continue):
+        raise ContinueException()

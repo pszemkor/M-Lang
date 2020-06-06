@@ -1,11 +1,14 @@
-x = 1;
-while (x < 10){
-    x = x + 1;
-    if (x > 5){
-        print "KUTLANG";
-        print x;
-    }else{
-        print "LEL";
-        print x;
+
+y = 1;
+while( y < 10 ){
+    x = 1;
+    while (x < 10){
+        x = x + 1;
+        print "sda";
+        if(x > 3){
+            break;
+        }
     }
+    y = y + 1;
+    print y;
 }
