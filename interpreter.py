@@ -44,7 +44,12 @@ class Interpreter(object):
                "<": lambda x, y: x < y,
                ">=": lambda x, y: x >= y,
                "<=": lambda x, y: x <= y,
-               "==": lambda x, y: x == y}
+               "==": lambda x, y: x == y,
+               ".+": lambda x, y: self.add_el_wise(x, y),
+               ".*": lambda x, y: self.mul_el_wise(x, y),
+               "./": lambda x, y: self.div_el_wise(x, y),
+               ".-": lambda x, y: self.sub_el_wise(x, y),
+               }
         op = node.op
         if isinstance(node.op, AST.LogicalOperator):
             op = node.op.accept(self)
@@ -151,3 +156,41 @@ class Interpreter(object):
     @when(AST.Continue)
     def visit(self, node: AST.Continue):
         raise ContinueException()
+
+    @when(AST.Vector)
+    def visit(self, node: AST.Vector):
+        return node.row.children[::-1]
+
+    @when(AST.Matrix)
+    def visit(self, node: AST.Matrix):
+        m = []
+        for r in node.rows.children:
+            row = []
+            for c in r.children:
+                row.insert(0, c.accept(self))
+            m.insert(0, row)
+        return m
+
+    def add_el_wise(self, x, y):
+        res = []
+        for a, b in zip(x, y):
+            res.append(a.accept(self) + b.accept(self))
+        return res
+
+    def mul_el_wise(self, x, y):
+        res = []
+        for a, b in zip(x, y):
+            res.append(a.accept(self) * b.accept(self))
+        return res
+
+    def div_el_wise(self, x, y):
+        res = []
+        for a, b in zip(x, y):
+            res.append(a.accept(self) / b.accept(self))
+        return res
+
+    def sub_el_wise(self, x, y):
+        res = []
+        for a, b in zip(x, y):
+            res.append(a.accept(self) - b.accept(self))
+        return res

@@ -33,7 +33,7 @@ class TypeChecker(NodeVisitor):
         # to check in runtime
         if not left.size or not right.size:
             return True
-        if op == "+" or op == "-":
+        if op in {'-', '=', '.*', '.+', '.-', './'}:
             return left.size == right.size
         else:
             return left.size[0] == right.size[1] and left.size[1] == right.size[0]

@@ -155,9 +155,12 @@ class Rows(Node):
         self.type = "ROWS"
         self.rows = rows
         self.row = row
+        self.children = []
         if rows is None:
             self.children = [row]
         else:
+            if row.children is None:
+                return
             children = rows.children
             children.insert(0, row)
             self.children = children
