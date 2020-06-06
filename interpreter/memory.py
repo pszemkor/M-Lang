@@ -35,13 +35,11 @@ class MemoryStack:
 
     def set(self, name, value):  # sets variable <name> to value <value>
         self.__check_memory()
-        f = False
         for curr_memory in self.memory_stack:
             if curr_memory.has_key(name):
-                f = True
                 curr_memory.put(name, value)
-        if not f:
-            raise KeyError("No such variable:", name)
+                return
+        raise KeyError("No such variable:", name)
 
     def push(self, name):  # pushes memory <memory> onto the stack
         self.memory_stack.insert(0, Memory(name))
