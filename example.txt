@@ -1,3 +1,6 @@
+x = 2;
+x *= 5;
+print x;
 
 y = 1;
 while( y < 10 ){

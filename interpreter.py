@@ -30,7 +30,20 @@ class Interpreter(object):
             except ValueError:
                 self.memory_stack.insert(node.left.name, r2)
             return None
-
+        self_assign_ops = {
+            '+=': lambda x, y: x + y,
+            '-=': lambda x, y: x - y,
+            '/=': lambda x, y: x / y,
+            '*=': lambda x, y: x * y
+        }
+        for key in self_assign_ops:
+            if key == node.op:
+                val_left = self.memory_stack.get(node.left.name)
+                try:
+                    self.memory_stack.set(node.left.name, self_assign_ops[node.op](val_left, r2))
+                except ValueError:
+                    self.memory_stack.insert(node.left.name, self_assign_ops[node.op](val_left, r2))
+                return None
         r1 = node.left.accept(self)
         # todo: add rest of operators -> for matrices
         ops = {'+': lambda x, y: x + y,
@@ -70,13 +83,23 @@ class Interpreter(object):
     def visit(self, node: AST.Loop):
         self.memory_stack.push(node.type)
         result = None
-        while node.condition.accept(self):
-            try:
+        if node.loop == 'WHILE':
+            while node.condition.accept(self):
+                try:
+                    result = node.instruction.accept(self)
+                except ContinueException:
+                    continue
+                except BreakException:
+                    break
+        else:
+            array_range = node.condition
+            beginning = array_range.beginning.accept(self)
+            end = array_range.end.accept(self)
+            self.memory_stack.insert(array_range.counter.name, beginning)
+            for counter in range(beginning, end):
                 result = node.instruction.accept(self)
-            except ContinueException:
-                continue
-            except BreakException:
-                break
+                self.memory_stack.set(array_range.counter.name, counter)
+
         self.memory_stack.pop()
         return result
 

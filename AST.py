@@ -112,6 +112,7 @@ class ArrayRange(Node):
         self.counter = counter
         self.beginning = beginning
         self.end = end
+        self.children = [counter, beginning, end]
 
 
 class IfStatement(Node):
