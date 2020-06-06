@@ -44,10 +44,10 @@ class MemoryStack:
             raise KeyError("No such variable:", name)
 
     def push(self, name):  # pushes memory <memory> onto the stack
-        self.memory_stack.append(Memory(name))
+        self.memory_stack.insert(0, Memory(name))
 
     def pop(self):  # pops the top memory from the stack
-        return self.memory_stack.pop()
+        return self.memory_stack.pop(0)
 
     def __is_defined(self, curr_memory, name):
         if not curr_memory.has_key(name):
