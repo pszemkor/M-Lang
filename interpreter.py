@@ -182,7 +182,7 @@ class Interpreter(object):
 
     @when(AST.Vector)
     def visit(self, node: AST.Vector):
-        return node.row.children[::-1]
+        return [[ch.accept(self) for ch in node.row.children][::-1]]
 
     @when(AST.Matrix)
     def visit(self, node: AST.Matrix):
@@ -196,24 +196,36 @@ class Interpreter(object):
 
     def add_el_wise(self, x, y):
         res = []
-        for a, b in zip(x, y):
-            res.append(a.accept(self) + b.accept(self))
+        for r1, r2 in zip(x, y):
+            row = []
+            for a, b in zip(r1, r2):
+                row.append(a + b)
+            res.append(row)
         return res
 
     def mul_el_wise(self, x, y):
         res = []
-        for a, b in zip(x, y):
-            res.append(a.accept(self) * b.accept(self))
+        for r1, r2 in zip(x, y):
+            row = []
+            for a, b in zip(r1, r2):
+                row.append(a * b)
+            res.append(row)
         return res
 
     def div_el_wise(self, x, y):
         res = []
-        for a, b in zip(x, y):
-            res.append(a.accept(self) / b.accept(self))
+        for r1, r2 in zip(x, y):
+            row = []
+            for a, b in zip(r1, r2):
+                row.append(a / b)
+            res.append(row)
         return res
 
     def sub_el_wise(self, x, y):
         res = []
-        for a, b in zip(x, y):
-            res.append(a.accept(self) - b.accept(self))
+        for r1, r2 in zip(x, y):
+            row = []
+            for a, b in zip(r1, r2):
+                row.append(a - b)
+            res.append(row)
         return res
