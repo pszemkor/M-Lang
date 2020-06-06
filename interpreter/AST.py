@@ -1,5 +1,6 @@
 class Node(object):
-    pass
+    def accept(self, visitor):
+        visitor.visit(self)
 
 
 class IntNum(Node):
