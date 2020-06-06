@@ -36,6 +36,28 @@ class Interpreter(object):
                "<=": lambda x, y: x <= y}
         return ops[node.op](r1, r2)
 
+    @when(AST.FloatNum)
+    def visit(self, node: AST.FloatNum):
+        return node.value
+
+    @when(AST.IntNum)
+    def visit(self, node: AST.IntNum):
+        return node.value
+
+    @when(AST.String)
+    def visit(self, node: AST.String):
+        return node.value
+
+    @when(AST.Loop)
+    def visit(self, node: AST.Loop):
+        self.memory_stack.push(node.type)
+        result = None
+        while node.condition.accept(self):
+            node.instruction.accept(self)
+
+        self.memory_stack.pop()
+        return result
+
     @when(AST.Assignment)
     def visit(self, node):
         pass
