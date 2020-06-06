@@ -52,6 +52,10 @@ class Interpreter(object):
     def visit(self, node: AST.String):
         return node.value
 
+    @when(AST.Variable)
+    def visit(self, node: AST.Variable):
+        return node.name
+
     @when(AST.Loop)
     def visit(self, node: AST.Loop):
         self.memory_stack.push(node.type)
