@@ -17,15 +17,15 @@ class Interpreter(object):
 
     @when(AST.BinExpr)
     def visit(self, node):
-        r1 = node.left.accept(self)
         r2 = node.right.accept(self)
         if node.op == "=":
             try:
-                val = self.memory_stack.get(r1)
-                self.memory_stack.set(r1, r2)
+                val = self.memory_stack.get(node.left.name)
+                self.memory_stack.set(node.left.name, r2)
             except ValueError:
-                self.memory_stack.insert(r1, r2)
+                self.memory_stack.insert(node.left.name, r2)
 
+        r1 = node.left.accept(self)
         # todo: add rest of operators -> for matrices
         ops = {'+': lambda x, y: x + y,
                '-': lambda x, y: x - y,
