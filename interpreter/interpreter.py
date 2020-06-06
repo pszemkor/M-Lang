@@ -20,7 +20,11 @@ class Interpreter(object):
         r1 = node.left.accept(self)
         r2 = node.right.accept(self)
         if node.op == "=":
-            self.memory_stack.set(r1, r2)
+            try:
+                val = self.memory_stack.get(r1)
+                self.memory_stack.set(r1, r2)
+            except ValueError:
+                self.memory_stack.insert(r1, r2)
 
         # todo: add rest of operators -> for matrices
         ops = {'+': lambda x, y: x + y,
