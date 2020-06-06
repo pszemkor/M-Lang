@@ -1,13 +1,13 @@
 import sys, os
 
-from interpreter.interpreter import Interpreter
+from interpreter import Interpreter
 
-sys.path.append(os.path.abspath('../'))
-sys.path.append(os.path.abspath('..'))
+sys.path.append(os.path.abspath('/'))
+sys.path.append(os.path.abspath(''))
 
-import interpreter.Mparser
-import interpreter.scanner
-from interpreter.TypeChecker import TypeChecker
+import Mparser
+import scanner
+from TypeChecker import TypeChecker
 
 if __name__ == '__main__':
 
@@ -18,9 +18,9 @@ if __name__ == '__main__':
         print("Cannot open {0} file".format(filename))
         sys.exit(0)
 
-    parser = interpreter.Mparser.parser
+    parser = Mparser.parser
     text = file.read()
-    ast = parser.parse(text, lexer=interpreter.scanner.lexer)
+    ast = parser.parse(text, lexer=scanner.lexer)
     # res = ast.printTree()
     # print(res)
     # Below code shows how to use visitor

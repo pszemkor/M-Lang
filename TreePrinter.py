@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from interpreter.AST import *
+from AST import *
 
 
 def addToClass(cls):

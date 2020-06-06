@@ -1,7 +1,7 @@
 import ply.yacc as yacc
 
-from interpreter import scanner
-from interpreter.AST import *
+import scanner
+from AST import *
 
 tokens = scanner.tokens
 reserved = scanner.reserved
@@ -73,7 +73,6 @@ def p_instruction_4(p):
     p[0].lineno = p.lineno(2)
 
 
-
 def p_instruction_5(p):
     """instruction : CONTINUE ';'"""
     cont = Continue()
@@ -86,7 +85,6 @@ def p_instruction_6(p):
     """instruction : instruction_with_argument ';'"""
     p[0] = Instruction(p[1])
     p[0].lineno = p.lineno(2)
-
 
 
 def p_instruction_7(p):
@@ -271,9 +269,14 @@ def p_expression_2(p):
 
 
 def p_string_expression(p):
-    """string_expression :  str '+' str """
+    """string_expression :  string_expression '+' string_expression """
     p[0] = BinExpr(p[2], p[1], p[3])
     p[0].lineno = p.lineno(2)
+
+
+def p_string_expression_1(p):
+    """string_expression : str"""
+    p[0] = p[1]
 
 
 def p_expression_3(p):

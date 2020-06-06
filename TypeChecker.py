@@ -1,5 +1,5 @@
 from Lab_4.symbols import SymbolTable
-from interpreter import AST
+import AST
 
 
 class NodeVisitor(object):

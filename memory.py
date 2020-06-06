@@ -52,5 +52,5 @@ class MemoryStack:
             raise ValueError("Variable undefined:", name)
 
     def __check_memory(self):
-        if len(self.memory_stack) > 0:
+        if len(self.memory_stack) == 0:
             raise Exception("No memory pushed exception")
