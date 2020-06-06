@@ -252,3 +252,58 @@ class Interpreter(object):
                 row.append(a - b)
             res.append(row)
         return res
+
+    @when(AST.Eye)
+    def visit(self, node: AST.Zeros):
+        m = []
+        args = node.arg.children
+        arg1 = args[0].accept(self)
+        arg2 = None
+        if len(args) == 2:
+            arg2 = args[1].accept(self)
+        else:
+            arg2 = arg1
+        for i in range(0, arg2):
+            l = []
+            for j in range(0, arg1):
+                if i == j:
+                    l.append(1)
+                else:
+                    l.append(0)
+            m.append(l)
+        return m
+
+
+    @when(AST.Ones)
+    def visit(self, node: AST.Zeros):
+        m = []
+        args = node.arg.children
+        arg1 = args[0].accept(self)
+        arg2 = None
+        if len(args) == 2:
+            arg2 = args[1].accept(self)
+        else:
+            arg2 = arg1
+        for i in range(0, arg2):
+            l = []
+            for j in range(0, arg1):
+                l.insert(0, 1)
+            m.insert(0, l)
+        return m
+
+    @when(AST.Zeros)
+    def visit(self, node: AST.Zeros):
+        m = []
+        args = node.arg.children
+        arg1 = args[0].accept(self)
+        arg2 = None
+        if len(args) == 2:
+            arg2 = args[1].accept(self)
+        else:
+            arg2 = arg1
+        for i in range(0, arg2):
+            l = []
+            for j in range(0, arg1):
+                l.insert(0, 0)
+            m.insert(0, l)
+        return m
