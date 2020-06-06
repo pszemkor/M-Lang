@@ -225,6 +225,7 @@ class ArrayPart(Node):
         self.type = "ARRAY_PART"
         self.var = var
         self.introw = row
+        self.children = [row]
 
 
 class Break(Node):

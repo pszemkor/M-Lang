@@ -23,12 +23,24 @@ class Interpreter(object):
     @when(AST.BinExpr)
     def visit(self, node):
         r2 = node.right.accept(self)
+        left = node.left
         if node.op == "=":
             try:
-                val = self.memory_stack.get(node.left.name)
-                self.memory_stack.set(node.left.name, r2)
-            except ValueError:
-                self.memory_stack.insert(node.left.name, r2)
+                if isinstance(left, AST.ArrayPart):
+                    m = self.memory_stack.get(left.var.name)
+                    introw = [i.accept(self) for i in left.introw.children]
+                    if len(introw) != 1 and len(m) == 1:
+                        raise Exception("Runtime expection. Wrong index.")
+                    if len(introw) == 2 and len(m) < 2:
+                        raise Exception("Runtime expection. Wrong index.")
+                    if len(m) == 1:
+                        m[0][introw[0]] = r2
+                    else:
+                        m[introw[0]][introw[1]] = r2
+                else:
+                    self.memory_stack.set(left.name, r2)
+            except (ValueError, KeyError):
+                self.memory_stack.insert(left.name, r2)
             return None
         self_assign_ops = {
             '+=': lambda x, y: x + y,
@@ -38,13 +50,13 @@ class Interpreter(object):
         }
         for key in self_assign_ops:
             if key == node.op:
-                val_left = self.memory_stack.get(node.left.name)
+                val_left = self.memory_stack.get(left.name)
                 try:
-                    self.memory_stack.set(node.left.name, self_assign_ops[node.op](val_left, r2))
+                    self.memory_stack.set(left.name, self_assign_ops[node.op](val_left, r2))
                 except ValueError:
-                    self.memory_stack.insert(node.left.name, self_assign_ops[node.op](val_left, r2))
+                    self.memory_stack.insert(left.name, self_assign_ops[node.op](val_left, r2))
                 return None
-        r1 = node.left.accept(self)
+        r1 = left.accept(self)
         # todo: add rest of operators -> for matrices
         ops = {'+': lambda x, y: x + y,
                '-': lambda x, y: x - y,
@@ -102,7 +114,7 @@ class Interpreter(object):
             end = array_range.end.accept(self)
             try:
                 self.memory_stack.set(array_range.counter.name, beginning)
-            except KeyError :
+            except KeyError:
                 self.memory_stack.insert(array_range.counter.name, beginning)
             for counter in range(beginning, end):
                 try:
@@ -200,6 +212,10 @@ class Interpreter(object):
                 row.insert(0, c.accept(self))
             m.insert(0, row)
         return m
+
+    @when(AST.ArrayPart)
+    def visit(self, node: AST.ArrayPart):
+        return
 
     def add_el_wise(self, x, y):
         res = []

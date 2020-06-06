@@ -65,8 +65,8 @@ class TypeChecker(NodeVisitor):
         type2 = self.visit(node.right)
         op = node.op
         if op == "=":
-            if type1 != "VARIABLE":
-                print("[line: {}]: ERROR, cannot assign to non-variable".format(node.lineno))
+            if type1 != "VARIABLE" and type1 != "VECTOR":
+                pass
             else:
                 if (type2 == "MATRIX" or type2 == "VECTOR") and hasattr(node.right, 'size'):
                     self.symbol_table.put(node.left.name, type2, node.right.size)
