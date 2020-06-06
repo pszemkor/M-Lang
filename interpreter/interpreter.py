@@ -24,6 +24,7 @@ class Interpreter(object):
                 self.memory_stack.set(node.left.name, r2)
             except ValueError:
                 self.memory_stack.insert(node.left.name, r2)
+            return None
 
         r1 = node.left.accept(self)
         # todo: add rest of operators -> for matrices
