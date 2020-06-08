@@ -42,6 +42,9 @@ class TypeChecker(NodeVisitor):
             return left.size[0] == right.size[1] and left.size[1] == right.size[0]
 
     def visit_Loop(self, node):
+        # self.symbol_table.put(node.)
+        if node.loop == "FOR":
+            self.symbol_table.put(node.condition.counter.name, "INTNUM")
         self.visit(node.condition)
         self.symbol_table.pushScope("loop")
         self.visit(node.instruction)
@@ -135,7 +138,8 @@ class TypeChecker(NodeVisitor):
 
     def visit_Row(self, node):
         for i, child in enumerate(node.children):
-            if child.type != self.visit(node.children[i - 1]):
+            t = self.visit(child)
+            if t != self.visit(node.children[i - 1]):
                 print("[line: {}]: Error, row contains heterogeneous elements".format(node.lineno))
                 self.should_stop_processing = True
         return self.visit(node.children[0])
