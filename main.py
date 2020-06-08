@@ -28,7 +28,11 @@ if __name__ == '__main__':
     typeChecker = TypeChecker()
     typeChecker.visit(ast)  # or alternatively ast.accept(typeChecker)
 
+    if typeChecker.should_stop_processing:
+        sys.exit(1)
+
     ast.accept(Interpreter())
+
     # in future
     # ast.accept(OptimizationPass1())
     # ast.accept(OptimizationPass2())
