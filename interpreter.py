@@ -284,6 +284,7 @@ class Interpreter(object):
                 for j in range(len(y[0])):
                     for k in range(len(y)):
                         result[i][j] += x[i][k] * y[k][j]
+            return result
         else:
             raise Exception("Runtime expection. Matrixes do not have proper size")
 

@@ -197,6 +197,9 @@ class TypeChecker(NodeVisitor):
     def visit_Variable(self, node):
         return node.type
 
+    def visit_String(self, node):
+        return node.type
+
     def visit_Vector(self, node):
         return node.type
 
