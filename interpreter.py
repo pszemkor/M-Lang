@@ -59,7 +59,7 @@ class Interpreter(object):
         r1 = left.accept(self)
         ops = {'+': lambda x, y: self.sum_binop(x, y),
                '-': lambda x, y: x - y,
-               '*': lambda x, y: x * y,
+               '*': lambda x, y: self.mul_binop(x, y),
                '/': lambda x, y: x / y,
                '&&': lambda x, y: x and y,
                '||': lambda x, y: x or y,
@@ -270,6 +270,23 @@ class Interpreter(object):
                 row.append(a - b)
             res.append(row)
         return res
+
+    def mul_binop(self, x, y):
+        if type(x) == type(y) == type([]):
+            return self.mul_matrix(x, y)
+        else:
+            return x * y
+
+    def mul_matrix(self, x, y):
+        if len(x) == len(y[0]) and len(y) == len(x[0]):
+            result = [[0 for i in range(len(y[0]))] for j in range(len(x))]
+            for i in range(len(x)):
+                for j in range(len(y[0])):
+                    for k in range(len(y)):
+                        result[i][j] += x[i][k] * y[k][j]
+        else:
+            raise Exception("Runtime expection. Matrixes do not have proper size")
+
 
     @when(AST.Eye)
     def visit(self, node: AST.Zeros):
