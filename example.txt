@@ -33,6 +33,15 @@ while (x > 0){
     a[i,i] = 999;
     print x;
 }
+print "After while loop: ";
 print a;
+
+x = eye(3,2);
+y = zeros(3,2);
+z = ones(3,2);
+
+print "Some element wise operations: ";
+print x .+ y .+ z;
+print y .* z;
 
 

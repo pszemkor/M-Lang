@@ -33,7 +33,7 @@ class NodeVisitor(object):
 class TypeChecker(NodeVisitor):
     def valid_sizes(self, left, right, op):
         # to check in runtime
-        if not left.size or not right.size:
+        if (not hasattr(left, "size") or not hasattr(right, "size")) or (not left.size or not right.size):
             return True
         if op in {'-', '=', '.*', '.+', '.-', './'}:
             return left.size == right.size
