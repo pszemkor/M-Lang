@@ -57,8 +57,7 @@ class Interpreter(object):
                     self.memory_stack.insert(left.name, self_assign_ops[node.op](val_left, r2))
                 return None
         r1 = left.accept(self)
-        # todo: add rest of operators -> for matrices
-        ops = {'+': lambda x, y: x + y,
+        ops = {'+': lambda x, y: self.sum_binop(x, y),
                '-': lambda x, y: x - y,
                '*': lambda x, y: x * y,
                '/': lambda x, y: x / y,
@@ -217,7 +216,14 @@ class Interpreter(object):
     def visit(self, node: AST.ArrayPart):
         return
 
+    def sum_binop(self, x, y):
+        if type(x) == type(y) == type([]):
+            return self.add_el_wise(x, y)
+        else:
+            return x + y
+
     def add_el_wise(self, x, y):
+        self.validate_el_wise_op(x, y)
         res = []
         for r1, r2 in zip(x, y):
             row = []
@@ -226,7 +232,15 @@ class Interpreter(object):
             res.append(row)
         return res
 
+    def validate_el_wise_op(self, x, y):
+        if len(x) != len(y) or len(x[0]) != len(y[0]):
+            raise AttributeError("Wrong sizes of matrices.")
+        if type(x) != type(y) or type(x) != type([]) or type(y) != type([]):
+            raise AttributeError(".+ operator requires matrix.")
+
     def mul_el_wise(self, x, y):
+        self.validate_el_wise_op(x, y)
+
         res = []
         for r1, r2 in zip(x, y):
             row = []
@@ -235,7 +249,9 @@ class Interpreter(object):
             res.append(row)
         return res
 
-    def div_el_wise(self, x, y):
+    def div_el_wise(self, x: list, y: list):
+        self.validate_el_wise_op(x, y)
+
         res = []
         for r1, r2 in zip(x, y):
             row = []
@@ -245,6 +261,8 @@ class Interpreter(object):
         return res
 
     def sub_el_wise(self, x, y):
+        self.validate_el_wise_op(x, y)
+
         res = []
         for r1, r2 in zip(x, y):
             row = []
@@ -272,7 +290,6 @@ class Interpreter(object):
                     l.append(0)
             m.append(l)
         return m
-
 
     @when(AST.Ones)
     def visit(self, node: AST.Zeros):
