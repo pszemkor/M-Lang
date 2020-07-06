@@ -38,6 +38,9 @@ class Interpreter(object):
                     else:
                         m[introw[0]][introw[1]] = r2
                 else:
+                    val = None
+                    if isinstance(r2, list):
+                        pass
                     self.memory_stack.set(left.name, r2)
             except (ValueError, KeyError):
                 self.memory_stack.insert(left.name, r2)
@@ -214,7 +217,16 @@ class Interpreter(object):
 
     @when(AST.ArrayPart)
     def visit(self, node: AST.ArrayPart):
-        return
+        arg_name = node.var.name
+        args = node.children[0].children
+        array = self.memory_stack.get(arg_name)
+        if len(args) == 1:
+            x = args[0].accept(self)
+            return array[0][x]
+        elif len(args) == 2:
+            return array[args[0].accept(self)][args[1].accept(self)]
+        else:
+            raise RuntimeError("Dimensions of arrays higher than 2 are not supported.")
 
     def sum_binop(self, x, y):
         if type(x) == type(y) == type([]):
@@ -287,7 +299,6 @@ class Interpreter(object):
             return result
         else:
             raise Exception("Runtime expection. Matrixes do not have proper size")
-
 
     @when(AST.Eye)
     def visit(self, node: AST.Zeros):

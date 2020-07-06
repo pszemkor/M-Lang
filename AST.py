@@ -221,7 +221,7 @@ class String(Node):
 
 
 class ArrayPart(Node):
-    def __init__(self, var, row):
+    def __init__(self, var, row: Row):
         self.type = "ARRAY_PART"
         self.var = var
         self.introw = row

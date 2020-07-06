@@ -1,4 +1,4 @@
-from Lab_4.symbols import SymbolTable
+from symbols import SymbolTable
 import AST
 
 
@@ -89,8 +89,6 @@ class TypeChecker(NodeVisitor):
                     self.symbol_table.put(node.left.name, type2)
                 return type2
         else:
-            # type_left = self.resolve_if_var(node.left)
-            # type_right = self.resolve_if_var(node.right)
             type_left, type_right = type1, type2
             if type1 == "VARIABLE":
                 type_left = self.resolve_if_var(node.left)
