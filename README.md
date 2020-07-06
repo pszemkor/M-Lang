@@ -1,3 +1,4 @@
+### "Mat lang"
 ### The simple language created for easy matrix computations. The project is based on yacc and lex.
 
 #### Syntax presentation:
