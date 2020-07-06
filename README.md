@@ -24,7 +24,7 @@ y = a .* b;
 print y;
 ```
 
-##### Bubble sort
+#### Bubble sort
 
 ```
 array = [5,4,1,2,3,5,7,11];
