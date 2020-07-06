@@ -1,4 +1,4 @@
-### Simple language created for easy matrix computations
+### The simple language created for easy matrix computations. The project is based on yacc and lex.
 
 #### Syntax presentation:
 
@@ -31,10 +31,13 @@ a = [1,2,3;
 b = [9,8,7;
     6,5,4;
     3,2,1];
+    
 x = a * b;
 print x;
+
 y = a + b;
 print y;
+
 # Support for element-wise operations
 y = a .* b;
 print y;
