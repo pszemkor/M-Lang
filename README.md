@@ -1,5 +1,5 @@
 ## M lang
-### The simple language created for complex matrix computations. The project is based on yacc and lex.
+### The simple language created for complex matrix computations. The project is based on yacc and lex libraries.
 
 #### Syntax presentation:
 
